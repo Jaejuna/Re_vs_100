@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import SignIn from '../routes/SignIn';
 import Descript from "../routes/Descript";
 
@@ -7,21 +7,17 @@ import Descript from "../routes/Descript";
 const AppRouter = ({isLoggedIn, usereObj}) => {
     return (
       <Router>
-        {isLoggedIn}
         <Switch>
           {isLoggedIn? (
             <>
               <Route exact path = "/">
-                <Descript/>
+                <Descript />
               </Route>
             </>
           ):(
-            <>
-              <Route exact path = "/signIn">
+              <Route exact path = "/">
                 <SignIn />
               </Route>
-              <Redirect from ="*" to = "/" />
-            </>
           )}
         </Switch>
       </Router>

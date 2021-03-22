@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { dbService } from '../firebase';
 
 const SignIn = () => {
-    const [name, setName] = useState();
+    const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
-    const [newAccount, setNewAccount] = useState(true);
     const [error, setError] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
     const onChange = (event) => {
       const {
         target: {name, value}} = event;
@@ -19,19 +20,24 @@ const SignIn = () => {
       }
     };
 
-    const onSubmit = async () => {
-      await dbService.collection('user').add({
-        username: name.username,
+    const onSubmit = async (event) => {
+      event.preventDefault();
+      await dbService.collection("users").add({
+        name,
         alias,
         number
       });
+      setIsLoggedIn(true);
     }
   
     return (
       <>
-        <div>
+        { isLoggedIn ?
+          <div>welcome</div>
+          : 
+          <>
           <h2>도전자 정보</h2>
-          <form onSubmit = {onSubmit}>
+          <form>
             <input 
             name = "name"
             type = "text"
@@ -50,20 +56,21 @@ const SignIn = () => {
             />
             <input 
             name = "number"
-            type = "number"
-            placeholder = "전화번호"
+            type = "tel"
+            placeholder = "010-1234-5678"
+            pattern ="[0-9]{3}-[0-9]{4}-[0-9]{4}"
             required
             value = {number}
             onChange = {onChange}
             />
-            <input onSubmit = {onSubmit}
+            <input 
             type="submit"
-            className="authInput"
-            value={newAccount ? "Create Account" : "Sign In"}
+            onSubmit = {onSubmit}
             />
             {error && <span>{error}</span>}
           </form>
-        </div>
+          </>
+      }
       </>
     );
   }
