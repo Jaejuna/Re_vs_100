@@ -8,7 +8,7 @@ const SignIn = () => {
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
     const [error, setError] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isSignedIn, setIsSignedIn] = useState(false);
     
     const onChange = (event) => {
       const {
@@ -29,13 +29,13 @@ const SignIn = () => {
         alias,
         number
       });
-      setIsLoggedIn(true);
+      setIsSignedIn(true);
     }
   
     return (
       <>
-        { isLoggedIn ?
-          <Auth />
+        { isSignedIn ?
+          <Descript />
           : 
           <>
           <h2>도전자 정보</h2>

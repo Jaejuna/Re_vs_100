@@ -2,6 +2,7 @@ import React from 'react';
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import SignIn from '../routes/SignIn';
 import Descript from "../routes/Descript";
+import Auth from '../routes/Auth';
 
 
 const AppRouter = ({isLoggedIn, usereObj}) => {
@@ -16,7 +17,7 @@ const AppRouter = ({isLoggedIn, usereObj}) => {
             </>
           ):(
               <Route exact path = "/">
-                <SignIn />
+                <Auth />
               </Route>
           )}
         </Switch>

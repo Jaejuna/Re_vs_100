@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { authService } from '../firebase';
+import Auth from '../routes/Auth';
 import SignIn from '../routes/SignIn';
 import Title from '../routes/Title';
 import AppRouter from './Router';
@@ -27,7 +28,7 @@ function App() {
     <>
       {init ? (
         <>
-        <AppRouter isLoggedIn={isLoggedIn} />
+        <AppRouter />
         </>
       ):(
         "Initializing..."
