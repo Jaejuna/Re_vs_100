@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { dbService } from '../firebase';
+import Descript from "../routes/Descript"
+import Auth from './Auth';
 
 const SignIn = () => {
     const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
     const [error, setError] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     
     const onChange = (event) => {
       const {
@@ -20,9 +22,9 @@ const SignIn = () => {
       }
     };
 
-    const onSubmit = async (event) => {
+    const onSubmit = (event) => {
       event.preventDefault();
-      await dbService.collection("users").add({
+      dbService.collection("users").add({
         name,
         alias,
         number
@@ -33,7 +35,7 @@ const SignIn = () => {
     return (
       <>
         { isLoggedIn ?
-          <div>welcome</div>
+          <Auth />
           : 
           <>
           <h2>도전자 정보</h2>
@@ -63,7 +65,7 @@ const SignIn = () => {
             value = {number}
             onChange = {onChange}
             />
-            <input 
+            <input  
             type="submit"
             onSubmit = {onSubmit}
             />
