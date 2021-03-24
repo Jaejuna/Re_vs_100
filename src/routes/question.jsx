@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { dbService } from '../firebase';
-import {Link} from 'react-router-dom';
 import Quiz from '../components/Quiz';
 import Board from '../components/Board';
 import Wrongs from '../components/Wrongs';
