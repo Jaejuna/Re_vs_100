@@ -7,8 +7,9 @@ import Submit from '../components/Submit';
 
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showWrongs} = currentInfo;
   const {isAdmin} = userObj;
+  const {currentQuiz, showAnswer, showWrongs} = currentInfo;
+
 
   const [isSolved, setIsSolved] = useState(false);
   const [quizs, setQuizs] = useState([]);
@@ -85,7 +86,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       <button>
         a.3
       </button>
-      <Submit />
       {isAdmin &&
         <button
         onClick = {onNextClick}>
@@ -97,7 +97,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
         && !showAnswer
         && (
           !isSolved ?
-          <Submit no={quizs[currentQuiz].no} user={userObj} doc_user_id={doc_user_id}/>
+          <Submit no={quizs[currentQuiz].no} userObj={userObj} doc_user_id={doc_user_id}/>
           : <h4 align="center" style={{height: "75px"}}>정답을 제출하셨습니다</h4>
         )}
 

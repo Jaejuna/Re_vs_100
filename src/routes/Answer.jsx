@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Answer = () => {
+  const [isNext, setIsNext] = useState(true);
+  const onClick = () => {
+    setIsNext(true);
+  }
+
   return (
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-      Asperiores corporis libero odit doloremque esse consectetur 
-      iste, impedit ipsum sequi officia? Suscipit quis minima, 
-      corrupti ab sapiente placeat non adipisci ex.
-    </div>
+      <>
+      <div>
+        Ta-da that was the answer
+      </div>
+      <button>
+        next Question
+      </button>
+      </>
   );
 }
 

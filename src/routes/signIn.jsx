@@ -3,7 +3,7 @@ import { dbService } from '../firebase';
 import {useHistory} from 'react-router-dom';
 import Descript from './Descript';
 
-const SignIn = ({}) => {
+const SignIn = ({userObj}) => {
     const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
@@ -24,6 +24,7 @@ const SignIn = ({}) => {
     const onSubmit = async (event) => {
       event.preventDefault();
       await dbService.collection("users").add({
+        uid: userObj.uid,
         name: name,
         alias: alias,
         number: number,

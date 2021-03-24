@@ -21,9 +21,9 @@ const Submit = ({no, userObj, doc_user_id}) => {
         alert('정답이 제출되었습니다.');
     }
     return(
-      <button onClick={onSubmitClicked}>
-        제출
-      </button>          
+        <button onClick={onSubmitClicked}>
+            제출
+        </button>          
     )
 }
 

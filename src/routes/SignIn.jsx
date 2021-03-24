@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { dbService } from '../firebase';
-import Descript from "./Descript"
-import Auth from './Auth';
+import {useHistory} from 'react-router-dom';
+import Descript from './Descript';
 
-const SignIn = () => {
+const SignIn = ({userObj}) => {
     const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
-    const [error, setError] = useState("");
     const [isSignedIn, setIsSignedIn] = useState(false);
+    const history = useHistory();
     
     const onChange = (event) => {
-      const {
-        target: {name, value}} = event;
+      const {target: {name, value}} = event;
       if (name === "name"){
         setName(value);
       } else if (name === "alias"){
@@ -22,14 +21,18 @@ const SignIn = () => {
       }
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
       event.preventDefault();
-      dbService.collection("users").add({
-        name,
-        alias,
-        number
+      await dbService.collection("users").add({
+        uid: userObj.uid,
+        name: name,
+        alias: alias,
+        number: number,
+        isAdmin: false
       });
+      alert('가입이 완료되었습니다.');
       setIsSignedIn(true);
+      history.go(0);
     }
   
     return (
@@ -39,7 +42,9 @@ const SignIn = () => {
           : 
           <>
           <h2>도전자 정보</h2>
-          <form>
+          <form
+          onSubmit={onSubmit}
+          >
             <input 
             name = "name"
             type = "text"
@@ -67,9 +72,8 @@ const SignIn = () => {
             />
             <input  
             type="submit"
-            onSubmit = {onSubmit}
+            onSubmit={onSubmit}
             />
-            {error && <span>{error}</span>}
           </form>
           </>
       }

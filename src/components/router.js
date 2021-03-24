@@ -4,6 +4,7 @@ import Descript from "../routes/Descript";
 import Auth from '../routes/Auth';
 import SignIn from '../routes/SignIn';
 import Question from '../routes/Question';
+import Answer from '../routes/Answer';
 
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
@@ -20,24 +21,24 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                 currentInfo = {currentInfo}
                 />
               </Route>
-                {/* {
+                {
                   userObj.isAdmin && 
                     <Route exact path="/">
-                      <Question
+                      <Descript
                         userObj = {userObj} 
                         doc_user_id = {doc_user_id} 
                         currentInfo = {currentInfo}
                       />
                     </Route>
-                }  */}
+                } 
             </> :
             <>
               <Route exact path = "/">
-                <Question
-                        userObj = {userObj} 
-                        doc_user_id = {doc_user_id} 
-                        currentInfo = {currentInfo}
-                      />
+                <SignIn
+                  userObj = {userObj} 
+                  doc_user_id = {doc_user_id} 
+                  currentInfo = {currentInfo}
+                />
               </Route>
             </>
           ):(
