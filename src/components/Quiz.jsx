@@ -1,15 +1,15 @@
 import React from "react";
 
-const Quiz = ({quiz, showAnswer}) => {
-  const {no, question, answer} = quiz;
+const Quiz = ({quizs, currentQuiz ,showAnswer}) => {
+  const {no, question, answers} = quizs[currentQuiz];
   return (
-    <div>
+    <>
         <div className="title"> Q{no}. </div>
         <div className="question"> {question} </div>
         <div className="answer">
-            정답 : { showAnswer ? answer[0] : "???"}
+            정답 : { showAnswer ? answers[0] : "???"}
         </div>
-    </div>
+    </>
   )
 }
 

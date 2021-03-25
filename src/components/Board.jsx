@@ -5,10 +5,13 @@ const Board = ({participants, corrects}) => {
         <>
             <div>
               <div>
-                참여 {participants}
+                참여 : {participants}
               </div>
-              <div>;
-                정답 {corrects}
+              <div>
+                정답 : {corrects}
+              </div>
+              <div>
+                오답 : {participants - corrects}
               </div>
             </div>
         </>

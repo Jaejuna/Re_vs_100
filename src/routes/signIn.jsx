@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { dbService } from '../firebase';
 import {useHistory} from 'react-router-dom';
-import Descript from './Descript';
 
 const SignIn = ({userObj}) => {
     const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
-    const [isSignedIn, setIsSignedIn] = useState(false);
     const history = useHistory();
     
     const onChange = (event) => {
@@ -31,15 +29,10 @@ const SignIn = ({userObj}) => {
         isAdmin: false
       });
       alert('가입이 완료되었습니다.');
-      setIsSignedIn(true);
       history.go(0);
     }
-  
+
     return (
-      <>
-        { isSignedIn ?
-          <Descript />
-          : 
           <>
           <h2>도전자 정보</h2>
           <form
@@ -76,8 +69,6 @@ const SignIn = ({userObj}) => {
             />
           </form>
           </>
-      }
-      </>
     );
   }
 

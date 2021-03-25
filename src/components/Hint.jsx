@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Chance = () => {
+const Hint = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Chance = () => {
   );
 }
 
-export default Chance;
+export default Hint;

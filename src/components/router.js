@@ -1,52 +1,35 @@
 import React from 'react';
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
-import Descript from "../routes/Descript";
 import Auth from '../routes/Auth';
 import SignIn from '../routes/SignIn';
 import Question from '../routes/Question';
-import Answer from '../routes/Answer';
-
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
     return (
       <Router>
         <Switch>
           {isLoggedIn ? (
-            hasAccount?
-            <>
-              <Route exact path = "/">
-                <Question
-                userObj = {userObj} 
-                doc_user_id = {doc_user_id} 
-                currentInfo = {currentInfo}
-                />
-              </Route>
-                {
-                  userObj.isAdmin && 
-                    <Route exact path="/">
-                      <Descript
-                        userObj = {userObj} 
-                        doc_user_id = {doc_user_id} 
-                        currentInfo = {currentInfo}
-                      />
-                    </Route>
-                } 
-            </> :
-            <>
-              <Route exact path = "/">
-                <SignIn
+          <>
+            {hasAccount ? (
+                <Route exact path = "/">
+                  <Question
                   userObj = {userObj} 
                   doc_user_id = {doc_user_id} 
                   currentInfo = {currentInfo}
                 />
-              </Route>
-            </>
+                </Route>
+            ):(
+            <Route exact path = "/">
+              <SignIn
+              userObj = {userObj} 
+              />
+            </Route>
+            )}
+          </>
           ):(
-            <>
               <Route exact path = "/">
                 <Auth />
               </Route>
-            </>
           )}
         </Switch>
       </Router>
