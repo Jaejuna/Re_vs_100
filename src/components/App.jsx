@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { authService, dbService } from '../firebase';
+import theme from '../theme';
 import AppRouter from './Router';
 
 function App() {
@@ -40,7 +42,8 @@ function App() {
   },[docUserId])
 
   return (
-    <>
+    // 여기는 테마 적용하기 위한 컴포넌트!
+    <ThemeProvider theme={theme}>
       {init ? (
         <AppRouter 
         isLoggedIn = {Boolean(userObj)} 
@@ -52,7 +55,7 @@ function App() {
       ):(
         "Initializing..."
       )}
-    </>
+    </ThemeProvider>
   );
 }
 
