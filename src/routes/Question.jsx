@@ -105,13 +105,12 @@ const onPrevClicked = async() => {
           </>
         }
 
-        {!showAnswer&& 
           <Submit
           quiz={Quizs[currentQuiz]} 
           userObj={userObj} 
           doc_user_id={doc_user_id}
+          showAnswer={showAnswer}
           />
-        }
         
         <Board 
         participants={participants} 

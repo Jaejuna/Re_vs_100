@@ -6,7 +6,6 @@ import Question from '../routes/Question';
 import Hint from '../routes/Hint';
 import Survivor from '../routes/Survivor';
 import Descript from './Descript';
-import Quizs from "../Quizs"
 import TestPage from '../TestPage';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
@@ -30,22 +29,28 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
               :
               <>
               {currentInfo.toQuiz ?(
-                <>
-                {currentInfo.isDone ?(
                 <Route exact path = "/">
-                  <Survivor
-                  userObj = {userObj} 
-                  doc_user_id = {doc_user_id} 
-                  currentInfo = {currentInfo}/>
-                </Route>  
-                ):(
-                <Route exact path = "/">
-                  <Question
-                  userObj = {userObj} 
-                  doc_user_id = {doc_user_id} 
-                  currentInfo = {currentInfo}/>
-                </Route>
-              )}</>
+                <Question
+                userObj = {userObj} 
+                doc_user_id = {doc_user_id} 
+                currentInfo = {currentInfo}/>
+              </Route>
+              //   <>
+              //   {currentInfo.isDone ?
+              //   <Route exact path = "/">
+              //     <Survivor
+              //     userObj = {userObj} 
+              //     doc_user_id = {doc_user_id} 
+              //     currentInfo = {currentInfo}/>
+              //   </Route>  
+              //   :
+              //   <Route exact path = "/">
+              //     <Question
+              //     userObj = {userObj} 
+              //     doc_user_id = {doc_user_id} 
+              //     currentInfo = {currentInfo}/>
+              //   </Route>
+              // }</>
               ):(
                   <Route path = "/">
                     <Descript
@@ -64,9 +69,7 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
             </Route>
             }</>
             ):
-              <Route exact path = "/">
-                <Auth />
-              </Route> 
+              <Route exact path = "/" component={Auth}/>
           }
         </Switch>
       </Router>
