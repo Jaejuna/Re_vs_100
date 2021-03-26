@@ -1,73 +1,57 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { dbService } from '../firebase';
+import Choice from '../materials/Choice';
 
-const Submit = ({no, userObj, doc_user_id, answers, currentQuiz}) => {
+const Choices = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 600px;
+    height: 50px;
+    grid-gap: 5px;
+    background-color: #d6d6d6;
+    border: 5px solid #d6d6d6;
+`
+
+const Submit = ({quiz, userObj, doc_user_id}) => {
     const {uid, name, number ,isAdmin} = userObj;
-    const {answer1, answer2, answer3 } = answers[currentQuiz];
-    const [answer, setAnswer] = useState('');
-    
-    const onNumClick = (event) => {
-        event.preventDefault();
-        const {target:{value}} = event;
-        setAnswer(value)
-    }
-    const answerObj = {
-        uid,
-        name,
-        answer,
-        number,
-        isAdmin
-    }
+    const {no, answer, candidates} = quiz;
+    const [myAnswer, setMyAnswer] = useState(null);
 
-    const onSubmitClicked = async () => {
-        if(answer===''){
-            alert('정답을 입력해주세요.');
-            return;
-        }else {
-            isAdmin &&
-            await dbService.collection('users').doc(doc_user_id).update({
-                ['quiz_'+no]: true
-            })
-            await dbService.collection('current').doc('current').update({
-                showAnswer : true
-            })
-            
-            !isAdmin && alert('정답이 제출되었습니다.')
-            await dbService.collection('quiz_'+no).add(answerObj)
-            await dbService.collection('users').doc(doc_user_id).update({
-                ['quiz_'+no]: true
-            })
-        }
+    const onChoiceClicked = async ans => {
+        setMyAnswer(ans);
+        submitMyAnswer(ans);
+    }
+    const submitMyAnswer = async (ans) => {
+        await dbService.collection('users').doc(doc_user_id).update({
+            ['quiz_'+no]: ans
+        })
     }
 
     return(
-        <>
-        <button
-        value = "1번"
-        onClick = {onNumClick}
-        >
-            1번 <br/>
-            {answer1}
-        </button>
-        <button
-        value = "2번"
-        onClick = {onNumClick}
-        >
-            2번<br/>
-            {answer2}
-        </button>
-        <button
-        value = "3번"
-        onClick = {onNumClick}
-        >
-            3번<br/>
-            {answer3}
-        </button>
-        <button 
-        onClick={onSubmitClicked}>
-            제출
-        </button> 
-        </>         
+        <Choices>
+            <Choice 
+                onClick = {() => onChoiceClicked(1)}
+                no={1}
+                text={candidates[0]}
+                isSelected={myAnswer===1}
+                isAnswer={answer===1}
+            />
+            <Choice 
+                onClick = {() => onChoiceClicked(2)}
+                no={2}
+                text={candidates[1]}
+                isSelected={myAnswer===2}
+                isAnswer={answer===2}
+            />
+            <Choice 
+                onClick = {() => onChoiceClicked(3)}
+                no={3}
+                text={candidates[2]}
+                isSelected={myAnswer===3}
+                isAnswer={answer===3}
+            />
+        </Choices>         
     )
 }
 

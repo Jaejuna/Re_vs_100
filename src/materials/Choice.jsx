@@ -5,12 +5,13 @@ const ChoiceButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${({theme}) => theme.colors.main}
+    background-color: ${({theme}) => theme.colors.main};
+    color: ${({theme}) => theme.colors.text};
 `
 
-const Choice = ({isSelected, isAnswer, no, text}) => {
+const Choice = ({isSelected, isAnswer, no, text, ...others}) => {
     return (
-        <ChoiceButton>
+        <ChoiceButton {...others}>
             {text}
         </ChoiceButton>
     )
