@@ -74,6 +74,9 @@ const onPrevClicked = async() => {
     })
   }, [currentQuiz]);
 
+  // Descript toQuiz 되면 submit 못 누르게, isSurvived = false면 못 누르게
+  // userObj 의 available 값을 줘서 button을 disable를 컨트롤
+
   return (
     <>
         <Quiz 
@@ -105,13 +108,11 @@ const onPrevClicked = async() => {
           </>
         }
 
-        {!showAnswer&& 
           <Submit
           quiz={Quizs[currentQuiz]} 
           userObj={userObj} 
           doc_user_id={doc_user_id}
           />
-        }
         
         <Board 
         participants={participants} 
