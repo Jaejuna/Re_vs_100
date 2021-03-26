@@ -4,6 +4,13 @@ import Quiz from '../components/Quiz';
 import Board from '../components/Board';
 import Submit from '../components/Submit';
 import Quizs from '../Quizs';
+import Button from '../materials/Button';
+import styled from 'styled-components';
+
+const ButtonsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+`
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {currentQuiz, showAnswer} = currentInfo;
@@ -80,30 +87,6 @@ const onPrevClicked = async() => {
           quizs={Quizs} 
           currentQuiz={currentQuiz}
           showAnswer={showAnswer}/>
-          {isAdmin &&
-          <>
-            <button
-            onClick = {onPrevClicked}>
-              이전
-            </button>
-            <button
-            onClick = {onNextClick}>
-              다음
-            </button>
-            <button
-            onClick = {onClickHint}>
-              힌트
-            </button>
-            <button
-            onClick = {onClickDone}>
-              결과
-            </button>
-            <button>
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-            </button>
-            <br/>
-          </>
-        }
 
           <Submit
           quiz={Quizs[currentQuiz]} 
@@ -116,6 +99,22 @@ const onPrevClicked = async() => {
         participants={participants} 
         corrects={corrects}
         />
+        {isAdmin &&
+        <div style={{width: '600px'}}>
+
+        <ButtonsWrapper>
+          <Button onClick = {onPrevClicked}>
+              이전 </Button>
+          <Button onClick = {onNextClick}>
+              다음 </Button>
+          <Button onClick = {onClickHint}>
+              힌트 </Button>
+          <Button onClick = {onClickDone}>
+              결과 </Button>
+        </ButtonsWrapper>
+        </div>
+        
+      }
     </>
   );
 }

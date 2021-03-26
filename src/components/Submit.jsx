@@ -36,6 +36,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[0]}
                 isSelected={myAnswer===1}
                 isAnswer={answer===1 && showAnswer}
+                // disabled={!accessible}
             />
             <Choice 
                 onClick = {() => onChoiceClicked(2)}
@@ -43,6 +44,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[1]}
                 isSelected={myAnswer===2}
                 isAnswer={answer===2 && showAnswer}
+                // disabled={!accessible}
             />
             <Choice 
                 onClick = {() => onChoiceClicked(3)}
@@ -50,6 +52,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[2]}
                 isSelected={myAnswer===3}
                 isAnswer={answer===3 && showAnswer}
+                // disabled={!accessible}
             />
         </Choices>         
     )

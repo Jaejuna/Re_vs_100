@@ -5,14 +5,11 @@ import SignIn from '../routes/SignIn';
 import Question from '../routes/Question';
 import Survivor from '../routes/Survivor';
 import Descript from './Descript';
-import TestPage from '../TestPage';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
     return (
       <Router>
         <Switch>
-          {/* 여기는 그냥 테스트 컴포넌트용!!! 나중에 지울게~ */}
-          <Route exact path="/testpage" component={TestPage}/>
           {
             isLoggedIn ? 
               hasAccount ?
