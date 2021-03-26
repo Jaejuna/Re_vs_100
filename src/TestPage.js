@@ -4,8 +4,8 @@ const TestPage = () => {
     return (
         <>
         <Choice 
-         no={1}
-         text={"이수영"}
+        no={1}
+        text={"이수영"}
         />
         </>
     )

@@ -10,6 +10,9 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {isAdmin} = userObj;
   const [participants, setParticipants] = useState(0);
   const [corrects, setCorrects] = useState(0);
+  //Timer useState
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
 
 const onPrevClicked = async() => {
   await dbService.collection('current').doc('current').update({
@@ -32,10 +35,28 @@ const onPrevClicked = async() => {
   }
 
   const onClickDone = async() => {
-    await dbService.collection('current').doc('current').update({
-    isDone: true
-  });
-}
+      await dbService.collection('current').doc('current').update({
+      isDone: true
+    });
+  }
+
+  //Timer
+    useEffect(() => {
+      const countdown = setInterval(() => {
+        if (parseInt(seconds) > 0) {
+          setSeconds(parseInt(seconds) - 1);
+        }
+        if (parseInt(seconds) === 0) {
+          if (parseInt(minutes) === 0) {
+              clearInterval(countdown);
+          } else {
+            setMinutes(parseInt(minutes) - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => clearInterval(countdown);
+    }, [minutes, seconds]);
 
   useEffect(() => {
     const {no, answer} = Quizs[currentQuiz];
@@ -51,7 +72,7 @@ const onPrevClicked = async() => {
         })
         setCorrects(c);
     })
-  }, [currentQuiz])
+  }, [currentQuiz]);
 
   return (
     <>
@@ -76,6 +97,9 @@ const onPrevClicked = async() => {
             <button
             onClick = {onClickDone}>
               결과
+            </button>
+            <button>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </button>
             <br/>
           </>
