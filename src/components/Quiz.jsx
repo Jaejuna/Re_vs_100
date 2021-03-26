@@ -2,6 +2,7 @@ import React from "react";
 
 const Quiz = ({quizs, currentQuiz ,showAnswer}) => {
   const {no, question, answers} = quizs[currentQuiz];
+  
   return (
     <>
         <div className="title"> Q{no}. </div>

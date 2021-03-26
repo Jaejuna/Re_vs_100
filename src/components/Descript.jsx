@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { dbService } from '../firebase';
 
 const Descript = () => {
+
+  const onClickToQuiz = async () => {
+    await dbService.collection('current').doc('current').update({
+      toQuiz: true
+    });
+  }
+
   return (
       <>
         <h1>Rules</h1>
           <div>
-            1. 프로그램 시작 후 중간에 참여 불가 <br />
-            2. 문제 보기는 3개<br />
-            3. 문제당 제한 시간은 1분<br />
-            4. 게스트들은 "벗님들 찬스" and "한벗님 찬스"를 사용할 수 있음<br />
-            5. 게스트가 떨어져도 계속 진행 최후의 5인이 남을 때까지 진행<br/>
-            6. 생존자가 5인보다 많이 남은 상황(게스트 미포함)에서 모두가 떨어지면 모두 떨어진 라운드의 사람들만 부활 & 진행<br />
-            7. 생존자가 5인 이하만 남으면 바로 종료<br />
+            1.3개의 보기 중 정답을 고른다. <br/>
+            2.100인이 먼저 문제를 다 푼 후, 게스트 2인이 푼다. <br/>
+            3.문제를 푸는 데는 1분의 시간제한이 있다. <br/>
+            4.문제를 틀리면 탈락이며, 정답자만 다음 문제로 넘어간다.(중간 참여 불가능) <br/>
+            5. 정답자가 8명(?) 이하로 남으면 프로그램이 종료한다. <br/>
+            6. 게스트 2명은 함께 2번의 찬스를 쓸 수 있다.<br/><br/>
+            한벗님 찬스 : 원하는 한 명의 답을 알 수 있다, 없을 시 호스트가 지정. <br/>
+            벗님들 찬스 : 모든 벗님이 선택한 답을 알 수 있다.
           </div>
+          <button
+        onClick = {onClickToQuiz}
+        >
+          ToQuiz
+        </button>
       </> 
   );
 }

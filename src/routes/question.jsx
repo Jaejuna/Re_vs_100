@@ -4,41 +4,46 @@ import Quiz from '../components/Quiz';
 import Board from '../components/Board';
 import Submit from '../components/Submit';
 import Quizs from '../Quizs';
-import Descript from '../components/Descript';
+import Answers from '../Answers';
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showWrongs, users} = currentInfo;
+  const {currentQuiz, showAnswer} = currentInfo;
   const {isAdmin} = userObj;
   const [isSolved, setIsSolved] = useState(false);
   const [participants, setParticipants] = useState(0);
   const [corrects, setCorrects] = useState(0);
-  const [onToQuiz, setOnToQuiz] = useState(false);
 
-const onPrevClicked = () => {
-  dbService.collection('current').doc('current').update({
+const onPrevClicked = async() => {
+  await dbService.collection('current').doc('current').update({
       currentQuiz: currentQuiz-1,
-      showWrongs: false
+      showAnswer: false
   })
 }
 
   const onNextClick = async() => {
     await dbService.collection('current').doc('current').update({
       currentQuiz: currentQuiz+1,
-      showWrongs: false,
       showAnswer: false
     });
   }
 
-  const onClickToQuiz = async (event) => {
-    event.preventDefault();
-    setOnToQuiz(true);
+  const onClickHint = async() => {
+      await dbService.collection('current').doc('current').update({
+      showHint: true
+    });
   }
 
-  const checkSolved = async () => {
-    setIsSolved(userObj['quiz_'+Quizs[currentQuiz].no]);;
-  }
+  const onClickDone = async() => {
+    await dbService.collection('current').doc('current').update({
+    isDone: true
+  });
+}
 
   const isCorrectAnswer = (answer, correctAnswerArr) => correctAnswerArr.includes(answer);
+
+  const checkSolved = async () => {
+    setIsSolved(userObj['quiz_'+Quizs[currentQuiz].no]);
+  }
 
     useEffect(() => {
       checkSolved()
@@ -58,13 +63,11 @@ const onPrevClicked = () => {
         })
         setCorrects(c);
     })
-}, [currentQuiz])
+  }, [currentQuiz])
 
   return (
     <>
-      {onToQuiz ?
-        <>
-          <Quiz 
+        <Quiz 
           quizs={Quizs} 
           currentQuiz = {currentQuiz}
           showAnswer={showAnswer}/>
@@ -78,35 +81,38 @@ const onPrevClicked = () => {
             onClick = {onNextClick}>
               다음
             </button>
+            <button
+            onClick = {onClickHint}>
+              힌트
+            </button>
+            <button
+            onClick = {onClickDone}>
+              결과
+            </button>
+            <br/>
           </>
         }
 
-        {Quizs.length 
-          && !showAnswer
-          && (
-            !isSolved ?
-            <Submit 
-            no={Quizs[currentQuiz].no} 
-            userObj={userObj} 
-            doc_user_id={doc_user_id}
-            />
-            : <h4>정답을 제출하셨습니다</h4>
+        {Quizs.length && 
+          !showAnswer&& (
+            isSolved ?
+            <h4>정답을 제출하셨습니다</h4>
+            : 
+            <>
+              <Submit 
+              no={Quizs[currentQuiz].no} 
+              userObj={userObj} 
+              doc_user_id={doc_user_id}
+              answers = {Answers}
+              currentQuiz ={currentQuiz}
+              />
+            </>
           )}
         
         <Board 
         participants={participants} 
         corrects={corrects}
         />
-      </>
-      :
-      <>
-        <Descript/>
-        <button
-        onClick = {onClickToQuiz}
-        >
-          ToQuiz
-        </button>
-      </>}
     </>
   );
 }
