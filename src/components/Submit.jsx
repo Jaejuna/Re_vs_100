@@ -4,7 +4,7 @@ import { dbService } from '../firebase';
 const Submit = ({no, userObj, doc_user_id, answers, currentQuiz}) => {
     const {uid, name, number ,isAdmin} = userObj;
     const {answer1, answer2, answer3 } = answers[currentQuiz];
-    const [answer, setAnswer] = useState('');
+    const [answer, setAnswer] = useState(null);
     
     const onNumClick = (event) => {
         event.preventDefault();
@@ -20,10 +20,10 @@ const Submit = ({no, userObj, doc_user_id, answers, currentQuiz}) => {
     }
 
     const onSubmitClicked = async () => {
-        if(answer===''){
-            alert('정답을 입력해주세요.');
-            return;
-        }else {
+            if(answer===''){
+                alert('정답을 입력해주세요.');
+                return;
+            }else {
             isAdmin &&
             await dbService.collection('users').doc(doc_user_id).update({
                 ['quiz_'+no]: true
@@ -43,30 +43,20 @@ const Submit = ({no, userObj, doc_user_id, answers, currentQuiz}) => {
     return(
         <>
         <button
-        value = "1번"
-        onClick = {onNumClick}
-        >
+        onClick = {() => setAnswer(1)}>
             1번 <br/>
             {answer1}
         </button>
         <button
-        value = "2번"
-        onClick = {onNumClick}
-        >
+        onClick = {() => setAnswer(2)}>
             2번<br/>
             {answer2}
         </button>
         <button
-        value = "3번"
-        onClick = {onNumClick}
-        >
+        onClick = {() => onNumClick(3)}>
             3번<br/>
             {answer3}
         </button>
-        <button 
-        onClick={onSubmitClicked}>
-            제출
-        </button> 
         </>         
     )
 }

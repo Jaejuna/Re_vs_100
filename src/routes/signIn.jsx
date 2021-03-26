@@ -26,7 +26,8 @@ const SignIn = ({userObj}) => {
         name: name,
         alias: alias,
         number: number,
-        isAdmin: false
+        isAdmin: false,
+        isSurvived: true
       });
       alert('가입이 완료되었습니다.');
       history.go(0);

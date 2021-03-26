@@ -8,10 +8,13 @@ import Answers from '../Answers';
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {currentQuiz, showAnswer} = currentInfo;
-  const {isAdmin} = userObj;
+  const {isAdmin, isSurvived} = userObj;
   const [isSolved, setIsSolved] = useState(false);
   const [participants, setParticipants] = useState(0);
   const [corrects, setCorrects] = useState(0);
+  //Timer useState
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
 
 const onPrevClicked = async() => {
   await dbService.collection('current').doc('current').update({
@@ -34,10 +37,28 @@ const onPrevClicked = async() => {
   }
 
   const onClickDone = async() => {
-    await dbService.collection('current').doc('current').update({
-    isDone: true
-  });
-}
+      await dbService.collection('current').doc('current').update({
+      isDone: true
+    });
+  }
+
+  //Timer
+    useEffect(() => {
+      const countdown = setInterval(() => {
+        if (parseInt(seconds) > 0) {
+          setSeconds(parseInt(seconds) - 1);
+        }
+        if (parseInt(seconds) === 0) {
+          if (parseInt(minutes) === 0) {
+              clearInterval(countdown);
+          } else {
+            setMinutes(parseInt(minutes) - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => clearInterval(countdown);
+    }, [minutes, seconds]);
 
   const isCorrectAnswer = (answer, correctAnswerArr) => correctAnswerArr.includes(answer);
 
@@ -50,8 +71,8 @@ const onPrevClicked = async() => {
     }, [currentQuiz, userObj])
 
   useEffect(() => {
-    const {no, answers} = Quizs[currentQuiz];
-    dbService.collection("quiz_"+no).onSnapshot( snapshot => {
+    const {answers} = Quizs[currentQuiz];
+    dbService.collection("users").onSnapshot( snapshot => {
         const peopleAnswers = snapshot.docs.map( doc => doc.data());
         setParticipants(peopleAnswers.length);
         let c = 0, w = [];
@@ -63,14 +84,14 @@ const onPrevClicked = async() => {
         })
         setCorrects(c);
     })
-  }, [currentQuiz])
+  }, [currentQuiz]);
 
   return (
     <>
         <Quiz 
-          quizs={Quizs} 
-          currentQuiz = {currentQuiz}
-          showAnswer={showAnswer}/>
+        quizs={Quizs} 
+        currentQuiz = {currentQuiz}
+        showAnswer={showAnswer}/>
           {isAdmin &&
           <>
             <button
@@ -89,25 +110,25 @@ const onPrevClicked = async() => {
             onClick = {onClickDone}>
               결과
             </button>
+            <button>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </button>
             <br/>
           </>
         }
-
         {Quizs.length && 
           !showAnswer&& (
             isSolved ?
             <h4>정답을 제출하셨습니다</h4>
             : 
-            <>
+            isSurvived && (
               <Submit 
               no={Quizs[currentQuiz].no} 
               userObj={userObj} 
               doc_user_id={doc_user_id}
               answers = {Answers}
-              currentQuiz ={currentQuiz}
-              />
-            </>
-          )}
+              currentQuiz ={currentQuiz} />
+          ))}
         
         <Board 
         participants={participants} 
