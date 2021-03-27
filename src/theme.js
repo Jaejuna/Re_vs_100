@@ -1,10 +1,10 @@
 // 여기는 전체 테마에 대한 내용!
 
 const colors = {
-    main: '#333',
-    text: '#fff',
-    border: '#d6d6d6',
-    selected: '#8a8ae9',
+    main: '#f6e9ff',
+    text: '#333',
+    border: '#666',
+    selected: `#a17fff`,
     selectedBorder: '#4e4efc',
     answer: '#d1d1d1',
     wrong: '#e22222',
