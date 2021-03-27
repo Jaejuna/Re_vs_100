@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ChoiceButton = styled.a`
+const ChoiceButton = styled.button`
     /* font-family: ""; */
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@ const ChoiceButton = styled.a`
 
     position: relative;
     background-color: ${({theme:{colors}, isSelected, isAnswer}) => 
-        isSelected ? colors.selected : isAnswer ? colors.text : colors.main };
+        isSelected ? colors.selected : isAnswer ? colors.answer : colors.main };
     color: ${({theme, isAnswer}) => isAnswer ? theme.colors.main : theme.colors.text};
     text-decoration: none;
     text-transform: uppercase;
@@ -42,17 +42,11 @@ const ChoiceButton = styled.a`
         width: 100%;
     }
 `
-const QuizNo = styled.div`
-    border-left: 3px solid white;
-    border-right: 3px solid white;
-    background: transparent;
-    width: 40px;
-`
 
-const Choice = ({isSelected, isAnswer, no, text, ...others}) => {
+const Choice = (props) => {
     return (
-        <ChoiceButton {...{isSelected, isAnswer, ...others}}>
-            {text}
+        <ChoiceButton {...props}>
+            {props.text}
         </ChoiceButton>
     )
 }
