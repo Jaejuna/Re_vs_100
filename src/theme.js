@@ -13,7 +13,7 @@ const colors = {
       text: `#fff`,
       border: `rgba(0, 0, 0, 0.5)`,
       accent: '#666ad1',
-      disabled: `#001970`
+      disabled: `#777aef`
     },
     secondary:{
       main: `#464646`,

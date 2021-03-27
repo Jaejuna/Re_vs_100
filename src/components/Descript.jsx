@@ -7,8 +7,7 @@ const Descript = ({isAdmin}) => {
   const history = useHistory();
 
   const onClickToQuiz = async () => {
-    const timestamp = new Date().now()
-    console.log(timestamp)
+    const timestamp = new Date().getTime();
     // await dbService.collection('current').doc('current').update({
     //   block :
     // })

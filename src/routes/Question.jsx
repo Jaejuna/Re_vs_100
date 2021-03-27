@@ -20,7 +20,7 @@ const ButtonsWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer} = currentInfo;
+  const {currentQuiz, showAnswer, showHint} = currentInfo;
   const {isAdmin, available} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
@@ -53,9 +53,10 @@ const onPrevClicked = async() => {
   }
 
   const onClickHint = async() => {
+      toggle();
       await dbService.collection('current').doc('current').update({
-      showHint: true
-    });
+        showHint: true
+      });
   }
 
   const onClickDone = async() => {
@@ -93,7 +94,6 @@ const onPrevClicked = async() => {
     })
   }, [currentQuiz]);
 
-
   // Descript toQuiz 되면 submit 못 누르게, isSurvived = false면 못 누르게
   // userObj 의 available 값을 줘서 button을 disable
 
@@ -114,13 +114,13 @@ const onPrevClicked = async() => {
             <ButtonsWrapper>
                 <Button color="secondary" onClick = {onPrevClicked}> 이전 </Button>
                 <Button onClick = {onNextClick}> 다음 </Button>
-                <Button onClick = {onClickHint}> 찬스 </Button>
+                <Button onClick = {onClickHint} disabled={showHint} > 찬스 </Button>
                 <Button onClick = {onClickDone}> 결과 </Button>
             </ButtonsWrapper>}
             <h2>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>
-            <Chance visible={display} toggle={toggle}/>
+            <Chance visible={display} toggle={toggle} participants={participants}/>
         </QuizWrapper>
 
   );
