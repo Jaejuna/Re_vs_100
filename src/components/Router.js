@@ -15,12 +15,12 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
             isLoggedIn ? 
               hasAccount ?
                 <>
-                {
-                  !currentInfo.toQuiz ? 
-                    <Route exact path="/">
-                      <Descript
-                        isAdmin={userObj.isAdmin} 
-                      />
+                {!currentInfo.toQuiz ? 
+                  <Route exact path = "/">
+                    <Descript
+                      isAdmin={userObj.isAdmin} 
+                    />
+
                     </Route>
                     :
                     <Route exact path="/">
@@ -35,7 +35,10 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                 </>   
                 :
                 <Route exact path = "/signIn">
-                  <SignIn userObj={userObj} />
+                  <SignIn 
+                  userObj={userObj}
+                  currentInfo = {currentInfo}
+                  />
                 </Route>
             :
             <Route exact path = "/auth" component={Auth}/>

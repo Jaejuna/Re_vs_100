@@ -51,6 +51,9 @@ const onPrevClicked = async() => {
       isBlocked: false
     })
     setMinutes(1);
+    setSeconds(0);
+    const timestamp = new Date().getTime();
+    console.log(timestamp / 1000)
   }
 
   const onClickHint = async() => {

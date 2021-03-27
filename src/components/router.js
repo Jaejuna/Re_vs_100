@@ -35,7 +35,10 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                 </>   
                 :
                 <Route exact path = "/signIn">
-                  <SignIn userObj={userObj} />
+                  <SignIn 
+                  userObj={userObj}
+                  currentInfo = {currentInfo}
+                  />
                 </Route>
             :
             <Route exact path = "/auth" component={Auth}/>
