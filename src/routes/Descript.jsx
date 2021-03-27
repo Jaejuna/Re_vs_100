@@ -1,6 +1,7 @@
-giimport React, { useState } from 'react';
+import React, { useState } from 'react';
 import { dbService } from '../firebase';
 import Button from '../materials/Button';
+import qrcode from '../assets/images/frame.png'
 
 const Descript = ({isAdmin}) => {
   const [part, setPart] = useState(0);
@@ -33,6 +34,7 @@ const Descript = ({isAdmin}) => {
             {part}명 참여하셨습니다.
           </div>
           {isAdmin && <Button onClick = {onClickToQuiz}> 퀴즈 시작하기</Button> }
+          <img src = {qrcode}/>
       </> 
   );
 }

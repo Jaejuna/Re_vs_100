@@ -4,7 +4,7 @@ import Auth from '../routes/Auth';
 import SignIn from '../routes/SignIn';
 import Question from '../routes/Question';
 import Survivor from '../routes/Survivor';
-import Descript from './Descript';
+import Descript from '../routes/Descript';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
   console.log({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo})
