@@ -28,8 +28,8 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                       currentInfo = {currentInfo}
                     />
                   </Route>
-                  <Route exact path="/result" component={Survivor}/>
-               </>   
+                    <Route exact path="/result" component={Survivor}/>
+                  </>   
                 :
                 <Route exact path = "/">
                   <SignIn userObj={userObj} />

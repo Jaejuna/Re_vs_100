@@ -3,7 +3,8 @@ import { ThemeProvider } from 'styled-components';
 import { authService, dbService } from '../firebase';
 import MainWrapper from '../MainWrapper';
 import theme from '../theme';
-import AppRouter from './Router';
+import AppRouter from '../components/Router';
+import Descript from './Descript';
 
 function App() {
   const [init, setInit] = useState(false);
@@ -47,13 +48,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <MainWrapper>
         {init ? 
-          <AppRouter 
-            isLoggedIn = {Boolean(userObj)} 
-            userObj = {userObj}
-            hasAccount={hasAccount} 
-            doc_user_id={docUserId}
-            currentInfo={currentInfo}
-          />
+          // <AppRouter 
+          //   isLoggedIn = {Boolean(userObj)} 
+          //   userObj = {userObj}
+          //   hasAccount={hasAccount} 
+          //   doc_user_id={docUserId}
+          //   currentInfo={currentInfo}
+          // />
+          <Descript/>
         :
           <div>
           "Initializing..."

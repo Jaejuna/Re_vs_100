@@ -4,9 +4,14 @@ import { dbService } from '../firebase';
 const Descript = () => {
 
   const onClickToQuiz = async () => {
+    // 중간 참여 불가능 작업중
+    // const timestamp = new Timestamp().toMillis()
+    // await dbService.collection('current').doc('current').update({
+    //   block :
+    // })
     await dbService.collection('current').doc('current').update({
       toQuiz: true
-    });
+    })
   }
 
   return (

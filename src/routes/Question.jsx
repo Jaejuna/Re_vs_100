@@ -9,7 +9,7 @@ import Quiz from '../components/Quiz';
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {currentQuiz, showAnswer} = currentInfo;
-  const {isAdmin, isSurvived} = userObj;
+  const {isAdmin, available} = userObj;
   const [participants, setParticipants] = useState(0);
   const [corrects, setCorrects] = useState(0);
   //Timer useState
@@ -27,7 +27,7 @@ const ButtonsWrapper = styled.div`
   width: 100%;
 `
 const onPrevClicked = async() => {    
-  if( currentQuiz <= 1 ) 
+  if( currentQuiz <= 0 ) 
         return;
   await dbService.collection('current').doc('current').update({
       currentQuiz: currentQuiz-1,
@@ -35,11 +35,15 @@ const onPrevClicked = async() => {
   })
 }
 
+  //next click 할때 타이머 초기화
   const onNextClick = async() => {
+    if( currentQuiz >= 2 ) 
+        return;
     await dbService.collection('current').doc('current').update({
       currentQuiz: currentQuiz+1,
       showAnswer: false
-    });
+    })
+    setMinutes(1);
   }
 
   const onClickHint = async() => {
@@ -100,18 +104,21 @@ const onPrevClicked = async() => {
                 doc_user_id={doc_user_id}
                 showAnswer={showAnswer}
             />
+            {showAnswer &&
             <Board 
                 participants={participants} 
                 corrects={corrects}
-            />
+            />}
             {isAdmin &&
             <ButtonsWrapper>
                 <Button onClick = {onPrevClicked}> 이전 </Button>
                 <Button onClick = {onNextClick}> 다음 </Button>
                 <Button onClick = {onClickHint}> 힌트 </Button>
                 <Button onClick = {onClickDone}> 결과 </Button>
-            </ButtonsWrapper>
-            }
+            </ButtonsWrapper>}
+            <h2>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </h2>
         </QuizWrapper>
 
   );
