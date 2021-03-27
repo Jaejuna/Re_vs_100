@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ChoiceButton = styled.a`
+    /* font-family: ""; */
     display: flex;
     align-items: center;
     justify-content: center;;
@@ -31,7 +32,6 @@ const ChoiceButton = styled.a`
         z-index: -1;
         transition: all 0.6s ease;
     }
-
 
     &::before:enabled{
         width: 0%;

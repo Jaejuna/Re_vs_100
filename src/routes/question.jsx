@@ -6,6 +6,7 @@ import Quizs from '../Quizs';
 import Button from '../materials/Button';
 import styled from 'styled-components';
 import Quiz from '../components/Quiz';
+import Chance from '../components/Chance';
 
 const QuizWrapper = styled.div`
     display: grid;
@@ -21,11 +22,15 @@ const ButtonsWrapper = styled.div`
 const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {currentQuiz, showAnswer} = currentInfo;
   const {isAdmin, available} = userObj;
-  const [participants, setParticipants] = useState(0);
-  const [corrects, setCorrects] = useState(0);
+  const quiz = Quizs[currentQuiz];
+  const [participants, setParticipants] = useState([0, 0, 0]);
   //Timer useState
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
+
+  // modal 바깥 부분 클릭 시 숨기기
+  const [display, setDisplay] = useState(false);
+  const toggle = () => setDisplay(prev => !prev);
 
 const onPrevClicked = async() => {    
   if( currentQuiz <= 0 ) 
@@ -78,18 +83,14 @@ const onPrevClicked = async() => {
     }, [minutes, seconds]);
 
   useEffect(() => {
-    // dbService.collection("quiz_"+no).onSnapshot( snapshot => {
-    //     const peopleAnswers = snapshot.docs.map( doc => doc.data());
-    //     setParticipants(peopleAnswers.length);
-    //     let c = 0, w = [];
-    //     peopleAnswers.forEach( person => {
-    //       person.answer===answer ?
-    //         c++
-    //         :
-    //         w = [...w, person]
-    //     })
-    //     setCorrects(c);
-    // })
+    dbService.collection("users").onSnapshot( snapshot => {
+        const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
+        setParticipants([
+          people.filter(a => a===1).length,
+          people.filter(a => a===2).length,
+          people.filter(a => a===3).length
+        ])
+    })
   }, [currentQuiz]);
 
 
@@ -98,9 +99,9 @@ const onPrevClicked = async() => {
 
     return (
         <QuizWrapper>
-            <Quiz question={Quizs[currentQuiz].question}/>
+            <Quiz question={quiz.question}/>
             <Submit
-                quiz={Quizs[currentQuiz]} 
+                quiz={quiz} 
                 userObj={userObj} 
                 doc_user_id={doc_user_id}
                 showAnswer={showAnswer}
@@ -108,18 +109,18 @@ const onPrevClicked = async() => {
             {showAnswer &&
             <Board 
                 participants={participants} 
-                corrects={corrects}
             />}
             {isAdmin &&
             <ButtonsWrapper>
                 <Button color="secondary" onClick = {onPrevClicked}> 이전 </Button>
                 <Button onClick = {onNextClick}> 다음 </Button>
-                <Button onClick = {onClickHint}> 힌트 </Button>
+                <Button onClick = {onClickHint}> 찬스 </Button>
                 <Button onClick = {onClickDone}> 결과 </Button>
             </ButtonsWrapper>}
             <h2>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>
+            <Chance visible={display} toggle={toggle}/>
         </QuizWrapper>
 
   );
