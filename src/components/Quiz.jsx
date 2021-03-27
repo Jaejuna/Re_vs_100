@@ -1,16 +1,23 @@
 import React from "react";
+import styled from "styled-components";
 
-const Quiz = ({quizs, currentQuiz ,showAnswer}) => {
-  const {no, question, answer, candidates} = quizs[currentQuiz];
+const QuestionWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({theme}) => theme.colors.main};
+    color: ${({theme}) => theme.colors.text};
+    border: 5px solid ${({theme}) => theme.colors.border};
+    border-bottom: none;
+    font-size: 1.5rem;
+`
+
+const Quiz = ({question}) => {
   
   return (
-    <>
-        <div className="title"> Q{no}. </div>
-        <div className="question"> {question} </div>
-        <div className="answer">
-            정답 : { showAnswer ? answer : "???"}
-        </div>
-    </>
+    <QuestionWrapper>
+      {question}
+    </QuestionWrapper>
   )
 }
 
