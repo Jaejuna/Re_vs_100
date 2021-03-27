@@ -4,10 +4,9 @@ import Auth from '../routes/Auth';
 import SignIn from '../routes/SignIn';
 import Question from '../routes/Question';
 import Survivor from '../routes/Survivor';
-import Descript from './Descript';
+import Descript from '../routes/Descript';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
-  console.log({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo})
     return (
       <Router>
         <Switch>
@@ -15,12 +14,12 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
             isLoggedIn ? 
               hasAccount ?
                 <>
-                {!currentInfo.toQuiz ? 
-                  <Route exact path = "/">
-                    <Descript
-                      isAdmin={userObj.isAdmin} 
-                    />
-
+                {
+                  !currentInfo.toQuiz ? 
+                    <Route exact path="/">
+                      <Descript
+                        isAdmin={userObj.isAdmin} 
+                      />
                     </Route>
                     :
                     <Route exact path="/">

@@ -83,8 +83,8 @@ const SignIn = ({userObj, currentInfo}) => {
             <Input 
             name = "number"
             type = "tel"
-            placeholder = "ex)010-1234-5678"
-            pattern ="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+            placeholder = "ex)01012345678"
+            pattern ="[0-9]{7}"
             required
             value = {number}
             onChange = {onChange}

@@ -95,12 +95,12 @@ const onPrevClicked = async() => {
 
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
-        const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
-        setParticipants([
-          people.filter(a => a===1).length,
-          people.filter(a => a===2).length,
-          people.filter(a => a===3).length
-        ])
+      const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
+      setParticipants([
+        people.filter(a => a===1).length,
+        people.filter(a => a===2).length,
+        people.filter(a => a===3).length
+      ])
     })
   }, [currentQuiz]);
 
