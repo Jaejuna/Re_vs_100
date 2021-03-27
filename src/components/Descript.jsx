@@ -5,14 +5,8 @@ import Button from '../materials/Button';
 
 const Descript = ({isAdmin}) => {
   const history = useHistory();
-
-  const onClickToQuiz = async () => {
-    const timestamp = new Date().now()
-    console.log(timestamp)
-    // await dbService.collection('current').doc('current').update({
-    //   block :
-    // })
-    
+  
+  const onClickToQuiz = async () => {    
     await dbService.collection('current').doc('current').update({
       toQuiz: true
     })

@@ -28,10 +28,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
         })
     }
 
-
     return(
-        // disabled 안돼서 일단 이렇게 처리 해놨습니다. 
-        // <>{ available &&
         <Choices>
             <Choice 
                 onClick = {() => onChoiceClicked(1)}
@@ -40,7 +37,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 isSelected={myAnswer===1}
                 isAnswer={answer===1 && showAnswer}
                 disabled={showAnswer}
-                // disabled={!available}
+                disabled={available}
             />
             <Choice 
                 onClick = {() => onChoiceClicked(2)}
@@ -49,7 +46,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 isSelected={myAnswer===2}
                 isAnswer={answer===2 && showAnswer}
                 disabled={showAnswer}
-                // disabled={!available}
+                disabled={available}
             />
             <Choice 
                 onClick = {() => onChoiceClicked(3)}
@@ -58,7 +55,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 isSelected={myAnswer===3}
                 isAnswer={answer===3 && showAnswer}
                 disabled={showAnswer}
-                // disabled={!available}
+                disabled={available}
             />
         </Choices> 
         // }</>        

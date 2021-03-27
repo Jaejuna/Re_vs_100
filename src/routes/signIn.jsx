@@ -11,10 +11,11 @@ const Wrapper = styled.div`
   align-items: center;
   `
 
-const SignIn = ({userObj}) => {
+const SignIn = ({userObj, currentInfo}) => {
     const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
+    const {toQuiz} = currentInfo
     const history = useHistory();
     
     const onChange = (event) => {
@@ -28,17 +29,31 @@ const SignIn = ({userObj}) => {
       }
     };
 
+
+
     const onSubmit = async (event) => {
-      event.preventDefault();
-      await dbService.collection("users").add({
-        uid: userObj.uid,
-        name: name,
-        alias: alias,
-        number: number,
-        isAdmin: false,
-        available: true
+      event.preventDefault()
+      if(toQuiz === true){
+        await dbService.collection("users").add({
+          uid: userObj.uid,
+          name: name,
+          alias: alias,
+          number: number,
+          isAdmin: false,
+          available: false
+        });
+        alert('가입이 완료되었습니다.');
+      } else if (toQuiz === false){
+        await dbService.collection("users").add({
+          uid: userObj.uid,
+          name: name,
+          alias: alias,
+          number: number,
+          isAdmin: false,
+          available: true
       });
-      alert('가입이 완료되었습니다.');
+      alert('참관만 가능합니다.');
+      }
       history.go(0);
     }
 
