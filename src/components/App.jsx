@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { authService, dbService } from '../firebase';
+import MainWrapper from '../MainWrapper';
 import theme from '../theme';
 import AppRouter from './Router';
 
@@ -44,17 +45,21 @@ function App() {
   return (
     // 여기는 테마 적용하기 위한 컴포넌트!
     <ThemeProvider theme={theme}>
-      {init ? (
-        <AppRouter 
-        isLoggedIn = {Boolean(userObj)} 
-        userObj = {userObj}
-        hasAccount={hasAccount} 
-        doc_user_id={docUserId}
-        currentInfo={currentInfo}
-        />
-      ):(
-        "Initializing..."
-      )}
+      <MainWrapper>
+        {init ? 
+          <AppRouter 
+            isLoggedIn = {Boolean(userObj)} 
+            userObj = {userObj}
+            hasAccount={hasAccount} 
+            doc_user_id={docUserId}
+            currentInfo={currentInfo}
+          />
+        :
+          <div>
+          "Initializing..."
+          </div>
+        }
+      </MainWrapper>
     </ThemeProvider>
   );
 }

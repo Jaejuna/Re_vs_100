@@ -4,7 +4,8 @@ const colors = {
     main: '#333',
     text: '#fff',
     answer: '#d1d1d1',
-    wrong: '#e22222'
+    wrong: '#e22222',
+    border: '#d6d6d6'
 };
 
 //여기 밑에는 걍 복붙한거ㅎㅎㅎ

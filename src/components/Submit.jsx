@@ -6,11 +6,9 @@ import Choice from '../materials/Choice';
 const Choices = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 600px;
-    height: 60px;
     grid-gap: 5px;
-    background-color: #d6d6d6;
-    border: 5px solid #d6d6d6;
+    background-color: ${({theme}) => theme.colors.border};
+    border: 5px solid ${({theme}) => theme.colors.border};
 `
 
 const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
