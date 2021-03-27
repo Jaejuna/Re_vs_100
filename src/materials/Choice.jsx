@@ -11,7 +11,7 @@ const ChoiceButton = styled.a`
     border: ${({isSelected}) => isSelected ? '5px solid #4242f3' : 'none'};
 
     position: relative;
-    background-color: ${({theme, isAnswer}) => isAnswer && theme.colors.text};
+    background-color: ${({theme, isAnswer}) => isAnswer ? theme.colors.text : theme.colors.main };
     color: ${({theme, isAnswer}) => isAnswer ? theme.colors.main : theme.colors.text};
     text-decoration: none;
     text-transform: uppercase;

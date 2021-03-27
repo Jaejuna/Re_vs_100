@@ -7,7 +7,7 @@ const Choices = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5px;
-    /* background-color: ${({theme}) => theme.colors.border}; */
+    background-color: ${({theme}) => theme.colors.border};
     border: 5px solid ${({theme}) => theme.colors.border};
 `
 
