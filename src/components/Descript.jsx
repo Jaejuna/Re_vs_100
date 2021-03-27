@@ -7,8 +7,8 @@ const Descript = ({isAdmin}) => {
   const history = useHistory();
 
   const onClickToQuiz = async () => {
-    // 중간 참여 불가능 작업중
-    // const timestamp = new Timestamp().toMillis()
+    const timestamp = new Date().now()
+    console.log(timestamp)
     // await dbService.collection('current').doc('current').update({
     //   block :
     // })
@@ -17,7 +17,7 @@ const Descript = ({isAdmin}) => {
       toQuiz: true
     })
   }
-
+  
   return (
       <>
         <h1>Rules</h1>
@@ -31,7 +31,7 @@ const Descript = ({isAdmin}) => {
             한벗님 찬스 : 원하는 한 명의 답을 알 수 있다, 없을 시 호스트가 지정. <br/>
             벗님들 찬스 : 모든 벗님이 선택한 답을 알 수 있다.
           </div>
-          {isAdmin && <Button onClick = {onClickToQuiz}> 퀴즈 시작하기</Button>}
+          {isAdmin && <Button onClick = {onClickToQuiz}> 퀴즈 시작하기</Button> }
       </> 
   );
 }
