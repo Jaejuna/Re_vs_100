@@ -7,16 +7,7 @@ import Button from '../materials/Button';
 import styled from 'styled-components';
 import Quiz from '../components/Quiz';
 
-const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer} = currentInfo;
-  const {isAdmin, available} = userObj;
-  const [participants, setParticipants] = useState(0);
-  const [corrects, setCorrects] = useState(0);
-  //Timer useState
-  const [minutes, setMinutes] = useState(1);
-  const [seconds, setSeconds] = useState(0);
-
-  const QuizWrapper = styled.div`
+const QuizWrapper = styled.div`
     display: grid;
     grid-template-rows: 360px 130px auto;
 `
@@ -26,6 +17,16 @@ const ButtonsWrapper = styled.div`
   grid-template-columns: repeat(4, 1fr);
   width: 100%;
 `
+
+const Question = ({userObj, doc_user_id, currentInfo}) => {
+  const {currentQuiz, showAnswer} = currentInfo;
+  const {isAdmin, available} = userObj;
+  const [participants, setParticipants] = useState(0);
+  const [corrects, setCorrects] = useState(0);
+  //Timer useState
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
+
 const onPrevClicked = async() => {    
   if( currentQuiz <= 0 ) 
         return;
@@ -111,7 +112,7 @@ const onPrevClicked = async() => {
             />}
             {isAdmin &&
             <ButtonsWrapper>
-                <Button onClick = {onPrevClicked}> 이전 </Button>
+                <Button color="secondary" onClick = {onPrevClicked}> 이전 </Button>
                 <Button onClick = {onNextClick}> 다음 </Button>
                 <Button onClick = {onClickHint}> 힌트 </Button>
                 <Button onClick = {onClickDone}> 결과 </Button>

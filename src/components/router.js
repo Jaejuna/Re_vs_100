@@ -14,7 +14,7 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
             isLoggedIn ? 
               hasAccount ?
                 <>
-                  <Route path = "/descript">
+                  <Route exact path = "/descript">
                     <Descript
                       userObj = {userObj} 
                       doc_user_id = {doc_user_id} 

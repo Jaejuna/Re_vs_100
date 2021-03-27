@@ -8,10 +8,11 @@ const ChoiceButton = styled.a`
     padding: 0;
     font-size: 2rem;
     font-weight: bolder;
-    border: ${({isSelected}) => isSelected ? '5px solid #4242f3' : 'none'};
+    border: ${({theme, isSelected}) => isSelected ? '5px solid ' + theme.colors.selectedBorder : 'none'};
 
     position: relative;
-    background-color: ${({theme, isAnswer}) => isAnswer ? theme.colors.text : theme.colors.main };
+    background-color: ${({theme:{colors}, isSelected, isAnswer}) => 
+        isSelected ? colors.selected : isAnswer ? colors.text : colors.main };
     color: ${({theme, isAnswer}) => isAnswer ? theme.colors.main : theme.colors.text};
     text-decoration: none;
     text-transform: uppercase;
@@ -20,8 +21,8 @@ const ChoiceButton = styled.a`
 
     transition: 0.4s all ease;
 
-    &::before{
-        background: #8a8ae9;
+    &::before:enabled{
+        background: ${({theme:{colors}}) => colors.selected};
         content: "";
         position: absolute;
         top: 50%;
@@ -32,12 +33,12 @@ const ChoiceButton = styled.a`
     }
 
 
-    &::before{
+    &::before:enabled{
         width: 0%;
         height: 100%;
     }
 
-    &:hover::before{
+    &:hover::before:enabled{
         width: 100%;
     }
 `

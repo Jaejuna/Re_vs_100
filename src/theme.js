@@ -3,9 +3,25 @@
 const colors = {
     main: '#333',
     text: '#fff',
+    border: '#d6d6d6',
+    selected: '#8a8ae9',
+    selectedBorder: '#4e4efc',
     answer: '#d1d1d1',
     wrong: '#e22222',
-    border: '#d6d6d6'
+    primary: {
+      main: '#ff9425',
+      text: `#fff`,
+      border: `rgba(0, 0, 0, 0.5)`,
+      accent: `#f57e00`,
+      disabled: '#888888'
+    },
+    secondary:{
+      main: `#464646`,
+      text: `rgba(255,255,255,0.85)`,
+      border: `rgba(255,255,255,0.15)`,
+      accent: `#5f5f5f`,
+      disabled: '#4A4A4A',
+    },
 };
 
 //여기 밑에는 걍 복붙한거ㅎㅎㅎ

@@ -12,11 +12,13 @@ const Choices = styled.div`
 `
 
 const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
-    const {available} = userObj;
+    const {isAdmin, available} = userObj;
     const {no, answer, candidates} = quiz;
     const [myAnswer, setMyAnswer] = useState(null);
 
     const onChoiceClicked = async ans => {
+        if(!isAdmin && showAnswer)
+            return;
         setMyAnswer(ans);
         submitMyAnswer(ans);
     }
@@ -37,6 +39,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[0]}
                 isSelected={myAnswer===1}
                 isAnswer={answer===1 && showAnswer}
+                disabled={showAnswer}
                 // disabled={!available}
             />
             <Choice 
@@ -45,6 +48,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[1]}
                 isSelected={myAnswer===2}
                 isAnswer={answer===2 && showAnswer}
+                disabled={showAnswer}
                 // disabled={!available}
             />
             <Choice 
@@ -53,6 +57,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[2]}
                 isSelected={myAnswer===3}
                 isAnswer={answer===3 && showAnswer}
+                disabled={showAnswer}
                 // disabled={!available}
             />
         </Choices> 

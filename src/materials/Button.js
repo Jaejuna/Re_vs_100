@@ -1,43 +1,34 @@
 import styled from "styled-components";
 
 // params
+// color : secondary | primary
 
 const Button = styled.a`
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${({theme}) => theme.colors.main};
-    font-size: 14px;
-    font-family: "montserrat";
-    text-decoration: none;
-    margin: 30px 0;
-    border: 2px solid #ff7675;
-    padding: 14px 60px;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: 1s all ease;
-
-    &::before{
-        background: #ff7675;
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        z-index: -1;
-        transition: all 0.6s ease;
-    }
-
-
-    &::before{
-        width: 0%;
-        height: 100%;
-    }
-
-    &:hover::before{
-        width: 100%;
-    }
+    border-radius: 3px;
+    padding: 0.5rem 0;
+    margin: 0.5rem 1rem;
+    border-radius: 5px;
+    width: ${({fullWidth}) => fullWidth ? "100%" : '8rem'};
+    font-weight: ${({bold}) => bold ? 'bold' : 'normal'};
+    font-size: ${({fontSize}) => fontSize ? fontSize+'px' : '1rem'};
+    outline: none;
+    ${ ({color, theme:{colors}, disabled})=> {
+        const colorset = color==="secondary" ? colors.secondary : colors.primary;
+        return `
+            background: ${ disabled? colorset.disabled : colorset.main};
+            color: ${colorset.text};
+            border: ${colorset.border} solid thin;
+            ${!disabled &&`
+                &:hover {
+                    background: ${color==="text" ? 'transparent' : colorset.accent };
+                    outline: none;
+                }
+            `}
+        `
+    }}
 `
 
 export default Button;

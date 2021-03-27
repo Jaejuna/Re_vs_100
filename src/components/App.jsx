@@ -4,7 +4,6 @@ import { authService, dbService } from '../firebase';
 import MainWrapper from '../MainWrapper';
 import theme from '../theme';
 import AppRouter from './Router';
-import Descript from './Descript';
 
 function App() {
   const [init, setInit] = useState(false);

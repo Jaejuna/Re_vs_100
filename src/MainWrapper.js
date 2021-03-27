@@ -10,17 +10,18 @@ const Wrapper = styled.div`
     background-color: ${({theme}) => theme.colors.main};
     margin: 0;
 `
-const MainWrapper = styled.div`
+const MainBox = styled.div`
     width:min(1470px, calc(100% - 30px));
     padding: 20px 0 40px 0;
     margin: 0;
 `
 
 // 데스크탑 이상 사이즈의 화면에서 양측 여백을 관리하는 Wrapper
-export default ({children}) => (
+const MainWrapper = ({children}) => (
     <Wrapper>
-        <MainWrapper>
+        <MainBox>
             {children}
-        </MainWrapper>
+        </MainBox>
     </Wrapper>
 );
+export default MainWrapper;
