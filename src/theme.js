@@ -6,14 +6,14 @@ const colors = {
     border: '#666',
     selected: `#a17fff`,
     selectedBorder: '#4e4efc',
-    answer: '#d1d1d1',
+    answer: '#f1d1d1',
     wrong: '#e22222',
     primary: {
       main: '#303f9f',
       text: `#fff`,
       border: `rgba(0, 0, 0, 0.5)`,
       accent: '#666ad1',
-      disabled: `#001970`
+      disabled: `#777aef`
     },
     secondary:{
       main: `#464646`,

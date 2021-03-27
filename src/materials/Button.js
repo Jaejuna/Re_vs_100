@@ -3,7 +3,7 @@ import styled from "styled-components";
 // params
 // color : secondary | primary
 
-const Button = styled.a`
+const Button = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;

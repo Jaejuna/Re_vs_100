@@ -7,6 +7,7 @@ import Survivor from '../routes/Survivor';
 import Descript from './Descript';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
+  console.log({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo})
     return (
       <Router>
         <Switch>
@@ -14,12 +15,12 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
             isLoggedIn ? 
               hasAccount ?
                 <>
-                {
-                  !currentInfo.toQuiz ? 
+                {!currentInfo.toQuiz ? 
                   <Route exact path = "/">
                     <Descript
                       isAdmin={userObj.isAdmin} 
                     />
+
                     </Route>
                     :
                     <Route exact path="/">

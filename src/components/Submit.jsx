@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { dbService } from '../firebase';
 import Choice from '../materials/Choice';
@@ -11,7 +11,7 @@ const Choices = styled.div`
     border: 5px solid ${({theme}) => theme.colors.border};
 `
 
-const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
+const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
     const {isAdmin, available} = userObj;
     const {no, answer, candidates} = quiz;
     const [myAnswer, setMyAnswer] = useState(null);
@@ -28,6 +28,12 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
         })
     }
 
+
+    // 문제가 바뀌면 선택지 초기화
+    useEffect(() => {
+        setMyAnswer(null);
+    }, [quiz.no])
+  
     return(
         <Choices>
             <Choice 
@@ -36,17 +42,14 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[0]}
                 isSelected={myAnswer===1}
                 isAnswer={answer===1 && showAnswer}
-                disabled={showAnswer}
-                disabled={available}
+                disabled={!available || showAnswer || (!isAdmin && isBlocked)}
             />
             <Choice 
                 onClick = {() => onChoiceClicked(2)}
-                no={2}
                 text={candidates[1]}
                 isSelected={myAnswer===2}
                 isAnswer={answer===2 && showAnswer}
-                disabled={showAnswer}
-                disabled={available}
+                disabled={!available || showAnswer || (!isAdmin && isBlocked)}
             />
             <Choice 
                 onClick = {() => onChoiceClicked(3)}
@@ -54,8 +57,7 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer}) => {
                 text={candidates[2]}
                 isSelected={myAnswer===3}
                 isAnswer={answer===3 && showAnswer}
-                disabled={showAnswer}
-                disabled={available}
+                disabled={!available || showAnswer || (!isAdmin && isBlocked)}
             />
         </Choices> 
         // }</>        
