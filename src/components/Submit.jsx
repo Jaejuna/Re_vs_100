@@ -28,11 +28,21 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
         })
     }
 
-
     // 문제가 바뀌면 선택지 초기화
     useEffect(() => {
         setMyAnswer(null);
     }, [quiz.no])
+
+    useEffect(() => {
+        if(!showAnswer)
+            return;
+        if(myAnswer === answer)
+            return;
+
+        await dbService.collection('users').doc(doc_user_id).update({
+            available: false
+        })
+      }, [showAnswer])
   
     return(
         <Choices>

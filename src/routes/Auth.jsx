@@ -5,14 +5,16 @@ import Button from '../materials/Button';
 import SignIn from "./SignIn"
 
 const Wrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+
 `
 
 const MyButton = styled(Button)`
-  width: 500px;
+  width: 300px;
 `
 
 const Auth = () => {
