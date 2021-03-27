@@ -33,11 +33,11 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                   <Route exact path="/result" component={Survivor}/>
                 </>   
                 :
-                <Route exact path = "/">
+                <Route exact path = "/signIn">
                   <SignIn userObj={userObj} />
                 </Route>
             :
-            <Route exact path = "/" component={Auth}/>
+            <Route exact path = "/auth" component={Auth}/>
           }
         </Switch>
       </Router>

@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { dbService } from '../firebase';
 import {useHistory} from 'react-router-dom';
+import Input from "../materials/Input";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  `
 
 const SignIn = ({userObj}) => {
     const [name, setName] = useState("");
@@ -34,12 +43,13 @@ const SignIn = ({userObj}) => {
     }
 
     return (
-          <>
-          <h2>도전자 정보</h2>
-          <form
-          onSubmit={onSubmit}
-          >
-            <input 
+      <>
+      <Wrapper>
+        <h2>도전자 정보</h2>
+      </Wrapper>
+          <form onSubmit={onSubmit}>
+            <Wrapper>
+            <Input
             name = "name"
             type = "text"
             placeholder = "이름"
@@ -47,7 +57,7 @@ const SignIn = ({userObj}) => {
             value = {name}
             onChange = {onChange}
             />
-            <input 
+            <Input 
             name = "alias"
             type = "text"
             placeholder = "닉네임"
@@ -55,19 +65,20 @@ const SignIn = ({userObj}) => {
             value = {alias}
             onChange = {onChange}
             />
-            <input 
+            <Input 
             name = "number"
             type = "tel"
-            placeholder = "010-1234-5678"
+            placeholder = "ex)010-1234-5678"
             pattern ="[0-9]{3}-[0-9]{4}-[0-9]{4}"
             required
             value = {number}
             onChange = {onChange}
             />
-            <input  
+            <Input  
             type="submit"
             onSubmit={onSubmit}
             />
+          </Wrapper>
           </form>
           </>
     );
