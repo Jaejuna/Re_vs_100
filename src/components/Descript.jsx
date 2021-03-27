@@ -1,8 +1,10 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { dbService } from '../firebase';
 import Button from '../materials/Button';
 
-const Descript = () => {
+const Descript = ({isAdmin}) => {
+  const history = useHistory();
 
   const onClickToQuiz = async () => {
     // 중간 참여 불가능 작업중
@@ -10,6 +12,7 @@ const Descript = () => {
     // await dbService.collection('current').doc('current').update({
     //   block :
     // })
+    
     await dbService.collection('current').doc('current').update({
       toQuiz: true
     })
@@ -28,11 +31,7 @@ const Descript = () => {
             한벗님 찬스 : 원하는 한 명의 답을 알 수 있다, 없을 시 호스트가 지정. <br/>
             벗님들 찬스 : 모든 벗님이 선택한 답을 알 수 있다.
           </div>
-          <Button
-        onClick = {onClickToQuiz}
-        >
-          퀴즈 시작
-        </Button>
+          {isAdmin && <Button onClick = {onClickToQuiz}> 퀴즈 시작하기</Button>}
       </> 
   );
 }
