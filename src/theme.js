@@ -9,11 +9,11 @@ const colors = {
     answer: '#d1d1d1',
     wrong: '#e22222',
     primary: {
-      main: '#ff9425',
+      main: '#303f9f',
       text: `#fff`,
       border: `rgba(0, 0, 0, 0.5)`,
-      accent: `#f57e00`,
-      disabled: '#888888'
+      accent: '#666ad1',
+      disabled: `#001970`
     },
     secondary:{
       main: `#464646`,

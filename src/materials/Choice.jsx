@@ -19,7 +19,7 @@ const ChoiceButton = styled.a`
     overflow: hidden;
     z-index: 1;
 
-    transition: 0.4s all ease;
+    transition: 0.5s all ease;
 
     &::before:enabled{
         background: ${({theme:{colors}}) => colors.selected};
