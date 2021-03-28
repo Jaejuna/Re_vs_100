@@ -9,7 +9,6 @@ import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 
 const QuizWrapper = styled.div`
-    max-width: 100%;
     display: grid;
     grid-template-rows: 360px auto auto;
 `
@@ -109,6 +108,7 @@ const onPrevClicked = async() => {
   // userObj 의 available 값을 줘서 button을 disable
 
     return (
+      <>
         <QuizWrapper>
             <Quiz question={quiz.question}/>
             <Submit
@@ -118,6 +118,7 @@ const onPrevClicked = async() => {
                 showAnswer={showAnswer}
                 isBlocked={isBlocked}
             />
+        </QuizWrapper>
             {showAnswer &&
             <Board 
                 participants={participants} 
@@ -139,7 +140,7 @@ const onPrevClicked = async() => {
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>
             <Chance visible={display} toggle={toggle} participants={participants}/>
-        </QuizWrapper>
+      </>
 
   );
 }

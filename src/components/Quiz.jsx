@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const QuestionWrapper = styled.div`
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +11,6 @@ const QuestionWrapper = styled.div`
     border: 5px solid ${({theme}) => theme.colors.border};
     border-bottom: none;
     font-size: 1.5rem;
-    width: 100%;
 `
 
 const Quiz = ({question}) => {
