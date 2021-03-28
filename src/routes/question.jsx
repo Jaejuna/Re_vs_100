@@ -10,7 +10,7 @@ import Chance from '../components/Chance';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
 `
 
 const QuizWrapper = styled.div`
@@ -30,7 +30,7 @@ const ButtonsWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showHint, isBlocked} = currentInfo;
+  const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
   const {isAdmin, available} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
@@ -146,8 +146,8 @@ const onPrevClicked = async() => {
               }
           </ButtonsWrapper>
           }
-          {showAnswer &&
-          <Board participants={participants} />}
+          {showAnswer && 
+          <Board part={part} participants={participants}/>}
             <h2>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>
