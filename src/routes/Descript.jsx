@@ -30,7 +30,7 @@ const Descript = ({isAdmin}) => {
       showAnswer: false,
       block: false,
       showHint: false,
-      currentQuiz: 1
+      currentQuiz: 0
     })
   }
 

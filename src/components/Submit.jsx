@@ -53,6 +53,9 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
             await dbService.collection('users').doc(doc_user_id).update({
                 available: false
             })
+            console.log(myAnswer);
+            if(!myAnswer) 
+                return;
             setTimeout(()=>alert('정답을 맞추지 못하셨습니다ㅠㅠ 다음 문제부터는 관전만 가능합니다.'), 1000);
         })();
         

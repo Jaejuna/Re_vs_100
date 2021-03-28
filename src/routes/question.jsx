@@ -146,8 +146,7 @@ const onPrevClicked = async() => {
               }
           </ButtonsWrapper>
           }
-          {showAnswer && 
-          <Board part={part} participants={participants}/>}
+            <Board {...{showAnswer, part, participants}}/>
             <h2>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>

@@ -10,7 +10,7 @@ const ChoiceButton = styled.button`
     font-size: 1.6rem;
     font-weight: bolder;
     border-radius: 15px;
-    border: none;
+    border: ${({theme, isAnswer}) => isAnswer ? `5px solid ${theme.colors.answerBorder}` : 'none'};;
 
     position: relative;
     background-color: ${({theme:{colors}, isSelected, isAnswer}) => 

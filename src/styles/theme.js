@@ -5,10 +5,9 @@ const colors = {
     text: '#333',
     border: '#666',
     selected: `#d9afff`,
-    selectedBorder: '#eac2efc',
     answer: '#b8cbff',
+    answerBorder: '#eac2efc',
     answerText: '#2a50b8',
-    wrong: '#e22222',
     primary: {
       main: '#303f9f',
       text: `#fff`,
