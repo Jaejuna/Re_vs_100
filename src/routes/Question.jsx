@@ -8,15 +8,25 @@ import styled from 'styled-components';
 import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+`
+
 const QuizWrapper = styled.div`
     display: grid;
     grid-template-rows: 360px auto auto;
+    background-color: ${({theme}) => theme.colors.border};
+    border-radius: 20px;
 `
 
 const ButtonsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  & > button {
+    margin: 8px 4px;
+  }
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
@@ -37,7 +47,8 @@ const onPrevClicked = async() => {
         return;
   await dbService.collection('current').doc('current').update({
       currentQuiz: currentQuiz-1,
-      showAnswer: false
+      showAnswer: false,
+      block: false
   })
 }
 
@@ -108,7 +119,10 @@ const onPrevClicked = async() => {
   // userObj 의 available 값을 줘서 button을 disable
 
     return (
-      <>
+      <Wrapper>
+        <ButtonsWrapper>
+          <Button onClick={onClickHint} disabled={showHint} > 찬스 </Button>
+        </ButtonsWrapper>
         <QuizWrapper>
             <Quiz question={quiz.question}/>
             <Submit
@@ -119,28 +133,26 @@ const onPrevClicked = async() => {
                 isBlocked={isBlocked}
             />
         </QuizWrapper>
-            {showAnswer &&
-            <Board 
-                participants={participants} 
-            />}
-            {isAdmin &&
-            <ButtonsWrapper>
-                <Button onClick = {onClickHint} disabled={showHint} > 찬스 </Button>
-                <Button color="secondary" onClick = {onPrevClicked}> 이전 </Button>
-                {
-                  !isBlocked ?
-                  <Button color="secondary" onClick = {block}> 시간 종료 </Button>
-                  :showAnswer ?
-                  <Button onClick = {onNextClick}> 다음 </Button>
-                  :
-                  <Button onClick = {revealAnswer}> 정답 공개 </Button>
-                }
-            </ButtonsWrapper>}
+          {isAdmin &&
+          <ButtonsWrapper>
+              <Button color="secondary" onClick = {onPrevClicked}> 이전 </Button>
+              {
+                !isBlocked ?
+                <Button color="secondary" onClick = {block}> 시간 종료 </Button>
+                :showAnswer ?
+                <Button onClick = {onNextClick}> 다음 </Button>
+                :
+                <Button onClick = {revealAnswer}> 정답 공개 </Button>
+              }
+          </ButtonsWrapper>
+          }
+          {showAnswer &&
+          <Board participants={participants} />}
             <h2>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>
             <Chance visible={display} toggle={toggle} participants={participants}/>
-      </>
+      </Wrapper>
 
   );
 }

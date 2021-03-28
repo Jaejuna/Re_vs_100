@@ -10,11 +10,12 @@ const Choices = styled.div`
     grid-template-rows: 100px;
     ${media.tablet`
         grid-template-columns: 100%;
-        grid-template-rows: repeat(3, 100px);
+        grid-template-rows: repeat(3, 60px);
     `}
     grid-gap: 5px;
     background-color: ${({theme}) => theme.colors.border};
     border: 5px solid ${({theme}) => theme.colors.border};
+    border-radius: 20px;
 `
 
 const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
@@ -43,12 +44,16 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
         (async () => {
             if(!showAnswer)
                 return;
-            if(myAnswer === answer)
+            if(myAnswer === answer){
+                // 정답 색깔 바뀌고 1초 후에 alert
+                setTimeout(()=>alert('정답입니다!!'), 1000);
                 return;
+            }
     
             await dbService.collection('users').doc(doc_user_id).update({
                 available: false
             })
+            setTimeout(()=>alert('정답을 맞추지 못하셨습니다ㅠㅠ 다음 문제부터는 관전만 가능합니다.'), 1000);
         })();
         
       }, [showAnswer])

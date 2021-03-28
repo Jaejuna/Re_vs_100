@@ -10,6 +10,7 @@ const QuestionWrapper = styled.div`
     color: ${({theme}) => theme.colors.text};
     border: 5px solid ${({theme}) => theme.colors.border};
     border-bottom: none;
+    border-radius: 20px;
     font-size: 1.5rem;
 `
 

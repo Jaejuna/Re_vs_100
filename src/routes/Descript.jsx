@@ -23,11 +23,16 @@ const Descript = ({isAdmin}) => {
   const [part, setPart] = useState(0);
 
   const onClickToQuiz = async () => {    
+    // toQuiz 누르는 순간까지 참여한 벗님 수 기록
     await dbService.collection('current').doc('current').update({
-      toQuiz: true
+      toQuiz: true,
+      part,
+      showAnswer: false,
+      block: false,
+      showHint: false,
+      currentQuiz: 1
     })
   }
-
 
     dbService.collection("users").onSnapshot( snapshot => {
       const people = snapshot.docs.map( doc => doc.data()).length

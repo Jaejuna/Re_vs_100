@@ -39,7 +39,6 @@ const Bar = styled.div`
 const Chance = ({visible, toggle, participants}) => {
     const [a, b, c] = participants;
     const sum =(a+b+c)/100;
-    console.log(b/sum);
     return (
         <Modal show={visible} onClick={toggle}>
             <Container>
