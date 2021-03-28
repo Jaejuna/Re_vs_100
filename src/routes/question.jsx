@@ -9,8 +9,9 @@ import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 
 const QuizWrapper = styled.div`
+    max-width: 100%;
     display: grid;
-    grid-template-rows: 360px 130px auto;
+    grid-template-rows: 360px auto auto;
 `
 
 const ButtonsWrapper = styled.div`

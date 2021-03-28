@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import GlobalFont from "./fonts";
+import GlobalFont from "./styles/fonts";
 
 const Wrapper = styled.div`
     width: 100%;

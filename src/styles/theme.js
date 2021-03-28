@@ -6,7 +6,7 @@ const colors = {
     border: '#666',
     selected: `#a17fff`,
     selectedBorder: '#4e4efc',
-    answer: '#f1d1d1',
+    answer: '#ba45b8',
     wrong: '#e22222',
     primary: {
       main: '#303f9f',

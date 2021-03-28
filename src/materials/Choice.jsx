@@ -15,6 +15,7 @@ const ChoiceButton = styled.button`
     background-color: ${({theme:{colors}, isSelected, isAnswer}) => 
         isSelected ? colors.selected : isAnswer ? colors.answer : colors.main };
     color: ${({theme, isAnswer}) => isAnswer ? theme.colors.main : theme.colors.text};
+    ${({isAnswer}) => isAnswer && `opacity: 0.7`} 
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { authService, dbService } from '../firebase';
 import MainWrapper from '../MainWrapper';
-import theme from '../theme';
+import theme from '../styles/theme';
 import AppRouter from './Router';
 
 function App() {

@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0;
-
 `
 
 const MyButton = styled(Button)`

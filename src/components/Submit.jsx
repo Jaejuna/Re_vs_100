@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { dbService } from '../firebase';
 import Choice from '../materials/Choice';
+import media from '../styles/media';
 
 const Choices = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 100px;
+    ${media.tablet`
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(3, 100px);
+    `}
     grid-gap: 5px;
     background-color: ${({theme}) => theme.colors.border};
     border: 5px solid ${({theme}) => theme.colors.border};
