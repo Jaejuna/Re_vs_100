@@ -40,18 +40,16 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
 
   // modal 바깥 부분 클릭 시 숨기기
   const [display, setDisplay] = useState(false);
-  const toggle = () => setDisplay(prev => !prev);
+  const toggleHint = () => setDisplay(prev => !prev);
 
 const onPrevClicked = async() => {    
-  if( currentQuiz <= 0 ) 
-        return;
+  if( currentQuiz <= 0 ) return;
   await dbService.collection('current').doc('current').update({
       currentQuiz: currentQuiz-1,
       showAnswer: false,
-      block: false
+      isBlocked: false
   })
 }
-
   //next click 할때 타이머 초기화
   const onNextClick = async() => {
     if( currentQuiz >= 2 ) 
@@ -68,7 +66,7 @@ const onPrevClicked = async() => {
   }
 
   const onClickHint = async() => {
-      toggle();
+      toggleHint();
       await dbService.collection('current').doc('current').update({
         showHint: true
       });
@@ -150,7 +148,7 @@ const onPrevClicked = async() => {
             <h2>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </h2>
-            <Chance visible={display} toggle={toggle} participants={participants}/>
+            <Chance visible={display} toggle={toggleHint} participants={participants}/>
       </Wrapper>
 
   );
