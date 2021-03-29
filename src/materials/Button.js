@@ -15,7 +15,7 @@ const Button = styled.button`
     font-weight: ${({bold}) => bold ? 'bold' : 'normal'};
     font-size: ${({fontSize}) => fontSize ? fontSize+'px' : '1rem'};
     outline: none;
-    ${ ({color, theme:{colors}, disabled})=> {
+    ${({color, theme:{colors}, disabled})=> {
         const colorset = color==="secondary" ? colors.secondary : colors.primary;
         return `
             background: ${ disabled? colorset.disabled : colorset.main};

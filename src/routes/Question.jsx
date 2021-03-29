@@ -39,6 +39,7 @@ const TimerWrapper = styled.div`
   display: grid;
   justify-content: flex-start;
   font-size: 2em;
+  font-weight: bolder;
   padding: 5% 0;
 `
 
