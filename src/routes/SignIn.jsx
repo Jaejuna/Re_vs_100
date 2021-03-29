@@ -49,28 +49,24 @@ const SignIn = ({userObj, currentInfo}) => {
     };
 
     const onSubmit = async (event) => {
-      event.preventDefault()
-      if(toQuiz === true){
-        await dbService.collection("users").add({
+      event.preventDefault();
+      await dbService.collection("users").doc(userObj.uid).set({
           uid: userObj.uid,
           name,
           alias,
           number,
           isAdmin: false,
-          available: false
-        });
-        alert('참관만 가능합니다.');
-      } else if (toQuiz === false){
-        await dbService.collection("users").add({
-          uid: userObj.uid,
-          name,
-          alias,
-          number,
-          isAdmin: false,
-          available: true
+          available: !toQuiz,
+          quiz_1: 0,
+          quiz_2: 0,
+          quiz_3: 0,
+          quiz_4: 0,
+          quiz_5: 0,
+          quiz_6: 0,
+          quiz_7: 0,
+          quiz_8: 0
       });
-      alert('가입이 완료되었습니다.');
-      }
+      alert(toQuiz ? '참관만 가능합니다.' : '가입이 완료되었습니다.');
       history.go(0);
     }
 

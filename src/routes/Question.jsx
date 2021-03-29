@@ -44,6 +44,9 @@ const TimerWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
+  // 최후의 N인
+  const N = 2;
+
   const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
   const {isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
@@ -74,12 +77,12 @@ const onPrevClicked = async() => {
   }, [currentQuiz]);
   
   //next click 할때 타이머 초기화
-  const onNextClick = async() => {
+  const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    if( currentQuiz > 7 || surv <= 2){
-      await dbService.collection('current').doc('current').update({
-        isDone: true
-      })
+    if( currentQuiz == Quizs.length-1 || surv <= N-2){
+      // await dbService.collection('current').doc('current').update({
+      //   isDone: true
+      // })
     }else{
       await dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
@@ -106,10 +109,21 @@ const onPrevClicked = async() => {
     setSeconds(0);
   }
 
-  const revealAnswer = async() => {
-      await dbService.collection('current').doc('current').update({
-        showAnswer: true
-    });
+  const revealAnswer = () => {
+      dbService.collection('current').doc('current').update({
+          showAnswer: true
+      });
+      const usersRef = dbService.collection('users');
+      usersRef.where(`quiz_${quiz.no}`, '!=', quiz.answer).get().then((querySnapshot) => {
+          let batch = dbService.batch();
+          querySnapshot.docs.forEach((doc) => {
+              const docRef = usersRef.doc(doc.data().uid);
+              batch.update(docRef, {available: false});
+          })
+          batch.commit();
+      }).catch( error => {
+          console.log("Error getting document:", error);
+      });
   }
 
   //Timer
@@ -143,9 +157,12 @@ const onPrevClicked = async() => {
 
     return (
       <Wrapper>
+        {isAdmin &&
         <ButtonsWrapper>
-          <Button onClick={onClickHint} disabled={showHint} > 찬스 </Button>
-        </ButtonsWrapper>
+          <Button onClick={onClickHint} disabled={showHint}> 
+            찬스 
+          </Button>
+        </ButtonsWrapper>}
         <QuizWrapper>
             <Quiz question={quiz.question}/>
             <Submit
@@ -163,7 +180,7 @@ const onPrevClicked = async() => {
                 !isBlocked ?
                 <Button color="secondary" onClick = {block}> 시간 종료 </Button>
                 :showAnswer ?
-                <Button onClick = {onNextClick}> 다음 </Button>
+                <Button onClick = {onNextClicked}> 다음 </Button>
                 :
                 <Button onClick = {revealAnswer}> 정답 공개 </Button>
               }
@@ -175,7 +192,6 @@ const onPrevClicked = async() => {
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
             </TimerWrapper>
       </Wrapper>
-
   );
 }
 

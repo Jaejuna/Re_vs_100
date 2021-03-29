@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   `}
 `
 const Description = styled.div`
-  margin :30px
+  margin: 30px;
 `
 
 const Explanation =styled.div`
@@ -76,7 +76,9 @@ const Descript = ({isAdmin}) => {
             </Box>
             }
           </div>
-          <Img src={qrcode}/>
+          {isAdmin && 
+            <Img src={qrcode}/>
+          }
       </Wrapper> 
   );
 }
