@@ -3,6 +3,7 @@ import { dbService } from '../firebase';
 import {useHistory} from 'react-router-dom';
 import Input from "../materials/Input";
 import styled from "styled-components";
+import media from '../styles/media';
 
 const InputWrapper = styled.div`
   width: 100vw;
@@ -10,7 +11,10 @@ const InputWrapper = styled.div`
   justify-content: center;
   max-width: 100%;
   align-items: center;
-  grid-template-rows: auto auto auto 180px;
+  ${media.phone`
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto 180px;
+  `}
   `
 
   const TitleWrapper = styled.div`
@@ -19,8 +23,11 @@ const InputWrapper = styled.div`
   justify-content: center;
   max-width: 100%;
   align-items: center;
-  grid-template-rows: 300px auto auto;
   font-size: 2em;
+  ${media.phone`
+    grid-template-columns: 100%;
+    grid-template-rows: 300px;
+  `}
   `
 
 const SignIn = ({userObj, currentInfo}) => {
