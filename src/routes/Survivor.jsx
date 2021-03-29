@@ -1,5 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import { dbService } from '../firebase';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+    display: grid;
+    justify-content: center;
+    grid-template-rows: 180px auto;
+    font-size: 3em;
+    font-weight: bolder;
+`
+
+const WinnerDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+`
 
 const Survivor = () => {
     const [lastSurv, setLastSurv] = useState([]);
@@ -13,14 +28,14 @@ const Survivor = () => {
     }, []);
 
     return (
-        <>
+        <Wrapper>
         <div>
             축하드립니다!!! 최후의 생존자 여러분!!!!
         </div>
-        <div>
+        <WinnerDiv>
             {[lastSurv]}
-        </div>
-        </>
+        </WinnerDiv>
+        </Wrapper>
     )
 }
 

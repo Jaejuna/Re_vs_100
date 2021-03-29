@@ -43,18 +43,18 @@ const Chance = ({visible, toggle, participants}) => {
         <Modal show={visible} onClick={toggle}>
             <Container>
                 <BarChart>
-                    <Box>1</Box>
+                    <Box>1번</Box>
                     <Box left>
                         <Bar perc={a/sum} color="#cf0c0c" />
                     </Box>
                     <Box>{a}명</Box>
 
-                    <Box>2</Box>
+                    <Box>2번</Box>
                     <Box left>
                         <Bar perc={b/sum} color="#20d6a0"/>
                     </Box>
                     <Box>{b}명</Box>
-                    <Box>3</Box>
+                    <Box>3번</Box>
                     <Box left>
                         <Bar perc={c/sum} color="#245cbb"/>
                     </Box>

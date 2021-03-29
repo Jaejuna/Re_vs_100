@@ -7,17 +7,22 @@ import Button from '../materials/Button';
 import styled from 'styled-components';
 import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
+import media from '../styles/media';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto;
 `
 
 const QuizWrapper = styled.div`
     display: grid;
     grid-template-rows: 360px auto auto;
     background-color: ${({theme}) => theme.colors.border};
-    border-radius: 20px;
+    border-radius: 5px;
+    ${media.tablet`
+    grid-template-columns: 100%;
+    grid-template-rows: 300px;
+  `}
 `
 
 const ButtonsWrapper = styled.div`
@@ -27,6 +32,14 @@ const ButtonsWrapper = styled.div`
   & > button {
     margin: 8px 4px;
   }
+`
+
+const TimerWrapper = styled.div`
+  width: 100%;
+  display: grid;
+  justify-content: flex-start;
+  font-size: 2em;
+  padding: 5% 0;
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
@@ -51,15 +64,18 @@ const onPrevClicked = async() => {
       isBlocked: false
   })
 }
-  //next click 할때 타이머 초기화
-  const onNextClick = async() => {
+
+  useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
-      const survCount = snapshot.docs.map( doc => doc.data()).map( p => p.available);
+      const survCount = snapshot.docs.map( doc => doc.data()).map( p => p.available);;
       setSurv(survCount.filter(a => a === true).length)
     })
-    
+  }, [currentQuiz]);
+  
+  //next click 할때 타이머 초기화
+  const onNextClick = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    if( currentQuiz >= 2 || surv <= 5){
+    if( currentQuiz > 7 || surv <= 2){
       await dbService.collection('current').doc('current').update({
         isDone: true
       })
@@ -153,10 +169,10 @@ const onPrevClicked = async() => {
           </ButtonsWrapper>
           }
             <Board {...{showAnswer, part, participants}}/>
-            <h2>
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-            </h2>
             <Chance visible={display} toggle={toggleHint} participants={participants}/>
+            <TimerWrapper>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </TimerWrapper>
       </Wrapper>
 
   );
