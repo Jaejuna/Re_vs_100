@@ -17,17 +17,19 @@ const MyButton = styled(Button)`
 `
 
 const Auth = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const onSocialClick = async () => {
-        const provider = new firebaseInstance.auth.GoogleAuthProvider();
-        await authService.signInWithPopup(provider);
-        setIsLoggedIn(true);
-      }
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const onSocialClick = async () => {
+    const provider = new firebaseInstance.auth.GoogleAuthProvider();
+    await authService.signInWithPopup(provider);
+    setIsLoggedIn(true);
+  }
 
   return (
     <>
     { isLoggedIn ?
+    <>
       <SignIn />
+    </>
       :
       <Wrapper>
         <MyButton onClick={onSocialClick} name ="google">

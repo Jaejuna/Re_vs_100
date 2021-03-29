@@ -4,11 +4,23 @@ import {useHistory} from 'react-router-dom';
 import Input from "../materials/Input";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const InputWrapper = styled.div`
   width: 100vw;
-  display: flex;
+  display: grid;
   justify-content: center;
+  max-width: 100%;
   align-items: center;
+  grid-template-rows: auto auto auto 180px;
+  `
+
+  const TitleWrapper = styled.div`
+  width: 100vw;
+  display: grid;
+  justify-content: center;
+  max-width: 100%;
+  align-items: center;
+  grid-template-rows: 300px auto auto;
+  font-size: 2em;
   `
 
 const SignIn = ({userObj, currentInfo}) => {
@@ -28,8 +40,6 @@ const SignIn = ({userObj, currentInfo}) => {
         setNumber(value);
       }
     };
-
-
 
     const onSubmit = async (event) => {
       event.preventDefault()
@@ -59,11 +69,11 @@ const SignIn = ({userObj, currentInfo}) => {
 
     return (
       <>
-      <Wrapper>
+      <TitleWrapper>
         <h2>도전자 정보</h2>
-      </Wrapper>
+      </TitleWrapper>
           <form onSubmit={onSubmit}>
-            <Wrapper>
+            <InputWrapper>
             <Input
             name = "name"
             type = "text"
@@ -93,7 +103,7 @@ const SignIn = ({userObj, currentInfo}) => {
             type="submit"
             onSubmit={onSubmit}
             />
-          </Wrapper>
+            </InputWrapper>
           </form>
         </>
     );
