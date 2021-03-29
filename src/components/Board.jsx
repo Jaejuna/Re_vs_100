@@ -4,6 +4,7 @@ import { dbService } from '../firebase';
 import Box from '../materials/Box';
 
 const Wrapper = styled(Box)`
+    padding-top: 20px;
     opacity: ${({show}) => show ? 1 : 0};
     transition: opacity 0.6s linear;
 `
@@ -12,7 +13,7 @@ const Bar = styled.div`
     width: 96%;
     height: 50px;
     display: grid;
-    grid-template-columns: ${({survived}) => `${survived}% ${100 - survived}%`};
+    grid-template-columns: ${({survived}) => `${10 + 0.8 * survived}% ${90 - 0.8 * survived}%`};
 
     // 공통
     & > div{

@@ -18,7 +18,7 @@ const QuizWrapper = styled.div`
     display: grid;
     grid-template-rows: 360px auto auto;
     background-color: ${({theme}) => theme.colors.border};
-    border-radius: 5px;
+    border-radius: 15px;
     ${media.tablet`
     grid-template-columns: 100%;
     grid-template-rows: 300px;
