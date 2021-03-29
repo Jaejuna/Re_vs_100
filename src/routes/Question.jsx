@@ -119,7 +119,8 @@ const onPrevClicked = async() => {
     return (
       <Wrapper>
         <ButtonsWrapper>
-          <Button onClick={onClickHint} disabled={showHint} > 찬스 </Button>
+        {isAdmin && 
+          <Button onClick={onClickHint} disabled={showHint} > 찬스 </Button>}
         </ButtonsWrapper>
         <QuizWrapper>
             <Quiz question={quiz.question}/>
