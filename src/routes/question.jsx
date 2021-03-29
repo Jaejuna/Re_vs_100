@@ -30,8 +30,8 @@ const ButtonsWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showHint, isBlocked, part, isDone} = currentInfo;
-  const {isAdmin, available} = userObj;
+  const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
+  const {isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
   const [surv,setSurv] = useState(0);
