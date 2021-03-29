@@ -67,7 +67,7 @@ const SignIn = ({userObj, currentInfo}) => {
           quiz_8: 0
       });
       alert(toQuiz ? '참관만 가능합니다.' : '가입이 완료되었습니다.');
-      history.go(0);
+      window.location.reload(false);
     }
 
     return (

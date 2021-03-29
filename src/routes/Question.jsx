@@ -44,13 +44,10 @@ const TimerWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  // 최후의 N인
-  const N = 2;
-
   const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
   const {isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
-  const [participants, setParticipants] = useState([0, 0, 0]);
+  const [participants, setParticipants] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
   const [surv,setSurv] = useState(0);
   //Timer useState
   const [minutes, setMinutes] = useState(1);
@@ -79,10 +76,10 @@ const onPrevClicked = async() => {
   //next click 할때 타이머 초기화
   const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    if( currentQuiz == Quizs.length-1 || surv <= N-2){
-      // await dbService.collection('current').doc('current').update({
-      //   isDone: true
-      // })
+    if( currentQuiz == Quizs.length-1 || surv <= 2){
+      await dbService.collection('current').doc('current').update({
+        isDone: true
+      })
     }else{
       await dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
@@ -148,9 +145,14 @@ const onPrevClicked = async() => {
     dbService.collection("users").onSnapshot( snapshot => {
       const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
       setParticipants([
+        people.filter(a => a===2).length,
+        people.filter(a => a===1).length,
+        people.filter(a => a===1).length,
+        people.filter(a => a===1).length,
         people.filter(a => a===1).length,
         people.filter(a => a===2).length,
-        people.filter(a => a===3).length
+        people.filter(a => a===3).length,
+        people.filter(a => a===2).length
       ])
     })
   }, [currentQuiz]);
@@ -187,10 +189,12 @@ const onPrevClicked = async() => {
           </ButtonsWrapper>
           }
             <Board {...{showAnswer, part, participants}}/>
-            <Chance visible={display} toggle={toggleHint} participants={participants}/>
-            <TimerWrapper>
-              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-            </TimerWrapper>
+            <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
+            {isAdmin &&
+              <TimerWrapper>
+                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              </TimerWrapper>
+            }
       </Wrapper>
   );
 }

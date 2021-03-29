@@ -6,35 +6,34 @@ const Wrapper = styled.div`
     display: grid;
     justify-content: center;
     grid-template-rows: 180px auto;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bolder;
-`
-
-const WinnerDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    font-weight: bolder;
+    text-align: center;
+    letter-spacing: 1.5px;
+    line-height: 1.8em;
 `
 
 const Survivor = () => {
     const [lastSurv, setLastSurv] = useState([]);
-
+    
     useEffect(() => {
         dbService.collection("users").onSnapshot( snapshot => {
             const surv = snapshot.docs.map( doc => doc.data())
-            const survee = surv.filter(a => a.available ===true).map( b => b.alias)
-            setLastSurv(survee);
+            .filter(a => a.available ===true)
+            .map( b => b.alias).map((x,i,arr)=>(i<arr.length-1)?x+', ':x);
+            setLastSurv(surv);
         })
     }, []);
 
     return (
         <Wrapper>
-        <div>
-            축하드립니다!!! 최후의 생존자 여러분!!!!
-        </div>
-        <WinnerDiv>
-            {[lastSurv]}
-        </WinnerDiv>
+            <div>
+                마지막까지 생존하신걸 축하드립니다!!!<br/>
+                문자가 발송될 예정이니 꼭 확인해주세요 :) 
+            </div>
+            <div>
+                생존자 명단 : {[lastSurv]}
+            </div>
         </Wrapper>
     )
 }

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { dbService } from '../firebase';
 import Box from '../materials/Box';
+import Quizs from '../Quizs';
 
 const Wrapper = styled(Box)`
     padding-top: 20px;
@@ -40,18 +41,25 @@ const Bar = styled.div`
 
 // part: 전체 참여자
 // participants: [1번 정답자, 2번 정답자, 3번 정답자]
-const Board = ({showAnswer, part}) => {
+const Board = ({showAnswer, part, participants, currentQuiz}) => {
     const [corrects, setCorrects] = useState(0);
-    dbService.collection("users").onSnapshot( snapshot => {
-        const people = snapshot.docs.map( doc => doc.data()).filter( user => user.available ).length
-        setCorrects(people);
-    })
+    const [wrongs, setWrongs] = useState(0);
+    const quiz = Quizs[currentQuiz];
+    
+    useEffect(() => {
+        dbService.collection("users").onSnapshot( snapshot => {
+            const people = snapshot.docs.map( doc => doc.data()).filter( user => user.available ).length
+            setCorrects(people);
+            // const wrongPeop =  participants.filter(curr => curr['quiz_' + quiz.no])
+            // setWrongs(wrongPeop);
+        })
+    }, []);
 
     return(
         <Wrapper show={showAnswer}>
             <Bar survived={100 * corrects / part}>
                 <div> {corrects}명 생존</div>
-                <div> {part - corrects}명 탈락</div>
+                <div> {part}명 탈락</div>
             </Bar>
         </Wrapper>
     )

@@ -16,22 +16,23 @@ const MyButton = styled(Button)`
   width: 300px;
 `
 
-const Auth = ({currentInfo}) => {
-  const {toQuiz} = currentInfo
+const Auth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const onSocialClick = async () => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
     await authService.signInWithPopup(provider);
-    setIsLoggedIn(true);
+  }
+
+  const refresh = () => {
+    window.location.reload(false);
   }
 
   return (
     <>
     { isLoggedIn ?
     <>
-      <SignIn
-      
-      />
+      <SignIn/>
+      {refresh}
     </>
       :
       <Wrapper>
