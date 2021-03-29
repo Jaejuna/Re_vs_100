@@ -42,11 +42,9 @@ const Bar = styled.div`
 const Board = ({showAnswer, part, participants}) => {
     const [corrects, setCorrects] = useState(0);
     dbService.collection("users").onSnapshot( snapshot => {
-        const people = snapshot.docs.map( doc => doc.data())
-                        .filter( user => user.available )
-                        .length
+        const people = snapshot.docs.map( doc => doc.data()).filter( user => user.available ).length
         setCorrects(people);
-      })
+    })
 
     return(
         <Wrapper show={showAnswer}>

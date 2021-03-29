@@ -36,23 +36,23 @@ const SignIn = ({userObj, currentInfo}) => {
       if(toQuiz === true){
         await dbService.collection("users").add({
           uid: userObj.uid,
-          name: name,
-          alias: alias,
-          number: number,
+          name,
+          alias,
+          number,
           isAdmin: false,
           available: false
         });
-        alert('가입이 완료되었습니다.');
+        alert('참관만 가능합니다.');
       } else if (toQuiz === false){
         await dbService.collection("users").add({
           uid: userObj.uid,
-          name: name,
-          alias: alias,
-          number: number,
+          name,
+          alias,
+          number,
           isAdmin: false,
           available: true
       });
-      alert('참관만 가능합니다.');
+      alert('가입이 완료되었습니다.');
       }
       history.go(0);
     }
@@ -84,7 +84,7 @@ const SignIn = ({userObj, currentInfo}) => {
             name = "number"
             type = "tel"
             placeholder = "ex)01012345678"
-            pattern ="[0-9]{7}"
+            pattern ="[0-9]{11}"
             required
             value = {number}
             onChange = {onChange}

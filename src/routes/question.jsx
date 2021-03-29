@@ -30,10 +30,11 @@ const ButtonsWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
+  const {currentQuiz, showAnswer, showHint, isBlocked, part, isDone} = currentInfo;
   const {isAdmin, available} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
+  const [surv,setSurv] = useState(0);
   //Timer useState
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
@@ -52,17 +53,25 @@ const onPrevClicked = async() => {
 }
   //next click 할때 타이머 초기화
   const onNextClick = async() => {
-    if( currentQuiz >= 2 ) 
-        return;
-    await dbService.collection('current').doc('current').update({
-      currentQuiz: currentQuiz+1,
-      showAnswer: false,
-      isBlocked: false
+    dbService.collection("users").onSnapshot( snapshot => {
+      const survCount = snapshot.docs.map( doc => doc.data()).map( p => p.available);
+      setSurv(survCount.filter(a => a === true).length)
     })
-    setMinutes(1);
-    setSeconds(0);
-    const timestamp = new Date().getTime();
-    console.log(timestamp / 1000)
+    
+    // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
+    if( currentQuiz >= 2 || surv <= 5){
+      await dbService.collection('current').doc('current').update({
+        isDone: true
+      })
+    }else{
+      await dbService.collection('current').doc('current').update({
+        currentQuiz: currentQuiz+1,
+        showAnswer: false,
+        isBlocked: false
+      })
+      setMinutes(1);
+      setSeconds(0);
+    }
   }
 
   const onClickHint = async() => {
@@ -76,6 +85,8 @@ const onPrevClicked = async() => {
       await dbService.collection('current').doc('current').update({
         isBlocked: true
     });
+    setMinutes(0);
+    setSeconds(0);
   }
 
   const revealAnswer = async() => {
@@ -112,9 +123,6 @@ const onPrevClicked = async() => {
       ])
     })
   }, [currentQuiz]);
-
-  // Descript toQuiz 되면 submit 못 누르게, isSurvived = false면 못 누르게
-  // userObj 의 available 값을 줘서 button을 disable
 
     return (
       <Wrapper>

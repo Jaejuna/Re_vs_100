@@ -22,6 +22,15 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                       />
                     </Route>
                     :
+                    <>
+                    {
+                      currentInfo.isDone ?
+                      <Route exact path="/">
+                        <Survivor
+                          userObj = {userObj} 
+                        />
+                      </Route>
+                      :
                     <Route exact path="/">
                       <Question
                         userObj = {userObj} 
@@ -29,8 +38,9 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                         currentInfo = {currentInfo}
                       />
                     </Route>
+                    }
+                  </>
                 }
-                  <Route exact path="/result" component={Survivor}/>
                 </>   
                 :
                 <Route exact path="/">
