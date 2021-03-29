@@ -39,7 +39,7 @@ const Bar = styled.div`
 
 // part: 전체 참여자
 // participants: [1번 정답자, 2번 정답자, 3번 정답자]
-const Board = ({showAnswer, part, participants}) => {
+const Board = ({showAnswer, part}) => {
     const [corrects, setCorrects] = useState(0);
     dbService.collection("users").onSnapshot( snapshot => {
         const people = snapshot.docs.map( doc => doc.data()).filter( user => user.available ).length

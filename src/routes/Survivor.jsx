@@ -6,8 +6,9 @@ const Survivor = () => {
 
     useEffect(() => {
         dbService.collection("users").onSnapshot( snapshot => {
-            const surv = snapshot.docs.map( doc => doc.data()).map( p => p.available)
-            setLastSurv(surv.filter(a => a===true).length)
+            const surv = snapshot.docs.map( doc => doc.data())
+            const survee = surv.filter(a => a.available ===true).map( b => b.alias)
+            setLastSurv(survee);
         })
     }, []);
 
@@ -17,7 +18,7 @@ const Survivor = () => {
             축하드립니다!!! 최후의 생존자 여러분!!!!
         </div>
         <div>
-            {lastSurv}
+            {[lastSurv]}
         </div>
         </>
     )
