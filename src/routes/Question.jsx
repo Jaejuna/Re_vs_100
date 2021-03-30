@@ -9,7 +9,6 @@ import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 import media from '../styles/media';
 import 'prevent-pull-refresh';
-import { noCache } from "popsicle-no-cache";
 
 const Wrapper = styled.div`
   display: grid;
@@ -78,7 +77,7 @@ const onPrevClicked = async() => {
   //next click 할때 타이머 초기화
   const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    if( currentQuiz == Quizs.length-1 || surv <= 2){
+    if( currentQuiz === Quizs.length-1 || surv <= 2){
       await dbService.collection('current').doc('current').update({
         isDone: true
       })

@@ -15,7 +15,7 @@ const Choices = styled.div`
     grid-gap: 5px;
     background-color: ${({theme}) => theme.colors.border};
     border: 5px solid ${({theme}) => theme.colors.border};
-    border-radius: 20px;
+    border-radius: 5px;
 `
 
 const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {

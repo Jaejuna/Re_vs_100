@@ -11,11 +11,15 @@ const QuestionWrapper = styled.div`
     color: ${({theme}) => theme.colors.text};
     border: 5px solid ${({theme}) => theme.colors.border};
     border-bottom: none;
-    border-radius: 20px;
+    border-radius: 5px;
     font-size: 2rem;
     font-weight: bolder;
+    letter-spacing: 1.5px;
+    line-height: 50px;
+    padding: 20px;
     ${media.tablet`
     font-size: 1.5rem;
+    line-height: 40px;
   `}
 `
 

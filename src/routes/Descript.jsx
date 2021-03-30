@@ -9,7 +9,7 @@ import Box from '../materials/Box';
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  text-align: center;
+  text-align: left;
   ${media.tablet`
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
@@ -23,7 +23,10 @@ const Explanation =styled.div`
   font-weight: 600;
   letter-spacing: 0.5px;
   line-height: 2em;
-  font-size: large;
+  font-size: large;  
+  ${media.tablet`
+  font-size: medium;
+`}
 `
 
 const Img = styled.img`

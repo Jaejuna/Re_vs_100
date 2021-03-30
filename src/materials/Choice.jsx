@@ -9,7 +9,7 @@ const ChoiceButton = styled.button`
     padding: 0;
     font-size: 1.6rem;
     font-weight: bolder;
-    border-radius: 15px;
+    border-radius: 5px;
     border: ${({theme, isAnswer}) => isAnswer ? `5px solid ${theme.colors.answerBorder}` : 'none'};;
 
     position: relative;

@@ -12,6 +12,9 @@ const Wrapper = styled.div`
   justify-items: center;
   grid-template-columns: 100%;
   grid-template-rows: repeat(1, 2fr);
+  ${media.tablet`
+  grid-template-columns: 100%;
+`}
 `
 
 const InputWrapper = styled.div`
@@ -30,8 +33,9 @@ const Img = styled.img`
   width: 45%;
   height: 100%;
   ${media.tablet`
-  width: 70%;
-  `}
+  width: 100%;
+  height: 45%;
+`}
 `
 
 const SignIn = ({userObj, currentInfo}) => {
