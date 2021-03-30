@@ -1,41 +1,44 @@
 import React, { useState } from 'react';
 import { dbService } from '../firebase';
-import {useHistory} from 'react-router-dom';
 import Input from "../materials/Input";
 import styled from "styled-components";
 import media from '../styles/media';
+import challenger from '../assets/images/challenger.png';
+
+const Wrapper = styled.div`
+  display: grid;
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(1, 2fr);
+`
 
 const InputWrapper = styled.div`
   width: 100vw;
-  display: grid;
+  display: flex;
   justify-content: center;
   max-width: 100%;
   align-items: center;
-  ${media.phone`
-    grid-template-columns: 100%;
+  ${media.tablet`
+    display: grid;
     grid-template-rows: auto auto auto 180px;
   `}
-  `
+`
 
-  const TitleWrapper = styled.div`
-  width: 100vw;
-  display: grid;
-  justify-content: center;
-  max-width: 100%;
-  align-items: center;
-  font-size: 2em;
-  ${media.phone`
-    grid-template-columns: 100%;
-    grid-template-rows: 300px;
+const Img = styled.img`
+  width: 45%;
+  height: 100%;
+  ${media.tablet`
+  width: 70%;
   `}
-  `
+`
 
 const SignIn = ({userObj, currentInfo}) => {
     const [name, setName] = useState("");
     const [alias, setAlias] = useState("");
     const [number, setNumber] = useState("");
     const {toQuiz} = currentInfo
-    const history = useHistory();
     
     const onChange = (event) => {
       const {target: {name, value}} = event;
@@ -71,10 +74,8 @@ const SignIn = ({userObj, currentInfo}) => {
     }
 
     return (
-      <>
-      <TitleWrapper>
-        <h2>도전자 정보</h2>
-      </TitleWrapper>
+      <Wrapper>
+        <Img src = {challenger} />
           <form onSubmit={onSubmit}>
             <InputWrapper>
             <Input
@@ -96,19 +97,19 @@ const SignIn = ({userObj, currentInfo}) => {
             <Input 
             name = "number"
             type = "tel"
-            placeholder = "ex)01012345678"
+            placeholder = "ex) 01012345678"
             pattern ="[0-9]{11}"
             required
             value = {number}
             onChange = {onChange}
             />
             <Input  
-            type="submit"
-            onSubmit={onSubmit}
+            type = "submit"
+            onSubmit = {onSubmit}
             />
             </InputWrapper>
           </form>
-        </>
+        </Wrapper>
     );
   }
 

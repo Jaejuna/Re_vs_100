@@ -41,25 +41,24 @@ const Bar = styled.div`
 
 // part: 전체 참여자
 // participants: [1번 정답자, 2번 정답자, 3번 정답자]
-const Board = ({showAnswer, part, participants, currentQuiz}) => {
+// 어렵다...
+const Board = ({showAnswer, part, participants, currentInfo}) => {
     const [corrects, setCorrects] = useState(0);
-    const [wrongs, setWrongs] = useState(0);
+    const {currentQuiz} = currentInfo;
     const quiz = Quizs[currentQuiz];
     
     useEffect(() => {
         dbService.collection("users").onSnapshot( snapshot => {
             const people = snapshot.docs.map( doc => doc.data()).filter( user => user.available ).length
             setCorrects(people);
-            // const wrongPeop =  participants.filter(curr => curr['quiz_' + quiz.no])
-            // setWrongs(wrongPeop);
         })
-    }, []);
+    }, [currentQuiz]);
 
     return(
         <Wrapper show={showAnswer}>
             <Bar survived={100 * corrects / part}>
                 <div> {corrects}명 생존</div>
-                <div> {part}명 탈락</div>
+                <div> {part - corrects}명 탈락</div>
             </Bar>
         </Wrapper>
     )

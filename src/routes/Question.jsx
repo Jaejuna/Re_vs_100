@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 import media from '../styles/media';
+import 'prevent-pull-refresh';
+import { noCache } from "popsicle-no-cache";
 
 const Wrapper = styled.div`
   display: grid;
@@ -47,7 +49,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
   const {isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
-  const [participants, setParticipants] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+  const [participants, setParticipants] = useState([0, 0, 0]);
   const [surv,setSurv] = useState(0);
   //Timer useState
   const [minutes, setMinutes] = useState(1);
@@ -123,6 +125,8 @@ const onPrevClicked = async() => {
       });
   }
 
+
+
   //Timer
     useEffect(() => {
       const countdown = setInterval(() => {
@@ -145,14 +149,9 @@ const onPrevClicked = async() => {
     dbService.collection("users").onSnapshot( snapshot => {
       const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
       setParticipants([
-        people.filter(a => a===2).length,
-        people.filter(a => a===1).length,
-        people.filter(a => a===1).length,
-        people.filter(a => a===1).length,
         people.filter(a => a===1).length,
         people.filter(a => a===2).length,
-        people.filter(a => a===3).length,
-        people.filter(a => a===2).length
+        people.filter(a => a===3).length
       ])
     })
   }, [currentQuiz]);
@@ -188,7 +187,7 @@ const onPrevClicked = async() => {
               }
           </ButtonsWrapper>
           }
-            <Board {...{showAnswer, part, participants}}/>
+            <Board {...{showAnswer, part, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
             {isAdmin &&
               <TimerWrapper>

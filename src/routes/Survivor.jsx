@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import { dbService } from '../firebase';
 import styled from 'styled-components';
+import media from '../styles/media';
 
 const Wrapper = styled.div`
     display: grid;
     justify-content: center;
-    grid-template-rows: 180px auto;
+    grid-template-rows: 250px auto;
     font-size: 2em;
     font-weight: bolder;
     text-align: center;
     letter-spacing: 1.5px;
     line-height: 1.8em;
+    ${media.tablet`
+    grid-template-rows: 300px auto;
+  `}
 `
 
 const Survivor = () => {

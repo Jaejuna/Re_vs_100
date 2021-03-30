@@ -3,17 +3,31 @@ import styled from 'styled-components';
 import {authService, firebaseInstance} from "../firebase";
 import Button from '../materials/Button';
 import SignIn from "./SignIn"
+import quizLogo from '../assets/images/quizLogo.png';
+import media from '../styles/media';
 
 const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
   align-items: center;
-  padding: 0;
+  grid-template-rows: repeat(2, 1fr);
+  text-align: center;
+  justify-items: center;
+  ${media.tablet`
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(2, 1fr);
+  `}
 `
 
 const MyButton = styled(Button)`
   width: 300px;
+`
+
+const Img = styled.img`
+  width: 45%;
+  height: 100%;
+  ${media.tablet`
+  width: 70%;
+  `}
 `
 
 const Auth = () => {
@@ -36,6 +50,7 @@ const Auth = () => {
     </>
       :
       <Wrapper>
+        <Img src={quizLogo}/>
         <MyButton onClick={onSocialClick} name ="google">
           구글 아이디로 로그인하기
         </MyButton>
