@@ -47,39 +47,41 @@ const TimerWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showHint, isBlocked, part} = currentInfo;
+  const {currentQuiz, showAnswer, showHint, isBlocked, part, startedTimestamp} = currentInfo;
   const {isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
   const [surv,setSurv] = useState(0);
   //Timer useState
-  const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
 
   // modal 바깥 부분 클릭 시 숨기기
   const [display, setDisplay] = useState(false);
   const toggleHint = () => setDisplay(prev => !prev);
 
-const onPrevClicked = async() => {    
-  if( currentQuiz <= 0 ) return;
-  await dbService.collection('current').doc('current').update({
-      currentQuiz: currentQuiz-1,
-      showAnswer: false,
-      isBlocked: false
-  })
-}
-
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
       const survCount = snapshot.docs.map( doc => doc.data()).map( p => p.available);;
-      setSurv(survCount.filter(a => a === true).length)
+      setSurv(survCount.filter(a => a).length)
     })
   }, [currentQuiz]);
+
+  const onPrevClicked = async() => {    
+    if( currentQuiz <= 0 ) return;
+    await dbService.collection('current').doc('current').update({
+        currentQuiz: currentQuiz-1,
+        showAnswer: false,
+        isBlocked: false,
+        startedTimestamp: new Date().getTime()
+    })
+  }
   
   //next click 할때 타이머 초기화
   const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    if( currentQuiz === Quizs.length-1 || surv <= 2){
+    // if( currentQuiz === Quizs.length-1 || surv <= 2){
+    // 이거 넘어가는거 잠깐 꺼둘게ㅠㅠ
+    if( currentQuiz === Quizs.length-1){
       await dbService.collection('current').doc('current').update({
         isDone: true
       })
@@ -89,7 +91,8 @@ const onPrevClicked = async() => {
       await dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
         showAnswer: false,
-        isBlocked: false
+        isBlocked: false,
+        startedTimestamp: new Date().getTime()
       })
     }
   }
@@ -105,8 +108,6 @@ const onPrevClicked = async() => {
       await dbService.collection('current').doc('current').update({
         isBlocked: true
     });
-    setMinutes(0);
-    setSeconds(0);
   }
 
   const revealAnswer = async() => {
@@ -137,20 +138,14 @@ const onPrevClicked = async() => {
   //Timer
   useEffect(() => {
       const countdown = setInterval(() => {
-        if (parseInt(seconds) > 0) {
-          setSeconds(parseInt(seconds) - 1);
-        }
-        if (parseInt(seconds) === 0) {
-          if (parseInt(minutes) === 0) {
-              clearInterval(countdown);
-          } else {
-            setMinutes(parseInt(minutes) - 1);
-            setSeconds(59);
-          }
-        }
+        const now = new Date().getTime();
+        const passed = parseInt((now - startedTimestamp) / 1000);
+        setSeconds(passed > 60 ? 0 : 60-passed);
+        if(passed >=60)
+          clearInterval(countdown);
       }, 1000);
       return () => clearInterval(countdown);
-    }, [minutes, seconds]);
+    }, [startedTimestamp]);
 
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
@@ -197,7 +192,7 @@ const onPrevClicked = async() => {
             <Board {...{showAnswer, part, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
               <TimerWrapper>
-                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                {seconds}
               </TimerWrapper>
       </Wrapper>
   );
