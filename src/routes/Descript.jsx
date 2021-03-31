@@ -45,7 +45,8 @@ const Descript = ({isAdmin}) => {
       showAnswer: false,
       block: false,
       showHint: false,
-      currentQuiz: 0
+      currentQuiz: 0,
+      startedTimestamp: new Date().getTime()
     })
   }
 
