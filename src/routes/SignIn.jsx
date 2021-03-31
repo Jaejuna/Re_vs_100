@@ -33,8 +33,8 @@ const Img = styled.img`
   width: 45%;
   height: 100%;
   ${media.tablet`
-  width: 100%;
-  height: 45%;
+  width: 60%;
+  height: 100%;
 `}
 `
 

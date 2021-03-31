@@ -9,7 +9,6 @@ import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 import media from '../styles/media';
 import 'prevent-pull-refresh';
-import useDidMountEffect from '../hooks/useDidMountEffect';
 
 const Wrapper = styled.div`
   display: grid;
@@ -85,7 +84,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       await dbService.collection('current').doc('current').update({
         isDone: true
       })
-      setMinutes(1);
       setSeconds(0);
     }else{
       await dbService.collection('current').doc('current').update({
@@ -132,8 +130,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
           console.log("Error getting document:", error);
       });
   }
-
-
 
   //Timer
   useEffect(() => {
