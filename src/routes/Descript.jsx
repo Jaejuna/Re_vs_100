@@ -13,14 +13,16 @@ const Wrapper = styled.div`
   ${media.tablet`
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
-    background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   `}
 `
 const Description = styled.div`
   margin: 30px;
   color: white;
+  ${media.tablet`
+  background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  `}
 `
 
 const Explanation =styled.div`
