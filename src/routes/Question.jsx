@@ -47,16 +47,6 @@ const ButtonsWrapper = styled.div`
   }
 `
 
-const TimerWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  justify-content: flex-start;
-  font-size: 2em;
-  font-weight: bolder;
-  padding: 5% 0;
-  // color :#e6ffff;
-`
-
 const Question = ({userObj, doc_user_id, currentInfo}) => {
   const {currentQuiz, showAnswer, showHint, isBlocked, part, startedTimestamp} = currentInfo;
   const {isAdmin} = userObj;
@@ -90,8 +80,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   //next click 할때 타이머 초기화
   const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-
-    // if( currentQuiz === Quizs.length-1|| surv <= 2){
+    // if( currentQuiz === Quizs.length-1|| surv <= 5){
     //   await dbService.collection('current').doc('current').update({
     //     isDone: true
     //   })
@@ -114,8 +103,9 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   }
 
   const block = async() => {
-      await dbService.collection('current').doc('current').update({
-        isBlocked: true
+    await dbService.collection('current').doc('current').update({
+      isBlocked: true,
+      startedTimestamp: 0
     });
   }
 
@@ -171,9 +161,11 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
         <Timer seconds={seconds} />
           {isAdmin ?
             <div>
-              <Button onClick={onClickHint} disabled={showHint}> 
-                찬스 
-              </Button> 
+              {!showHint &&
+                <Button onClick={onClickHint} disabled={showHint}> 
+                  찬스 
+                </Button>
+              } 
             </div>
               : <div />
           }

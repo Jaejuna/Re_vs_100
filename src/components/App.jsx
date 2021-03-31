@@ -10,7 +10,7 @@ function App() {
   const [userObj, setUserObj] = useState(null);
   const [hasAccount, setHasAccount] = useState(false);
   const [docUserId, setDocUserId] = useState('');
-  const [currentInfo, setCurrentInfo] = useState({currentQuiz:0, showAnswer:false, showHint:false, toQuiz:false, isDone:false});
+  const [currentInfo, setCurrentInfo] = useState({currentQuiz:0, showAnswer:false, showHint:false, toQuiz:false, isDone:false, isDraw:false});
 
   useEffect(() => {
     authService.onAuthStateChanged(async (user) => {

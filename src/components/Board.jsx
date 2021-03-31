@@ -45,7 +45,6 @@ const Bar = styled.div`
 const Board = ({showAnswer, part, participants, currentInfo}) => {
     const [corrects, setCorrects] = useState(0);
     const {currentQuiz} = currentInfo;
-    const quiz = Quizs[currentQuiz];
     
     useEffect(() => {
         dbService.collection("users").onSnapshot( snapshot => {

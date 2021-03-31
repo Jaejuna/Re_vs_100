@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-// import rgbHex from 'rgb-hex';
+import React, { useEffect, useState } from 'react';
+import rgbHex from 'rgb-hex';
 import styled from 'styled-components';
 
 const Guage = styled.div`
@@ -44,6 +44,7 @@ const GuageFill = styled.div`
     transform-origin: center top;
     transform: rotate(0.25turn);
     transition: transform 0.2s ease-out;
+    background-color: ${({offset}) => rgbHex(255,offset,offset)};
     transform: rotate( ${({value}) => value /2 } turn);
 `
 
@@ -56,18 +57,22 @@ const GuageCover = styled.div`
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
+
     /* Text */
     display: flex;
     align-items: center;
     justify-content: center;
     padding-bottom: 25%;
     box-sizing: border-box;
+    font-weight: bolder;
 `
+
+
 
 const Timer = ({seconds}) => {
     const perc = seconds / 60;
     const [offset, setOffset] = useState(1);
-    
+
     useEffect(() => {
         setOffset(parseInt( perc > 1 ? 1 : perc < 0 ? 0 :55+192*(1-perc)))
     },[seconds])
@@ -84,4 +89,3 @@ const Timer = ({seconds}) => {
 
 
 export default Timer;
-

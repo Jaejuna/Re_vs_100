@@ -4,31 +4,36 @@ import styled from 'styled-components';
 import media from '../styles/media';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
+import Btn from '../materials/Btn'
 
 const Wrapper = styled.div`
     display: grid;
     justify-content: center;
-    grid-template-rows: 250px auto;
+    grid-template-rows: 250px auto auto 200px;
     font-size: 2em;
     font-weight: bolder;
     text-align: center;
+    align-items: center;
     letter-spacing: 1.5px;
-    line-height: 1.8em;
+    color: white;
+    font-family: 'SamOut';
     ${media.tablet`
-    grid-template-rows: 300px auto;
-    font-size: 1em;
+        grid-template-rows: 200px auto auto 150px;
+        font-size: 1em;
   `}
 `
 const Crown = styled.div`
-    color: black;
+    color: white;
 `
 
 const Surv = styled.div`
     font-style: italic;
 `
 
-const Survivor = () => {
+
+const Survivor = ({userObj}) => {
     const [lastSurv, setLastSurv] = useState([]);
+    const {isAdmin} = userObj;
 
     useEffect(() => {
         dbService.collection("users").onSnapshot( snapshot => {
@@ -38,6 +43,12 @@ const Survivor = () => {
             setLastSurv(surv);
         })
     }, []);
+
+    const onClickToDraw = async() => {
+        await dbService.collection('current').doc('current').update({
+            isDraw : true
+        })
+    }
 
     return (
         <>
@@ -49,9 +60,10 @@ const Survivor = () => {
             <Crown>
                 <FontAwesomeIcon icon={faCrown} />&nbsp; 생존자 명단 &nbsp;<FontAwesomeIcon icon={faCrown} />
             </Crown>
-            <Surv>
-                {[lastSurv]}
-            </Surv>
+            <Surv>{[lastSurv]}</Surv>
+            { isAdmin &&
+                <Btn onClick = {onClickToDraw}> 추첨 하러 가기 </Btn>
+            }
         </Wrapper>
         </>
     )

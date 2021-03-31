@@ -4,7 +4,7 @@ import media from "../styles/media";
 
 const QuestionWrapper = styled.div`
     max-width: 100%;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     background-color: ${({theme}) => theme.colors.main};

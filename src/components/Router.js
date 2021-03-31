@@ -6,6 +6,7 @@ import SignIn from '../routes/SignIn';
 import Question from '../routes/Question';
 import Survivor from '../routes/Survivor';
 import Descript from '../routes/Descript';
+import Draw from '../routes/Draw';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
     return (
@@ -26,11 +27,19 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                     <>
                     {
                       currentInfo.isDone ?
-                      <Route exact path="/">
-                        <Survivor
-                          userObj = {userObj} 
-                        />
-                      </Route>
+                        currentInfo.isDraw ?
+                        <Route exact path="/">
+                          <Draw
+                            userObj = {userObj} 
+                          />
+                        </Route>
+                        :
+                        <Route exact path="/">
+                          <Survivor
+                            userObj = {userObj} 
+                            currentInfo = {currentInfo}
+                          />
+                        </Route>
                       :
                     <Route exact path="/">
                       <Question
