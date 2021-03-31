@@ -7,12 +7,23 @@ import Button from '../materials/Button';
 import styled from 'styled-components';
 import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
+import Timer from '../components/Timer';
 import media from '../styles/media';
-import 'prevent-pull-refresh';
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto auto auto;
+`
+
+const TopWrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 20px;
+  & > div:nth-child(2){
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 `
 
 const QuizWrapper = styled.div`
@@ -156,12 +167,17 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
 
     return (
       <Wrapper>
-        {isAdmin &&
-        <ButtonsWrapper>
-          <Button onClick={onClickHint} disabled={showHint}> 
-            찬스 
-          </Button>
-        </ButtonsWrapper>}
+        <TopWrapper>
+        <Timer seconds={seconds} />
+          {isAdmin ?
+            <div>
+              <Button onClick={onClickHint} disabled={showHint}> 
+                찬스 
+              </Button> 
+            </div>
+              : <div />
+          }
+        </TopWrapper>
         <QuizWrapper>
             <Quiz question={quiz.question}/>
             <Submit
@@ -187,11 +203,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
           }
             <Board {...{showAnswer, part, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
-            {isAdmin &&
-              <TimerWrapper>
-                {seconds}
-              </TimerWrapper>
-            }
       </Wrapper>
   );
 }

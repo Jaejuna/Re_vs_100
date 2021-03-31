@@ -17,9 +17,6 @@ const Wrapper = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    /* ${media.tablet`
-        background-image: url(${bg_mobile});
-    `} */
     margin: 0;
 `
 const MainBox = styled(Box)`
