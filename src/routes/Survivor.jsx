@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   `}
 `
 const Crown = styled.div`
-    color: black
+    color: black;
 `
 
 const Surv = styled.div`

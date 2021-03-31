@@ -113,8 +113,14 @@ const onPrevClicked = async() => {
           showAnswer: true
       });
       const usersRef = dbService.collection('users');
-      usersRef.where(`quiz_${quiz.no}`, '!=', quiz.answer).get().then((querySnapshot) => {
+      usersRef.where(
+            `quiz_${quiz.no}`, 
+            '!=', 
+            quiz.answer
+        ).get()
+        .then((querySnapshot) => {
           let batch = dbService.batch();
+          console.log(querySnapshot.docs.length)
           querySnapshot.docs.forEach((doc) => {
               const docRef = usersRef.doc(doc.data().uid);
               batch.update(docRef, {available: false});
