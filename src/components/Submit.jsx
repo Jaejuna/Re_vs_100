@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { dbService } from '../firebase';
+import useDidMountEffect from '../hooks/useDidMountEffect';
 import Choice from '../materials/Choice';
 import media from '../styles/media';
 
@@ -40,7 +41,8 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
         setMyAnswer(null);
     }, [quiz.no])
 
-    useEffect(() => {
+    // not execute on initial Rendering
+    useDidMountEffect(() => {
         (async () => {
             if(!showAnswer)
                 return;
