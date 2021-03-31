@@ -9,7 +9,7 @@ const colors = {
     answerBorder: '#eac2efc',
     answerText: '#fce4ec',
     primary: {
-      main: '#001970',
+      main: '#01579b',
       text: `#fff`,
       border: `rgba(0, 0, 0, 0.5)`,
       accent: '#666ad1',

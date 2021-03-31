@@ -30,11 +30,11 @@ const InputWrapper = styled.div`
 `
 
 const Img = styled.img`
-  width: 45%;
+  width: 50%;
   height: 100%;
   ${media.tablet`
   width: 100%;
-  height: 100%;
+  height: 180px;
 `}
 `
 

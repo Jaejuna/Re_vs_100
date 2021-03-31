@@ -15,9 +15,12 @@ const Wrapper = styled.div`
     align-items: center;
     letter-spacing: 1.5px;
     line-height: 1.8em;
-    color: #ededed;
+    color: white;
+    background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     ${media.tablet`
-      grid-template-rows: 200px auto auto 150px;
+      grid-template-rows: 150px auto auto 150px;
       font-size: 1em;
   `}
 `

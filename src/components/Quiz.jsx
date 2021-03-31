@@ -3,6 +3,7 @@ import styled from "styled-components";
 import media from "../styles/media";
 
 const QuestionWrapper = styled.div`
+    width: 1200px;
     max-width: 100%;
     display: inline-flex;
     justify-content: center;
@@ -18,8 +19,9 @@ const QuestionWrapper = styled.div`
     line-height: 50px;
     padding: 20px;
     ${media.tablet`
-    font-size: 1.5rem;
-    line-height: 40px;
+      max-width: 300px;
+      font-size: 1.5rem;
+      line-height: 40px;
   `}
 `
 

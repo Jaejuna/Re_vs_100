@@ -7,20 +7,12 @@ import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import Btn from '../materials/Btn'
 
 const Wrapper = styled.div`
-    display: grid;
     justify-content: center;
-    grid-template-rows: 250px auto auto 200px;
     font-size: 2em;
     font-weight: bolder;
     text-align: center;
     align-items: center;
     letter-spacing: 1.5px;
-    color: white;
-    font-family: 'SamOut';
-    ${media.tablet`
-        grid-template-rows: 200px auto auto 150px;
-        font-size: 1em;
-  `}
 `
 const Crown = styled.div`
     color: white;
@@ -30,6 +22,17 @@ const Surv = styled.div`
     font-style: italic;
 `
 
+const TextColor =styled.div`
+    display: inline-grid;
+    grid-template-rows: 200px auto auto 100px;
+    background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    ${media.tablet`
+    grid-template-rows: 100px auto auto 100px;
+    font-size: 0.6em;
+    `}
+`
 
 const Survivor = ({userObj}) => {
     const [lastSurv, setLastSurv] = useState([]);
@@ -51,21 +54,21 @@ const Survivor = ({userObj}) => {
     }
 
     return (
-        <>
         <Wrapper>
+            <TextColor>
             <div>
                 마지막까지 생존하신걸 축하드립니다!!!<br/>
                 문자가 발송될 예정이니 꼭 확인해주세요 :) 
             </div>
             <Crown>
-                <FontAwesomeIcon icon={faCrown} />&nbsp; 생존자 명단 &nbsp;<FontAwesomeIcon icon={faCrown} />
+                <FontAwesomeIcon icon={faCrown} /> 생존자 명단 <FontAwesomeIcon icon={faCrown} />
             </Crown>
             <Surv>{[lastSurv]}</Surv>
+            </TextColor>
             { isAdmin &&
                 <Btn onClick = {onClickToDraw}> 추첨 하러 가기 </Btn>
             }
         </Wrapper>
-        </>
     )
 }
 

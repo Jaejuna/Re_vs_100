@@ -23,11 +23,11 @@ const MyButton = styled(Button)`
 `
 
 const Img = styled.img`
-  width: 45%;
+  width: 100%;
   height: 100%;
   ${media.tablet`
     width: 100%;
-    height: 200px;
+    height: 180px;
   `}
 `
 
