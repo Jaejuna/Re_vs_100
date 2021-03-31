@@ -9,6 +9,7 @@ import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 import media from '../styles/media';
 import 'prevent-pull-refresh';
+import useDidMountEffect from '../hooks/useDidMountEffect';
 
 const Wrapper = styled.div`
   display: grid;
@@ -134,7 +135,7 @@ const onPrevClicked = async() => {
 
 
   //Timer
-  React.memo(useEffect(() => {
+  useEffect(() => {
       const countdown = setInterval(() => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
@@ -149,7 +150,7 @@ const onPrevClicked = async() => {
         }
       }, 1000);
       return () => clearInterval(countdown);
-    }, [minutes, seconds]));
+    }, [minutes, seconds]);
 
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
