@@ -1,7 +1,7 @@
 // 여기는 전체 테마에 대한 내용!
 
 const colors = {
-    main: '#f6e9ff',
+    main: '#ffffff',
     text: '#333',
     border: '#494949',
     selected: `#d9afff`,

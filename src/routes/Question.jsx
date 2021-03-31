@@ -7,12 +7,23 @@ import Button from '../materials/Button';
 import styled from 'styled-components';
 import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
+import Timer from '../components/Timer';
 import media from '../styles/media';
-import 'prevent-pull-refresh';
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto auto auto;
+`
+
+const TopWrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 20px;
+  & > div:nth-child(2){
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
 `
 
 const QuizWrapper = styled.div`
@@ -20,6 +31,7 @@ const QuizWrapper = styled.div`
     grid-template-rows: 360px auto auto;
     background-color: ${({theme}) => theme.colors.border};
     border-radius: 15px;
+    box-shadow: 10px 10px 20px black;
     ${media.tablet`
     grid-template-columns: 100%;
     grid-template-rows: 300px;
@@ -78,21 +90,20 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   //next click 할때 타이머 초기화
   const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    // if( currentQuiz === Quizs.length-1 || surv <= 2){
-    // 이거 넘어가는거 잠깐 꺼둘게ㅠㅠ
-    if( currentQuiz === Quizs.length-1){
-      await dbService.collection('current').doc('current').update({
-        isDone: true
-      })
-      setSeconds(0);
-    }else{
+
+    // if( currentQuiz === Quizs.length-1|| surv <= 2){
+    //   await dbService.collection('current').doc('current').update({
+    //     isDone: true
+    //   })
+    //   setSeconds(0);
+    // }else{
       await dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
         showAnswer: false,
         isBlocked: false,
         startedTimestamp: new Date().getTime()
       })
-    }
+  //   }
   }
 
   const onClickHint = async() => {
@@ -156,12 +167,17 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
 
     return (
       <Wrapper>
-        {isAdmin &&
-        <ButtonsWrapper>
-          <Button onClick={onClickHint} disabled={showHint}> 
-            찬스 
-          </Button>
-        </ButtonsWrapper>}
+        <TopWrapper>
+        <Timer seconds={seconds} />
+          {isAdmin ?
+            <div>
+              <Button onClick={onClickHint} disabled={showHint}> 
+                찬스 
+              </Button> 
+            </div>
+              : <div />
+          }
+        </TopWrapper>
         <QuizWrapper>
             <Quiz question={quiz.question}/>
             <Submit
@@ -187,9 +203,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
           }
             <Board {...{showAnswer, part, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
-              <TimerWrapper>
-                {seconds}
-              </TimerWrapper>
       </Wrapper>
   );
 }
