@@ -4,8 +4,6 @@ import { authService, dbService } from '../firebase';
 import MainWrapper from '../MainWrapper';
 import theme from '../styles/theme';
 import AppRouter from './Router';
-import styled from 'styled-components';
-import media from '../styles/media';
 
 function App() {
   const [init, setInit] = useState(false);

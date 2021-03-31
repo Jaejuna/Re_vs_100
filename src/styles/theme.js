@@ -3,17 +3,17 @@
 const colors = {
     main: '#f6e9ff',
     text: '#333',
-    border: '#666',
+    border: '#494949',
     selected: `#d9afff`,
     answer: '#b8cbff',
     answerBorder: '#eac2efc',
-    answerText: '#2a50b8',
+    answerText: '#fce4ec',
     primary: {
-      main: '#303f9f',
+      main: '#001970',
       text: `#fff`,
       border: `rgba(0, 0, 0, 0.5)`,
       accent: '#666ad1',
-      disabled: `#777aef`
+      disabled: `#6f74dd`
     },
     secondary:{
       main: `#464646`,

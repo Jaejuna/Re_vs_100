@@ -3,7 +3,7 @@ import { dbService } from '../firebase';
 import styled from 'styled-components';
 import media from '../styles/media';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faCrown } from '@fortawesome/free-solid-svg-icons'
+import { faCrown } from '@fortawesome/free-solid-svg-icons';
 
 const Wrapper = styled.div`
     display: grid;
@@ -26,6 +26,7 @@ const Crown = styled.div`
 const Surv = styled.div`
     font-style: italic;
 `
+
 const Survivor = () => {
     const [lastSurv, setLastSurv] = useState([]);
 

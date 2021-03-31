@@ -42,6 +42,7 @@ const TimerWrapper = styled.div`
   font-size: 2em;
   font-weight: bolder;
   padding: 5% 0;
+  // color :#e6ffff;
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
@@ -81,14 +82,14 @@ const onPrevClicked = async() => {
       await dbService.collection('current').doc('current').update({
         isDone: true
       })
+      setMinutes(1);
+      setSeconds(0);
     }else{
       await dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
         showAnswer: false,
         isBlocked: false
       })
-      setMinutes(1);
-      setSeconds(0);
     }
   }
 
@@ -107,7 +108,7 @@ const onPrevClicked = async() => {
     setSeconds(0);
   }
 
-  const revealAnswer = () => {
+  const revealAnswer = async() => {
       dbService.collection('current').doc('current').update({
           showAnswer: true
       });
@@ -127,7 +128,7 @@ const onPrevClicked = async() => {
 
 
   //Timer
-    useEffect(() => {
+  React.memo(useEffect(() => {
       const countdown = setInterval(() => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
@@ -142,7 +143,7 @@ const onPrevClicked = async() => {
         }
       }, 1000);
       return () => clearInterval(countdown);
-    }, [minutes, seconds]);
+    }, [minutes, seconds]));
 
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
@@ -188,11 +189,9 @@ const onPrevClicked = async() => {
           }
             <Board {...{showAnswer, part, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
-            {isAdmin &&
               <TimerWrapper>
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
               </TimerWrapper>
-            }
       </Wrapper>
   );
 }

@@ -9,10 +9,10 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     /* background-color: ${({theme}) => theme.colors.main}; */
-    background: rgb(238,174,202);
+    //원래 백그라운 컬러
     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    // background: radial-gradient(farthest-corner at 800px 300px, #f4f4f4, #363636 65%);
     margin: 0;
-
 `
 const MainBox = styled.div`
     width:min(1470px, calc(100% - 30px));
