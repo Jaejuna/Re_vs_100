@@ -82,21 +82,26 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   }
   
   //next click 할때 타이머 초기화
-  const onNextClicked = async() => {
+  const onNextClicked = () => {
+    // // 모두 탈락한 경우
+    // if(!surv){
+
+    // }
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    // if( currentQuiz === Quizs.length-1|| surv <= 5){
-    //   await dbService.collection('current').doc('current').update({
-    //     isDone: true
-    //   })
-    //   setSeconds(0);
-    // }else{
-      await dbService.collection('current').doc('current').update({
+    if( currentQuiz === Quizs.length-1 || surv <= 5){
+      dbService.collection('current').doc('current').update({
+        isDone: true
+      })
+      setSeconds(0);
+    }
+    else{
+     dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
         showAnswer: false,
         isBlocked: false,
         startedTimestamp: new Date().getTime()
       })
-  //   }
+    }
   }
 
   const onClickHint = async() => {
