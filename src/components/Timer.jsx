@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Guage = styled.div`
     width: 100%;
     font-size: 20px;
-    color: #004033;
+    color: #ddd;
     @media(max-width:480px){
         height: 40px;
         max-width: 80px;
@@ -28,7 +28,7 @@ const GuageBody = styled.div`
     width: 100%;
     height: 0;
     padding-bottom: 50%;
-    background: #e3fce9;
+    background: #b6d5f8;
     position: relative;
     border-top-left-radius: 100% 200%;
     border-top-right-radius: 100% 200%;
@@ -44,14 +44,14 @@ const GuageFill = styled.div`
     transform-origin: center top;
     transform: rotate(0.25turn);
     transition: transform 0.2s ease-out;
-    background-color: ${({offset}) => rgbHex(255,offset,offset)};
-    transform: rotate( ${({value}) => value /2 } turn);
+    background-color: ${({offset}) => '#'+rgbHex(offset, offset, 255)};
+    transform: rotate( ${({perc}) => perc /2 }turn);
 `
 
 const GuageCover = styled.div`
     width: 75%;
     height: 150%;
-    background-color:#fff7f0;
+    background-color: #152764;
     border-radius: 50%;
     position: absolute;
     top: 25%;
@@ -68,19 +68,18 @@ const GuageCover = styled.div`
 `
 
 
-
 const Timer = ({seconds}) => {
     const perc = seconds / 60;
     const [offset, setOffset] = useState(1);
 
     useEffect(() => {
-        setOffset(parseInt( perc > 1 ? 1 : perc < 0 ? 0 :55+192*(1-perc)))
+        setOffset(parseInt( perc > 1 ? 1 : perc < 0 ? 0 :55+192*(1-perc)));
     },[seconds])
 
     return (
         <Guage>
             <GuageBody>
-                <GuageFill offset={offset} />
+                <GuageFill offset={offset} perc={perc} />
                 <GuageCover>{seconds}</GuageCover>
             </GuageBody>
         </Guage>
