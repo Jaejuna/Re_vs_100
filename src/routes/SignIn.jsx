@@ -4,29 +4,42 @@ import Input from "../materials/Input";
 import styled from "styled-components";
 import media from '../styles/media';
 import challenger from '../assets/images/challenger.png';
+import Button from '../materials/Button';
 
 const Wrapper = styled.div`
-  display: grid;
-  align-items: center;
-  text-align: center;
-  justify-items: center;
-  grid-template-columns: 100%;
-  grid-template-rows: repeat(1, 2fr);
-  ${media.tablet`
-  grid-template-columns: 100%;
-`}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
 `
 
 const InputWrapper = styled.div`
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  max-width: 100%;
-  align-items: center;
-  ${media.tablet`
-    display: grid;
-    grid-template-rows: auto auto auto 180px;
-  `}
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 100px;
+    
+    & > button {
+      margin: 0;
+    }
+    & > *:nth-child(n+2){
+      margin-left: 15px;
+      margin-top: 0;
+    }
+    ${media.tablet`
+      flex-direction: column;
+        & > input {
+          width: 80%;
+        }
+        & > *:nth-child(n+2){
+          margin-left: 0px;
+          margin-top: 15px;
+        }
+    `}
 `
 
 const Img = styled.img`
@@ -34,7 +47,7 @@ const Img = styled.img`
   height: 100%;
   ${media.tablet`
   width: 100%;
-  height: 180px;
+  height: auto;
 `}
 `
 
@@ -80,40 +93,37 @@ const SignIn = ({userObj, currentInfo}) => {
     return (
       <Wrapper>
         <Img src = {challenger} />
-          <form onSubmit={onSubmit}>
-            <InputWrapper>
+        <form onSubmit={onSubmit}>
+          <InputWrapper>
             <Input
-            name = "name"
-            type = "text"
-            placeholder = "이름"
-            required
-            value = {name}
-            onChange = {onChange}
+              name = "name"
+              placeholder = "이름"
+              required
+              value = {name}
+              onChange = {onChange}
             />
             <Input 
-            name = "alias"
-            type = "text"
-            placeholder = "닉네임"
-            required
-            value = {alias}
-            onChange = {onChange}
+              name = "alias"
+              placeholder = "닉네임"
+              required
+              value = {alias}
+              onChange = {onChange}
             />
             <Input 
-            name = "number"
-            type = "tel"
-            placeholder = "ex) 01012345678"
-            pattern ="[0-9]{11}"
-            required
-            value = {number}
-            onChange = {onChange}
+              name = "number"
+              type = "tel"
+              placeholder = "ex) 01012345678"
+              pattern ="[0-9]{11}"
+              required
+              value = {number}
+              onChange = {onChange}
             />
-            <Input  
-            type = "submit"
-            onSubmit = {onSubmit}
-            />
-            </InputWrapper>
-          </form>
-        </Wrapper>
+            <Button type = "submit" onSubmit = {onSubmit}> 
+              입장
+            </Button>
+          </InputWrapper>
+        </form>
+      </Wrapper>
     );
   }
 
