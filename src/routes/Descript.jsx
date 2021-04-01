@@ -18,11 +18,6 @@ const Wrapper = styled.div`
 const Description = styled.div`
   margin: 30px;
   color: white;
-  ${media.tablet`
-  background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  `}
 `
 
 const Explanation =styled.div`
@@ -32,6 +27,9 @@ const Explanation =styled.div`
   font-size: large;  
   ${media.tablet`
   font-size: medium;
+  background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `}
 `
 

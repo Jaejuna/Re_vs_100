@@ -11,17 +11,16 @@ const ChoiceButton = styled.button`
     font-weight: bolder;
     border-radius: 5px;
     border: ${({theme, isAnswer}) => isAnswer ? `5px solid ${theme.colors.answerBorder}` : 'none'};;
-
+    color: white;
     position: relative;
     background-color: ${({theme:{colors}, isSelected, isAnswer}) => 
         isSelected ? colors.selected : isAnswer ? colors.answer : colors.main };
-    color: ${({theme, isAnswer}) => isAnswer ? theme.colors.answerText : theme.colors.text};
+        color: ${({theme, isAnswer, isSelected}) => isAnswer ? isSelected ? '#1a17bb' : theme.colors.answerText : theme.colors.text}
     ${({isAnswer}) => isAnswer && `opacity: 0.7`} 
     text-decoration: none;
     text-transform: uppercase;
     transition: 0.5s all ease;
-
-    
+    outline: none;
 `
 
 const Choice = (props) => {

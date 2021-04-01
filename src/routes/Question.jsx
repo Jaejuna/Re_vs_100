@@ -13,17 +13,20 @@ import media from '../styles/media';
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto auto auto;
+  width: 100%;
 `
 
 const TopWrapper = styled.div`
   display: grid;
   grid-template-columns: auto auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   & > div:nth-child(2){
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-  }
+    align-items: flex-end;
+    & > button {
+      margin: 0;
+    }
 `
 
 const QuizWrapper = styled.div`
@@ -80,19 +83,19 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   //next click 할때 타이머 초기화
   const onNextClicked = async() => {
     // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-    // if( currentQuiz === Quizs.length-1|| surv <= 5){
-    //   await dbService.collection('current').doc('current').update({
-    //     isDone: true
-    //   })
-    //   setSeconds(0);
-    // }else{
+    if( currentQuiz === Quizs.length-1|| surv <= 5){
+      await dbService.collection('current').doc('current').update({
+        isDone: true
+      })
+      setSeconds(0);
+    }else{
       await dbService.collection('current').doc('current').update({
         currentQuiz: currentQuiz+1,
         showAnswer: false,
         isBlocked: false,
         startedTimestamp: new Date().getTime()
       })
-  //   }
+    }
   }
 
   const onClickHint = async() => {
@@ -137,8 +140,8 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       const countdown = setInterval(() => {
         const now = new Date().getTime();
         const passed = parseInt((now - startedTimestamp) / 1000);
-        setSeconds(passed > 60 ? 0 : 60-passed);
-        if(passed >=60)
+        setSeconds(passed > 61 ? 0 : 61-passed);
+        if(passed >=61)
           clearInterval(countdown);
       }, 1000);
       return () => clearInterval(countdown);
