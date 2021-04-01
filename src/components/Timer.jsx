@@ -7,8 +7,8 @@ const Guage = styled.div`
     font-size: 20px;
     color: #004033;
     @media(max-width:480px){
-        height: 40px;
-        max-width: 80px;
+        height: 50px;
+        max-width: 100px;
         font-size: 20px;
     }
     @media(min-width:480px){

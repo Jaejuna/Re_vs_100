@@ -13,16 +13,20 @@ import media from '../styles/media';
 const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto auto auto;
+  width: 100%;
 `
 
 const TopWrapper = styled.div`
   display: grid;
   grid-template-columns: auto auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   & > div:nth-child(2){
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
+    & > button {
+      margin: 0;
+    }
   }
 `
 

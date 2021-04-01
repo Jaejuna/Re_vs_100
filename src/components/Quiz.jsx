@@ -19,9 +19,10 @@ const QuestionWrapper = styled.div`
     line-height: 50px;
     padding: 20px;
     ${media.tablet`
-      max-width: 300px;
       font-size: 1.5rem;
       line-height: 40px;
+      word-break: break-all;
+      padding: 10px;
   `}
 `
 
