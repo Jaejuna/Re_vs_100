@@ -1,13 +1,13 @@
 // 여기는 전체 테마에 대한 내용!
 
 const colors = {
-    main: '#e8eaf6',
-    text: '#333',
+    main: '#365387',
+    text: '#ddd',
     border: '#494949',
-    selected: `#d9afff`,
+    selected: `#cc76c2`,
     answer: '#b8cbff',
     answerBorder: '#eac2efc',
-    answerText: '#fce4ec',
+    answerText: '#4b3297',
     primary: {
       main: '#01579b',
       text: `#fff`,
@@ -23,8 +23,6 @@ const colors = {
       disabled: '#4A4A4A',
     },
 };
-
-//여기 밑에는 걍 복붙한거ㅎㅎㅎ
 
 const calcRem = (size) => `${size / 16}rem`;
 

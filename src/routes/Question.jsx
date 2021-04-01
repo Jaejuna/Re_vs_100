@@ -141,8 +141,8 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       const countdown = setInterval(() => {
         const now = new Date().getTime();
         const passed = parseInt((now - startedTimestamp) / 1000);
-        setSeconds(passed > 60 ? 0 : 60-passed);
-        if(passed >=60)
+        setSeconds(passed > 61 ? 0 : 61-passed);
+        if(passed >=61)
           clearInterval(countdown);
       }, 1000);
       return () => clearInterval(countdown);
