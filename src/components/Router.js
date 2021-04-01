@@ -61,9 +61,7 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                 </Route>
             :
             <Route exact path="/">
-              <Auth
-              currentInfo = {currentInfo}
-              />
+              <Auth currentInfo = {currentInfo}/>
             </Route>
           }
         </Switch>

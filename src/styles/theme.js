@@ -1,28 +1,28 @@
 // 여기는 전체 테마에 대한 내용!
 
 const colors = {
-  main: '#365387',
-  text: '#ddd',
-  border: '#e6e9f4',
-  selected: `#cc76c2`,
-  answer: '#b8cbff',
-  answerBorder: '#eac2efc',
-  answerText: '#4b3297',
-  primary: {
-    main: '#01579b',
-    text: `#fff`,
-    border: `rgba(0, 0, 0, 0.5)`,
-    accent: '#666ad1',
-    disabled: `#6f74dd`
-  },
-  secondary:{
-    main: `#464646`,
-    text: `rgba(255,255,255,0.85)`,
-    border: `rgba(255,255,255,0.15)`,
-    accent: `#5f5f5f`,
-    disabled: '#4A4A4A',
-  },
-};
+    main: '#365387',
+    text: '#ddd',
+    border: '#494949',
+    selected: `#cc76c2`,
+    answer: '#b8cbff',
+    answerBorder: '#eac2efc',
+    answerText: '#4b3297',
+    primary: {
+      main: '#01579b',
+      text: `#fff`,
+      border: `rgba(0, 0, 0, 0.5)`,
+      accent: '#666ad1',
+      disabled: `#6f74dd`
+    },
+    secondary:{
+      main: `#464646`,
+      text: `rgba(255,255,255,0.85)`,
+      border: `rgba(255,255,255,0.15)`,
+      accent: `#5f5f5f`,
+      disabled: '#4A4A4A',
+    },
+  }
 
 const calcRem = (size) => `${size / 16}rem`;
 

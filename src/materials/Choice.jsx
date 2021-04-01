@@ -15,7 +15,11 @@ const ChoiceButton = styled.button`
     position: relative;
     background-color: ${({theme:{colors}, isSelected, isAnswer}) => 
         isSelected ? colors.selected : isAnswer ? colors.answer : colors.main };
+<<<<<<< HEAD
         color: ${({theme, isAnswer, isSelected}) => isAnswer ? isSelected ? '#1a17bb' : theme.colors.answerText : theme.colors.text}
+=======
+    color: ${({theme, isAnswer, isSelected}) => isAnswer ? isSelected ? '#1a17bb' : theme.colors.answerText : theme.colors.text};
+>>>>>>> c69f0b9ee8d6cf779eba27184d5f3496993ad017
     ${({isAnswer}) => isAnswer && `opacity: 0.7`} 
     text-decoration: none;
     text-transform: uppercase;

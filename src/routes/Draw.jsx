@@ -43,9 +43,8 @@ const Draw = () => {
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
         const draw = snapshot.docs.map( doc => doc.data())
-        .filter(a => a.available === false)
-        .map( b => b.alias)
-        .map((x,i,arr)=>(i<arr.length-1)? x +', ': x);
+        .filter(a => !a.available)
+        .map( b => b.alias);
         shuffle(draw);
         setDrawn(draw);
     })
@@ -54,12 +53,14 @@ const Draw = () => {
     return (
       <Wrapper>
         <div>
-          추첨되신걸 축하드립니다!!!<br/>
+          당첨 축하드립니다!!!<br/>
           문자가 발송될 예정이니 꼭 확인해주세요 :) 
         </div>
         <div>
         <FontAwesomeIcon icon={faSmile} />  추첨자 명단  <FontAwesomeIcon icon={faSmile} /> <br/>
-          <Drawn>{[drawn]}</Drawn> <br/><br/>
+          <Drawn>{
+            drawn.join(', ')
+          }</Drawn> <br/><br/>
         </div>
         <div>
           모든 퀴즈 순서가 끝났습니다!

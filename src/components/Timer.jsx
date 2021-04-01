@@ -68,7 +68,6 @@ const GuageCover = styled.div`
 `
 
 
-
 const Timer = ({seconds}) => {
     const perc = seconds / 60;
     const [offset, setOffset] = useState(1);
@@ -80,7 +79,7 @@ const Timer = ({seconds}) => {
     return (
         <Guage>
             <GuageBody>
-                <GuageFill offset={offset} perc={perc}/>
+                <GuageFill offset={offset} perc={perc} />
                 <GuageCover>{seconds}</GuageCover>
             </GuageBody>
         </Guage>
