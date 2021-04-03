@@ -178,7 +178,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
             <div>
               {!showHint &&
                 <Button onClick={onClickHint} disabled={showHint}> 
-                  찬스 
+                  벗님들 찬스 
                 </Button>
               } 
             </div>
