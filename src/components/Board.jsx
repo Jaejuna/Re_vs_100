@@ -30,7 +30,7 @@ const Bar = styled.div`
             else if(survived === 100)
                 return `border-radius: 15px;`
             else 
-                return `display: block;`
+                return `display: flex;`
         }}
     }
     // Failed
@@ -45,7 +45,7 @@ const Bar = styled.div`
             else if(!survived)
                 return `border-radius: 15px;`
             else
-                return `display: block;`
+                return `display: flex;`
         }}
     }
 `
