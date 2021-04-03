@@ -25,12 +25,15 @@ const QuestionWrapper = styled.div`
   `}
 `
 
-const Quiz = ({question}) => {
+const Quiz = ({question, quizNo}) => {
   
   return (
-    <QuestionWrapper>
-      {question}
-    </QuestionWrapper>
+    <>
+      {quizNo}
+      <QuestionWrapper>
+        {question}
+      </QuestionWrapper>
+    </>
   )
 }
 
