@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 `
 const Winner = styled.div`
     display: grid;
-    grid-template-columns: 50px 280px 50px;
+    grid-template-columns: 50px 300px 50px;
 `
 
 const Survivor = ({userObj}) => {

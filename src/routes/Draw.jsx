@@ -45,7 +45,7 @@ const Draw = () => {
       .then( quertSnapshot => {
         const draw = quertSnapshot.docs
           .map( doc => doc.data())
-          .filter(a => !a.isAdmin);
+          .filter(a => !a.isAdmin && !a.available);
         setDrawn(shuffle(draw).slice(0, 8));
         return draw;
       }).then( draw => {
