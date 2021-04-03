@@ -83,7 +83,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   
   //next click 할때 타이머 초기화
   const onNextClicked = () => {
-    if( currentQuiz === Quizs.length-1 || surv <= 5){
+    if( currentQuiz === Quizs.length-1 || surv <= 2){
       dbService.collection('current').doc('current').update({
         isDone: true
       })
