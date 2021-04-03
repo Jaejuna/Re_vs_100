@@ -58,7 +58,7 @@ const Board = ({showAnswer, quiz, survived, participants, currentInfo}) => {
     const {currentQuiz} = currentInfo;
     
     useEffect(() => {
-        setCorrects(participants[quiz.answer-1]);
+        setCorrects(participants[quiz.answer - 1]);
         setAll(survived);
     }, [currentQuiz]);
 
