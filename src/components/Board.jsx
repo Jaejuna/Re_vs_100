@@ -30,7 +30,7 @@ const Bar = styled.div`
             else if(survived === 100)
                 return `border-radius: 15px;`
             else 
-                return `display: block;`
+                return `display: flex;`
         }}
     }
     // Failed
@@ -45,22 +45,21 @@ const Bar = styled.div`
             else if(!survived)
                 return `border-radius: 15px;`
             else
-                return `display: block;`
+                return `display: flex;`
         }}
     }
 `
 
 // part: 전체 참여자
 // participants: [1번 선택자, 2번 선택자, 3번 선택자]
-const Board = ({showAnswer, quiz, part, participants, currentInfo}) => {
+const Board = ({showAnswer, quiz, participants, currentInfo}) => {
     const [corrects, setCorrects] = useState(0);
     const [all, setAll] = useState(1);
     const {currentQuiz} = currentInfo;
     
     useEffect(() => {
         setCorrects(participants[quiz.answer-1]);
-        setAll(part);
-        console.log(participants, participants[quiz.answer-1], part)
+        setAll(participants.reduce((a, b) => a+b));
     }, [currentQuiz]);
 
     return(
