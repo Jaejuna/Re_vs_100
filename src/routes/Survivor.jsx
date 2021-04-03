@@ -25,20 +25,28 @@ const Winner = styled.div`
 const Survivor = ({userObj}) => {
     const [lastSurv, setLastSurv] = useState([]);
     const {isAdmin} = userObj;
-    const history = useHistory;
-
+    const history = useHistory();
+    
     useEffect(() => {
-        return dbService.collection("users").onSnapshot( snapshot => {
-            const surv = snapshot.docs.map( doc => doc.data())
-                .filter(a => a.available)
-                .map( b => b.alias);
-            setLastSurv(surv);
-        })
+        dbService.collection("users")
+            .get()
+            .then(querySnapshot => {
+                const surv = querySnapshot.docs
+                    .map(doc => doc.data())
+                    .filter(a => a.available)
+                setLastSurv(surv);
+                return surv;
+            }).then( surv => {
+                let batch = dbService.batch();
+                const survivorRef = dbService.collection("users").doc("survivor");
+                surv.forEach(({alias, name, number}) => {
+                    batch.set(survivorRef, {alias, name, number});
+                })
+                batch.commit();
+            })  
     }, []);
 
-    const onClickToDraw = () => {
-        history.push("draw")
-    }
+    const onClickToDraw = () => history.push("draw");
 
     return (
         <Wrapper>
@@ -49,7 +57,7 @@ const Survivor = ({userObj}) => {
                 lastSurv.map((surv, idx) => (
                     <Winner key={idx}>
                         <FontAwesomeIcon icon={faCrown}/>
-                            &nbsp;[&nbsp;{surv}&nbsp;]&nbsp;
+                            &nbsp;[&nbsp;{surv.alias}&nbsp;]&nbsp;
                         <FontAwesomeIcon icon={faCrown} />
                     </Winner>
                 ))

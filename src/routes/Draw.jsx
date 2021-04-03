@@ -40,15 +40,24 @@ const Draw = () => {
   }
 
   useEffect(() => {
-    dbService.collection("users").onSnapshot( snapshot => {
-      const draw = snapshot.docs.map( doc => doc.data())
-        .filter(a => !a.isAdmin)
-        .map( b => b.alias)
-        .slice(0, 8);
-      shuffle(draw);
-      setDrawn(draw);
-    })
-}, []);
+    dbService.collection("users")
+      .get()
+      .then( quertSnapshot => {
+        const draw = quertSnapshot.docs
+          .map( doc => doc.data())
+          .filter(a => !a.isAdmin);
+        setDrawn(shuffle(draw).slice(0, 8));
+        console.log(draw);
+        return draw;
+      }).then( draw => {
+          let batch = dbService.batch();
+          const drawnRef = dbService.collection("users").doc("drawn");
+          draw.forEach(({alias, name, number}) => {
+              batch.set(drawnRef, {alias, name, number});
+          })
+          batch.commit();
+      })  
+  }, []);
 
     return (
       <Wrapper>
@@ -60,7 +69,7 @@ const Draw = () => {
         <br/>
           <FontAwesomeIcon icon={faSmile} />  추첨자 명단  <FontAwesomeIcon icon={faSmile} />
         </div>
-        <Drawn>{drawn.join(', ')}</Drawn> 
+        <Drawn>{drawn.map(a => a.alias).join(', ')}</Drawn> 
         <br/><br/>
         <div>
           모든 퀴즈 순서가 끝났습니다!
