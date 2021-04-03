@@ -6,9 +6,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faSmile } from '@fortawesome/free-solid-svg-icons';
 
 const Wrapper = styled.div`
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    grid-template-rows: 250px auto auto;
     font-size: 2em;
     font-weight: bolder;
     text-align: center;
@@ -16,13 +16,12 @@ const Wrapper = styled.div`
     letter-spacing: 1.5px;
     line-height: 1.8em;
     color: white;
-    background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     ${media.tablet`
-      grid-template-rows: 150px auto auto 150px;
+      font-size: 1.5em;
+    `}
+    ${media.phone`
       font-size: 1em;
-  `}
+    `}
 `
 
 const Drawn = styled.div`
@@ -43,8 +42,9 @@ const Draw = () => {
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
         const draw = snapshot.docs.map( doc => doc.data())
-        .filter(a => !a.available)
-        .map( b => b.alias);
+                      .filter(a => !a.isAdmin)
+                      .map( b => b.alias)
+                      .slice(10);
         shuffle(draw);
         setDrawn(draw);
     })
@@ -57,11 +57,10 @@ const Draw = () => {
           문자가 발송될 예정이니 꼭 확인해주세요 :) 
         </div>
         <div>
-        <FontAwesomeIcon icon={faSmile} />  추첨자 명단  <FontAwesomeIcon icon={faSmile} /> <br/>
-          <Drawn>{
-            drawn.join(', ')
-          }</Drawn> <br/><br/>
+          <FontAwesomeIcon icon={faSmile} />  추첨자 명단  <FontAwesomeIcon icon={faSmile} />
         </div>
+        <Drawn>{drawn.join(', ')}</Drawn> 
+        <br/><br/>
         <div>
           모든 퀴즈 순서가 끝났습니다!
         </div>

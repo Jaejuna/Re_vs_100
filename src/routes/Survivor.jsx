@@ -27,10 +27,10 @@ const Survivor = ({userObj}) => {
     const {isAdmin} = userObj;
 
     useEffect(() => {
-        dbService.collection("users").onSnapshot( snapshot => {
+        return dbService.collection("users").onSnapshot( snapshot => {
             const surv = snapshot.docs.map( doc => doc.data())
-            .filter(a => a.available ===true)
-            .map( b => b.alias);
+                .filter(a => a.available)
+                .map( b => b.alias);
             setLastSurv(surv);
         })
     }, []);
@@ -50,7 +50,7 @@ const Survivor = ({userObj}) => {
                 lastSurv.map((surv, idx) => (
                     <Winner key={idx}>
                         <FontAwesomeIcon icon={faCrown}/>
-                            &nbsp;{surv}&nbsp;
+                            &nbsp;[&nbsp;{surv}&nbsp;]님&nbsp;
                         <FontAwesomeIcon icon={faCrown} />
                     </Winner>
                 ))

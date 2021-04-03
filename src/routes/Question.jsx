@@ -27,10 +27,7 @@ const TopWrapper = styled.div`
     & > button {
       margin: 0;
     }
-<<<<<<< HEAD
-=======
   }
->>>>>>> c69f0b9ee8d6cf779eba27184d5f3496993ad017
 `
 
 const QuizWrapper = styled.div`
@@ -61,7 +58,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   const [participants, setParticipants] = useState([0, 0, 0]);
   const [surv,setSurv] = useState(0);
   //Timer useState
-  const [seconds, setSeconds] = useState(0);
+  const [seconds, setSeconds] = useState(60);
 
   // modal 바깥 부분 클릭 시 숨기기
   const [display, setDisplay] = useState(false);
@@ -86,12 +83,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   
   //next click 할때 타이머 초기화
   const onNextClicked = () => {
-    // // 모두 탈락한 경우
-    // if(!surv){
-
-    // }
-    // 마지막 문제 or 생존자가 5명이거나 이하일때 isDone:true
-
     if( currentQuiz === Quizs.length-1 || surv <= 5){
       dbService.collection('current').doc('current').update({
         isDone: true
@@ -133,6 +124,12 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
             quiz.answer
         ).get()
         .then((querySnapshot) => {
+
+          // 정답자 0명인 경우
+          if(participants[quiz.answer-1]==0)
+            throw new Error('AllFailed')
+
+          // 탈락자 available: false 처리
           let batch = dbService.batch();
           console.log(querySnapshot.docs.length)
           querySnapshot.docs.forEach((doc) => {
@@ -141,10 +138,26 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
           })
           batch.commit();
       }).catch( error => {
+          if(error.message === 'AllFailed')
+            setTimeout(() => alert(
+              '모든 참여자가 탈락하였으므로 다음 라운드에서 모두 재도전합니다.'
+            ), 3000)
           console.log("Error getting document:", error);
       });
   }
-
+  
+  // 선지 별 선택자 수
+  useEffect(() => {
+    dbService.collection("users").onSnapshot( snapshot => {
+      const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
+      setParticipants([
+        people.filter(a => a===1).length,
+        people.filter(a => a===2).length,
+        people.filter(a => a===3).length
+      ])
+    })
+  }, [currentQuiz]);
+  
   //Timer
   useEffect(() => {
       const countdown = setInterval(() => {
@@ -156,17 +169,6 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       }, 1000);
       return () => clearInterval(countdown);
     }, [startedTimestamp]);
-
-  useEffect(() => {
-    dbService.collection("users").onSnapshot( snapshot => {
-      const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
-      setParticipants([
-        people.filter(a => a===1).length,
-        people.filter(a => a===2).length,
-        people.filter(a => a===3).length
-      ])
-    })
-  }, [currentQuiz]);
 
     return (
       <Wrapper>
@@ -206,7 +208,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
               }
           </ButtonsWrapper>
           }
-            <Board {...{showAnswer, part, participants, currentInfo, userObj}}/>
+            <Board {...{showAnswer, quiz, part, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
       </Wrapper>
   );

@@ -41,18 +41,35 @@ const Img = styled.img`
 const Descript = ({isAdmin}) => {
   const [part, setPart] = useState(0);
 
-  const onClickToQuiz = async () => {    
+  const onClickToQuiz = () => {  
+    // 모든 참여자를 available하게 바꿈. 
+      const usersRef = dbService.collection('users');
+      usersRef.get()
+        .then((querySnapshot) => {
+          let batch = dbService.batch();
+          querySnapshot.docs.forEach((doc) => {
+            const docRef = usersRef.doc(doc.data().uid);
+            batch.update(docRef, {available: true});
+          })
+          batch.commit();
+      }).catch( error => {
+          console.log("Error getting document:", error);
+      }); 
     // toQuiz 누르는 순간까지 참여한 벗님 수 기록
-    await dbService.collection('current').doc('current').update({
-      toQuiz: true,
-      part,
-      showAnswer: false,
-      block: false,
-      showHint: false,
-      currentQuiz: 0,
-      startedTimestamp: new Date().getTime()
-    })
+      dbService.collection('current').doc('current').update({
+        toQuiz: true,
+        part,
+        showAnswer: false,
+        block: false,
+        showHint: false,
+        currentQuiz: 0,
+        isDone: false,
+        isDraw: false,
+        startedTimestamp: new Date().getTime()
+      })
+      
   }
+  
 
     dbService.collection("users").onSnapshot( snapshot => {
       const people = snapshot.docs.map( doc => doc.data()).length
