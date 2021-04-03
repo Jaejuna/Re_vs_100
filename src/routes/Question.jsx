@@ -126,7 +126,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
         .then((querySnapshot) => {
 
           // 정답자 0명인 경우
-          if(participants[quiz.answer-1]==0)
+          if(participants[quiz.answer-1]===0)
             throw new Error('AllFailed')
 
           // 탈락자 available: false 처리

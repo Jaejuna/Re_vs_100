@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { dbService } from '../firebase';
 import styled from 'styled-components';
-import media from '../styles/media';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import Btn from '../materials/Btn'

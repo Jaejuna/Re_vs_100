@@ -5,6 +5,9 @@ import qrcode from '../assets/images/frame.png';
 import styled from 'styled-components';
 import media from '../styles/media';
 import Box from '../materials/Box';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
+
 
 const Wrapper = styled.div`
   display: grid;
@@ -31,6 +34,11 @@ const Explanation =styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `}
+`
+const Counter = styled.div`
+  float: right;
+  font-weight: bolder;
+  font-size: 2rem;
 `
 
 const Img = styled.img`
@@ -81,6 +89,10 @@ const Descript = ({isAdmin}) => {
       <Wrapper>
         <div>
           <Description>
+          <Counter>
+            <FontAwesomeIcon icon={faUserFriends}/> &nbsp;
+            {part}
+          </Counter>
           <h1>Rules</h1>
             <Explanation>
               <ol>
@@ -96,7 +108,6 @@ const Descript = ({isAdmin}) => {
                   <li>벗님들 찬스 : 모든 벗님이 선택한 답을 알 수 있습니다.</li>
                 </ul>
               </ol>
-              지금까지 {part}명 참여하셨습니다.
             </Explanation>
           </Description>
             
