@@ -38,7 +38,7 @@ const Survivor = ({userObj}) => {
                 return surv;
             }).then( surv => {
                 let batch = dbService.batch();
-                const survivorRef = dbService.collection("users").doc("survivor");
+                const survivorRef = dbService.collection("current").doc("survivor");
                 surv.forEach(({alias, name, number}) => {
                     batch.set(survivorRef, {alias, name, number});
                 })

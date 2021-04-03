@@ -69,6 +69,7 @@ const Descript = ({isAdmin}) => {
       dbService.collection('current').doc('current').update({
         toQuiz: true,
         part,
+        survived: part,
         showAnswer: false,
         block: false,
         showHint: false,

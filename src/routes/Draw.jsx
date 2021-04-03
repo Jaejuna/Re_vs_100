@@ -51,7 +51,7 @@ const Draw = () => {
         return draw;
       }).then( draw => {
           let batch = dbService.batch();
-          const drawnRef = dbService.collection("users").doc("drawn");
+          const drawnRef = dbService.collection("current").doc("drawn");
           draw.forEach(({alias, name, number}) => {
               batch.set(drawnRef, {alias, name, number});
           })

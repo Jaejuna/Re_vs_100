@@ -52,7 +52,7 @@ const ButtonsWrapper = styled.div`
 `
 
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showHint, isBlocked, part, startedTimestamp} = currentInfo;
+  const {currentQuiz, showAnswer, showHint, isBlocked, survivor, startedTimestamp} = currentInfo;
   const {isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
@@ -91,11 +91,21 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       setSeconds(0);
     }
     else{
-      dbService.collection('current').doc('current').update({
-        currentQuiz: currentQuiz+1,
-        showAnswer: false,
-        isBlocked: false,
-        startedTimestamp: new Date().getTime()
+      const usersRef = dbService.collection('users');
+      usersRef.where(
+            `quiz_${quiz.no}`, 
+            '!=', 
+            quiz.answer
+        ).get().then((querySnapshot) => {
+          return querySnapshot.docs.length
+        }).then( survivor => {
+          dbService.collection('current').doc('current').update({
+            currentQuiz: currentQuiz+1,
+            showAnswer: false,
+            isBlocked: false,
+            survivor,
+            startedTimestamp: new Date().getTime()
+          })
       })
     }
   }
@@ -132,13 +142,12 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
 
           // 탈락자 available: false 처리
           let batch = dbService.batch();
-          console.log(querySnapshot.docs.length)
           querySnapshot.docs.forEach((doc) => {
               const docRef = usersRef.doc(doc.data().uid);
               batch.update(docRef, {available: false});
           })
           batch.commit();
-      }).catch( error => {
+        }).catch( error => {
           if(error.message === 'AllFailed')
             setTimeout(() => alert(
               '모든 참여자가 탈락하였으므로 다음 라운드에서 모두 재도전합니다.'
@@ -209,7 +218,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
               }
           </ButtonsWrapper>
           }
-            <Board {...{showAnswer, quiz, part, participants, currentInfo, userObj}}/>
+            <Board {...{showAnswer, quiz, survivor, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
       </Wrapper>
   );

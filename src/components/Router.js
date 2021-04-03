@@ -9,6 +9,8 @@ import Descript from '../routes/Descript';
 import Draw from '../routes/Draw';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
+  const {isAdmin} = userObj;
+  const {toQuiz, isDone} = currentInfo;
     return (
       <Router>
         <Switch>
@@ -17,7 +19,7 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
               hasAccount ?
                 <>
                 {
-                  !currentInfo.toQuiz ? 
+                  !toQuiz ? 
                     <Route exact path="/">
                       <Descript
                         isAdmin={userObj.isAdmin} 
@@ -26,7 +28,7 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                     :
                     <>
                     {
-                      currentInfo.isDone ?
+                      isDone ?
                         <>
                         <Route exact path="/">
                           <Survivor
@@ -34,11 +36,14 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                             currentInfo = {currentInfo}
                           />
                         </Route>
-                        <Route exact path="/draw">
-                          <Draw
-                            userObj = {userObj} 
-                          />
-                        </Route>
+                        {
+                          isAdmin &&
+                          <Route exact path="/draw">
+                            <Draw
+                              userObj = {userObj} 
+                            />
+                          </Route>
+                        }
                       </>
                       :
                     <Route exact path="/">
