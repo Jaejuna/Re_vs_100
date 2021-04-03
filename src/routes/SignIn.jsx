@@ -12,6 +12,11 @@ const Wrapper = styled.div`
     align-items: center;
     text-align: center;
     justify-items: center;
+    ${media.tablet`\
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 250px auto;
+  `}
 `
 
 const InputWrapper = styled.div`

@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   justify-items: center;
   ${media.tablet`
     grid-template-columns: 100%;
-    grid-template-rows: auto auto;
+    grid-template-rows: 300px auto;
   `}
 `
 
