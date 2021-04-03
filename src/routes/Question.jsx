@@ -210,7 +210,10 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
           </div>
         </TopWrapper>
         <QuizWrapper>
-            <Quiz question={quiz.question, quiz.no}/>
+            <Quiz 
+            question={quiz.question}
+            quizNo={quiz.no}
+            />
             <Submit
                 quiz={quiz} 
                 userObj={userObj} 
