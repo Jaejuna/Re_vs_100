@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { dbService } from '../firebase';
-import Box from '../materials/Box';
 
-const Wrapper = styled(Box)`
+const Bar = styled.div`
     padding-top: 20px;
     opacity: ${({show}) => show ? 1 : 0};
     transition: opacity 0.6s linear;
-`
 
-const Bar = styled.div`
     min-width: 96%;
     height: 50px;
     display: flex;
@@ -33,6 +29,8 @@ const Bar = styled.div`
                 return `display: none;`
             else if(survived === 100)
                 return `border-radius: 15px;`
+            else 
+                return `display: block;`
         }}
     }
     // Failed
@@ -46,6 +44,8 @@ const Bar = styled.div`
                 return `display: none;`
             else if(!survived)
                 return `border-radius: 15px;`
+            else
+                return `display: block;`
         }}
     }
 `
@@ -60,15 +60,14 @@ const Board = ({showAnswer, quiz, part, participants, currentInfo}) => {
     useEffect(() => {
         setCorrects(participants[quiz.answer-1]);
         setAll(part);
-    }, [quiz]);
+        console.log(participants, participants[quiz.answer-1], part)
+    }, [currentQuiz]);
 
     return(
-        <Wrapper show={showAnswer}>
-            <Bar survived={100 * corrects / all}>
-                <div> {`${corrects}명 생존`}</div>
-                <div> {`${all - corrects}명 탈락`}</div>
-            </Bar>
-        </Wrapper>
+        <Bar show={showAnswer} survived={100 * corrects / all}>
+            <div> {`${corrects}명 생존`}</div>
+            <div> {`${all - corrects}명 탈락`}</div>
+        </Bar>
     )
 }
 
