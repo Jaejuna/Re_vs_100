@@ -44,7 +44,8 @@ const Draw = () => {
         const draw = snapshot.docs.map( doc => doc.data())
                       .filter(a => !a.isAdmin)
                       .map( b => b.alias)
-                      .slice(10);
+                      .slice(0, 10);
+        console.log(draw);
         shuffle(draw);
         setDrawn(draw);
     })
