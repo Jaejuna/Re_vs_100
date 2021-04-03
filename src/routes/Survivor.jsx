@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 `
 const Winner = styled.div`
     display: grid;
-    grid-template-columns: 50px 280px 50px;
+    grid-template-columns: 50px 300px 50px;
 `
 
 const Survivor = ({userObj}) => {
@@ -37,12 +37,10 @@ const Survivor = ({userObj}) => {
                 setLastSurv(surv);
                 return surv;
             }).then( surv => {
-                let batch = dbService.batch();
-                const survivorRef = dbService.collection("current").doc("survivor");
-                surv.forEach(({alias, name, number}) => {
-                    batch.set(survivorRef, {alias, name, number});
-                })
-                batch.commit();
+                const survivor = surv.map(({name, alias, number}) => ({name, alias, number}));
+                dbService.collection("current").doc("survivor").set({
+                    survivor
+                });
             })  
     }, []);
 

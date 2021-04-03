@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { dbService } from '../firebase';
 
 const Bar = styled.div`
     padding-top: 20px;
@@ -52,15 +53,25 @@ const Bar = styled.div`
 
 // part: 전체 참여자
 // participants: [1번 선택자, 2번 선택자, 3번 선택자]
-const Board = ({showAnswer, quiz, survived, participants, currentInfo}) => {
+const Board = ({showAnswer, quiz, survived, currentInfo}) => {
+    const [participants, setParticipants] = useState([0, 0, 0]);
     const [corrects, setCorrects] = useState(0);
     const [all, setAll] = useState(1);
     const {currentQuiz} = currentInfo;
     
     useEffect(() => {
-        setCorrects(participants[quiz.answer - 1]);
+        dbService.collection("users").get().then( snapshot => {
+            const people = snapshot.docs.map( doc => doc.data()).map( p => p['quiz_' + quiz.no]);
+            const choices = [
+                people.filter(a => a===1).length,
+                people.filter(a => a===2).length,
+                people.filter(a => a===3).length
+              ];
+            setParticipants(choices)
+            setCorrects(choices[quiz.answer-1]);
+          })
         setAll(survived);
-    }, [currentQuiz]);
+    }, [showAnswer, quiz.no]);
 
     return(
         <Bar show={showAnswer} survived={100 * corrects / all}>
