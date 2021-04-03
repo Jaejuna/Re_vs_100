@@ -27,19 +27,19 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                     <>
                     {
                       currentInfo.isDone ?
-                        currentInfo.isDraw ?
-                        <Route exact path="/">
-                          <Draw
-                            userObj = {userObj} 
-                          />
-                        </Route>
-                        :
+                        <>
                         <Route exact path="/">
                           <Survivor
                             userObj = {userObj} 
                             currentInfo = {currentInfo}
                           />
                         </Route>
+                        <Route exact path="/draw">
+                          <Draw
+                            userObj = {userObj} 
+                          />
+                        </Route>
+                      </>
                       :
                     <Route exact path="/">
                       <Question

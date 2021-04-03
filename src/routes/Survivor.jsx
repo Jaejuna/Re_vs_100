@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import Btn from '../materials/Btn'
+import { useHistory } from 'react-router';
 
 const Wrapper = styled.div`
     display: flex;
@@ -24,6 +25,7 @@ const Winner = styled.div`
 const Survivor = ({userObj}) => {
     const [lastSurv, setLastSurv] = useState([]);
     const {isAdmin} = userObj;
+    const history = useHistory;
 
     useEffect(() => {
         return dbService.collection("users").onSnapshot( snapshot => {
@@ -35,9 +37,7 @@ const Survivor = ({userObj}) => {
     }, []);
 
     const onClickToDraw = () => {
-        dbService.collection('current').doc('current').update({
-            isDraw : true
-        })
+        history.push("draw")
     }
 
     return (
