@@ -52,14 +52,14 @@ const Bar = styled.div`
 
 // part: 전체 참여자
 // participants: [1번 선택자, 2번 선택자, 3번 선택자]
-const Board = ({showAnswer, quiz, participants, currentInfo}) => {
+const Board = ({showAnswer, quiz, survived, participants, currentInfo}) => {
     const [corrects, setCorrects] = useState(0);
     const [all, setAll] = useState(1);
     const {currentQuiz} = currentInfo;
     
     useEffect(() => {
         setCorrects(participants[quiz.answer-1]);
-        setAll(participants.reduce((a, b) => a+b));
+        setAll(survived);
     }, [currentQuiz]);
 
     return(

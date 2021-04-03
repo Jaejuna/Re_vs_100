@@ -9,6 +9,8 @@ import Quiz from '../components/Quiz';
 import Chance from '../components/Chance';
 import Timer from '../components/Timer';
 import media from '../styles/media';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 const Wrapper = styled.div`
   display: grid;
@@ -22,6 +24,7 @@ const TopWrapper = styled.div`
   margin-bottom: 10px;
   & > div:nth-child(2){
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
     & > button {
@@ -51,9 +54,19 @@ const ButtonsWrapper = styled.div`
   }
 `
 
+const Counter = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  font-weight: bolder;
+  font-size: 2rem;
+  color: white;
+  margin-left: 20px;
+`
+
 const Question = ({userObj, doc_user_id, currentInfo}) => {
-  const {currentQuiz, showAnswer, showHint, isBlocked, survivor, startedTimestamp} = currentInfo;
-  const {isAdmin} = userObj;
+  const {currentQuiz, showAnswer, showHint, isBlocked, survived, startedTimestamp} = currentInfo;
+  const {uid, isAdmin} = userObj;
   const quiz = Quizs[currentQuiz];
   const [participants, setParticipants] = useState([0, 0, 0]);
   const [surv,setSurv] = useState(0);
@@ -183,17 +196,18 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
     return (
       <Wrapper>
         <TopWrapper>
-        <Timer seconds={seconds} />
-          {isAdmin ?
-            <div>
-              {!showHint &&
-                <Button onClick={onClickHint} disabled={showHint}> 
-                  벗님들 찬스 
-                </Button>
-              } 
-            </div>
-              : <div />
-          }
+          <Timer seconds={seconds} />
+          <div>
+            {isAdmin &&!showHint &&
+              <Button onClick={onClickHint} disabled={showHint}> 
+                벗님들 찬스 
+              </Button>
+            } 
+            <Counter>
+              <FontAwesomeIcon icon={faUserFriends}/> &nbsp;
+              {survived}
+            </Counter>
+          </div>
         </TopWrapper>
         <QuizWrapper>
             <Quiz question={quiz.question}/>
@@ -218,7 +232,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
               }
           </ButtonsWrapper>
           }
-            <Board {...{showAnswer, quiz, survivor, participants, currentInfo, userObj}}/>
+            <Board {...{showAnswer, quiz, survived, participants, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
       </Wrapper>
   );

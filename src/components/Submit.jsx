@@ -20,7 +20,7 @@ const Choices = styled.div`
 `
 
 const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
-    const {isAdmin, available} = userObj;
+    const {isAdmin, available, uid} = userObj;
     const {no, answer, candidates} = quiz;
     const [myAnswer, setMyAnswer] = useState(null);
 
@@ -38,7 +38,11 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
 
     // 문제가 바뀌면 선택지 초기화
     useEffect(() => {
-        setMyAnswer(null);
+        dbService.collection('users').where('uid','==',uid).get().then(
+        querySnapshot => {
+            setMyAnswer(querySnapshot.docs[0].data()[`quiz_${quiz.no}`]);
+        }
+        )
     }, [quiz.no])
 
     // not execute on initial Rendering
