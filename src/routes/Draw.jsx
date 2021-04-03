@@ -41,13 +41,12 @@ const Draw = () => {
 
   useEffect(() => {
     dbService.collection("users").onSnapshot( snapshot => {
-        const draw = snapshot.docs.map( doc => doc.data())
-                      .filter(a => !a.isAdmin)
-                      .map( b => b.alias)
-                      .slice(0, 10);
-        console.log(draw);
-        shuffle(draw);
-        setDrawn(draw);
+      const draw = snapshot.docs.map( doc => doc.data())
+        .filter(a => !a.isAdmin)
+        .map( b => b.alias)
+        .slice(0, 8);
+      shuffle(draw);
+      setDrawn(draw);
     })
 }, []);
 
@@ -58,6 +57,7 @@ const Draw = () => {
           문자가 발송될 예정이니 꼭 확인해주세요 :) 
         </div>
         <div>
+        <br/>
           <FontAwesomeIcon icon={faSmile} />  추첨자 명단  <FontAwesomeIcon icon={faSmile} />
         </div>
         <Drawn>{drawn.join(', ')}</Drawn> 

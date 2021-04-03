@@ -26,13 +26,15 @@ const Description = styled.div`
 const Explanation =styled.div`
   font-weight: 600;
   letter-spacing: 0.5px;
-  line-height: 2em;
+  line-height: 50px;
   font-size: large;  
   ${media.tablet`
-  font-size: medium;
-  background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    font-size: medium;
+    background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 5px;
+    line-height: 1.5em;
 `}
 `
 const Counter = styled.div`

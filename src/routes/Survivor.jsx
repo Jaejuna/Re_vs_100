@@ -49,7 +49,7 @@ const Survivor = ({userObj}) => {
                 lastSurv.map((surv, idx) => (
                     <Winner key={idx}>
                         <FontAwesomeIcon icon={faCrown}/>
-                            &nbsp;[&nbsp;{surv}&nbsp;]님&nbsp;
+                            &nbsp;[&nbsp;{surv}&nbsp;]&nbsp;
                         <FontAwesomeIcon icon={faCrown} />
                     </Winner>
                 ))

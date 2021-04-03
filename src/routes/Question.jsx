@@ -83,6 +83,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   
   //next click 할때 타이머 초기화
   const onNextClicked = () => {
+    //마지막 문제 이후, 최후의 n인일 때 isDone 으로
     if( currentQuiz === Quizs.length-1 || surv <= 2){
       dbService.collection('current').doc('current').update({
         isDone: true
