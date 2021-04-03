@@ -47,15 +47,12 @@ const Draw = () => {
           .map( doc => doc.data())
           .filter(a => !a.isAdmin);
         setDrawn(shuffle(draw).slice(0, 8));
-        console.log(draw);
         return draw;
       }).then( draw => {
-          let batch = dbService.batch();
-          const drawnRef = dbService.collection("current").doc("drawn");
-          draw.forEach(({alias, name, number}) => {
-              batch.set(drawnRef, {alias, name, number});
-          })
-          batch.commit();
+          const drawn = draw.map(({name, alias, number}) => ({name, alias, number}));
+          dbService.collection("current").doc("drawn").set({
+            drawn
+          });
       })  
   }, []);
 

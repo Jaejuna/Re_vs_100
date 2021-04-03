@@ -9,7 +9,6 @@ import Descript from '../routes/Descript';
 import Draw from '../routes/Draw';
 
 const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) => {
-  const {isAdmin} = userObj;
   const {toQuiz, isDone} = currentInfo;
     return (
       <Router>
@@ -37,7 +36,7 @@ const AppRouter = ({isLoggedIn, userObj, hasAccount, doc_user_id, currentInfo}) 
                           />
                         </Route>
                         {
-                          isAdmin &&
+                          userObj?.isAdmin &&
                           <Route exact path="/draw">
                             <Draw
                               userObj = {userObj} 

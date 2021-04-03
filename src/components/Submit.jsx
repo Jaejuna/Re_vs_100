@@ -39,9 +39,10 @@ const Submit = ({quiz, userObj, doc_user_id, showAnswer, isBlocked}) => {
     // 문제가 바뀌면 선택지 초기화
     useEffect(() => {
         dbService.collection('users').where('uid','==',uid).get().then(
-        querySnapshot => {
-            setMyAnswer(querySnapshot.docs[0].data()[`quiz_${quiz.no}`]);
-        }
+            querySnapshot => {
+                setMyAnswer(querySnapshot.docs[0].data()[`quiz_${quiz.no}`]);
+                console.log(querySnapshot.docs[0].data()[`quiz_${quiz.no}`]);
+            }
         )
     }, [quiz.no])
 

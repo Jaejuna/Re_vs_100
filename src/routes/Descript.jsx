@@ -71,11 +71,10 @@ const Descript = ({isAdmin}) => {
         part,
         survived: part,
         showAnswer: false,
-        block: false,
+        isBlocked: false,
         showHint: false,
         currentQuiz: 0,
         isDone: false,
-        isDraw: false,
         startedTimestamp: new Date().getTime()
       })
       

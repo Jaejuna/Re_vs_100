@@ -97,7 +97,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
   //next click 할때 타이머 초기화
   const onNextClicked = () => {
     //마지막 문제 이후, 최후의 n인일 때 isDone 으로
-    if( currentQuiz === Quizs.length-1 || surv <= 2){
+    if( currentQuiz === Quizs.length-1 || surv <= 1){
       dbService.collection('current').doc('current').update({
         isDone: true
       })
@@ -107,16 +107,16 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
       const usersRef = dbService.collection('users');
       usersRef.where(
             `quiz_${quiz.no}`, 
-            '!=', 
+            '==', 
             quiz.answer
         ).get().then((querySnapshot) => {
           return querySnapshot.docs.length
-        }).then( survivor => {
+        }).then( survived => {
           dbService.collection('current').doc('current').update({
             currentQuiz: currentQuiz+1,
             showAnswer: false,
             isBlocked: false,
-            survivor,
+            survived,
             startedTimestamp: new Date().getTime()
           })
       })
@@ -232,7 +232,7 @@ const Question = ({userObj, doc_user_id, currentInfo}) => {
               }
           </ButtonsWrapper>
           }
-            <Board {...{showAnswer, quiz, survived, participants, currentInfo, userObj}}/>
+            <Board {...{showAnswer, quiz, survived, currentInfo, userObj}}/>
             <Chance visible={display} toggle={toggleHint} participants={participants} currentQuiz={currentQuiz}/>
       </Wrapper>
   );
