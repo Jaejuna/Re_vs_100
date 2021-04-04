@@ -18,9 +18,7 @@ const Wrapper = styled.div`
     color: #dbe2fd;
 `
 const Winner = styled.div`
-    // display: grid;
-    // grid-template-columns: 50px auto 50px;
-    width: 100%
+    width: 100%;
 `
 
 const Survivor = ({userObj}) => {
@@ -52,19 +50,14 @@ const Survivor = ({userObj}) => {
             <p>
             <FontAwesomeIcon icon={faCrown}/>  최후의 {lastSurv.length}인  <FontAwesomeIcon icon={faCrown} />
             </p>
-            {
-                lastSurv.map((surv, idx) => (
-                    <Winner key={idx}>
-                        
-                        [{surv.alias}]
-                        
-                    </Winner>
-                ))
-            }
+            {lastSurv.map((surv, idx) => (
+                <Winner key={idx}>
+                    {'['+surv.alias+`]`}
+                </Winner>
+            ))}
             <p>
                 문자가 발송될 예정이니 꼭 확인해주세요!
             </p>
-
             { isAdmin &&
                 <Btn onClick = {onClickToDraw}> 추첨 하러 가기 </Btn>
             }
