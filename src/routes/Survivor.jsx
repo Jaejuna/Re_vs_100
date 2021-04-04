@@ -18,8 +18,9 @@ const Wrapper = styled.div`
     color: #dbe2fd;
 `
 const Winner = styled.div`
-    display: grid;
-    grid-template-columns: 50px 300px 50px;
+    // display: grid;
+    // grid-template-columns: 50px auto 50px;
+    width: 100%
 `
 
 const Survivor = ({userObj}) => {
@@ -49,14 +50,14 @@ const Survivor = ({userObj}) => {
     return (
         <Wrapper>
             <p>
-                최후의 {lastSurv.length}인
+            <FontAwesomeIcon icon={faCrown}/>  최후의 {lastSurv.length}인  <FontAwesomeIcon icon={faCrown} />
             </p>
             {
                 lastSurv.map((surv, idx) => (
                     <Winner key={idx}>
-                        <FontAwesomeIcon icon={faCrown}/>
-                            &nbsp;[&nbsp;{surv.alias}&nbsp;]&nbsp;
-                        <FontAwesomeIcon icon={faCrown} />
+                        
+                        [{surv.alias}]
+                        
                     </Winner>
                 ))
             }
