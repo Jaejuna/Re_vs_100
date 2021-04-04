@@ -21,6 +21,9 @@ const Wrapper = styled.div`
 const Description = styled.div`
   margin: 30px;
   color: white;
+  ${media.tablet`
+    margin: 5px;
+  `}
 `
 
 const Explanation =styled.div`
@@ -33,10 +36,18 @@ const Explanation =styled.div`
     background: linear-gradient(to bottom, #fce4ec, #e3f2fd);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 5px;
     line-height: 1.5em;
 `}
 `
+
+const StyledOl = styled.ol`
+  padding-inline-start: 18px;
+`
+const StyledUl = styled.ul`
+  padding-inline-start: 18px;
+  list-style-type: '🙏🏻';
+`
+
 const Counter = styled.div`
   float: right;
   font-weight: bolder;
@@ -97,7 +108,7 @@ const Descript = ({isAdmin}) => {
           </Counter>
           <h1>Rules</h1>
             <Explanation>
-              <ol>
+              <StyledOl>
                 <li>3개의 보기 중 정답을 고릅니다. </li>
                 <li>100인이 먼저 문제를 다 푼 후, 게스트 2인이 문제를 풉니다. </li>
                 <li>각 문제 당 1분의 시간제한이 있습니다. </li>
@@ -105,11 +116,11 @@ const Descript = ({isAdmin}) => {
                 <li>최후의 5인이 남을 때까지 퀴즈가 진행됩니다. </li>
                 <li>중간 참여는 불가능합니다.</li>
                 <li>게스트 2명은 함께 2번의 찬스를 쓸 수 있습니다. </li>
-                <ul>
+                <StyledUl>
                   <li>한벗님 찬스 : 원하는 한 명의 답을 알 수 있습니다. </li>
                   <li>벗님들 찬스 : 모든 벗님이 선택한 답을 알 수 있습니다.</li>
-                </ul>
-              </ol>
+                </StyledUl>
+              </StyledOl>
             </Explanation>
           </Description>
             
