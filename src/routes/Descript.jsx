@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   `}
 `
 const Description = styled.div`
-  margin: 30px;
+  margin: 15px;
   color: white;
   ${media.tablet`
     margin: 5px;
@@ -55,8 +55,8 @@ const Counter = styled.div`
 `
 
 const Img = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
 `
 
 const Descript = ({isAdmin}) => {
@@ -131,7 +131,9 @@ const Descript = ({isAdmin}) => {
             }
           </div>
           {isAdmin && 
+          <Box>
             <Img src={qrcode}/>
+          </Box>
           }
       </Wrapper> 
   );
